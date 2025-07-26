@@ -5,7 +5,7 @@ import "./globals.css";
 const robotoSerif = Roboto_Serif({
   variable: "--font-roboto-serif",
   subsets: ["latin"],
-  weight: ["600"],
+  weight: ["400", "600"],
 });
 
 const robotoMono = Roboto_Mono({
