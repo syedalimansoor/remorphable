@@ -2,19 +2,30 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+type Props = React.ComponentProps<"input"> & {
+  icon?: React.ReactNode;
+};
+
+function Input({ className, type, icon, ...props }: Props) {
   return (
-    <input
-      type={type}
-      data-slot="input"
+    <div
       className={cn(
-        "file:text-foreground placeholder:text-muted-foreground selection:bg-foreground selection:text-background border-input flex h-9 w-full min-w-0 rounded-sm bg-muted-foreground px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-        className
+        "flex items-center rounded-sm border-input bg-muted-foreground shadow-xs transition-[color,box-shadow] ",
+        "focus-within:border-ring focus-within:ring-ring/50 focus-within:ring-[3px]"
       )}
-      {...props}
-    />
+    >
+      <input
+        type={type}
+        data-slot="input"
+        className={cn(
+          "file:text-foreground placeholder:text-background/50 selection:bg-foreground selection:text-background flex h-9 w-full min-w-0 rounded-sm px-3 py-1 text-base transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+          "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+          className
+        )}
+        {...props}
+      />
+      {icon && <span className="h-9 p-2">{icon}</span>}
+    </div>
   );
 }
 

@@ -7,7 +7,7 @@ import WordInfo from "./components/word-info";
 
 export default function Home() {
   return (
-    <div className="min-h-svh grid grid-cols-[2fr_3fr_2fr] grid-rows-[auto_auto_1fr] gap-24 pt-12">
+    <div className="h-svh grid grid-cols-[2fr_3fr_2fr] grid-rows-[auto_auto_1fr] gap-20 pt-12">
       <div className="col-span-full place-self-center flex flex-col items-center gap-16">
         <div className="flex flex-col items-center gap-2">
           <Logo />
