@@ -1,6 +1,6 @@
 import { Affix, AffixType } from "@/features/affix";
 import { useStore } from "@nanostores/react";
-import { map } from "nanostores";
+import { computed, map } from "nanostores";
 
 export const $placedAffixes = map({
   prefix: null as Affix | null,
@@ -15,6 +15,18 @@ export const placeAffix = (type: AffixType, affix: Affix) => {
   });
 };
 
+export const usePlacedAffixes = () => {
+  return useStore($placedAffixes);
+};
+
 export const usePlacedAffix = (type: AffixType) => {
   return useStore($placedAffixes)[type];
 };
+
+export const $isWordComplete = computed($placedAffixes, (placedAffixes) => {
+  return (
+    placedAffixes.prefix !== null &&
+    placedAffixes.root !== null &&
+    placedAffixes.suffix !== null
+  );
+});

@@ -20,7 +20,8 @@ import {
   suffixList,
 } from "@/features/affix";
 import Affix from "./components/affix/affix";
-import { placeAffix } from "./stores/placed-affixes";
+import { $isWordComplete, placeAffix } from "./stores/placed-affixes";
+import { useStore } from "@nanostores/react";
 
 const affixList = [...prefixList, ...rootList, ...suffixList];
 
@@ -30,6 +31,8 @@ export default function Home() {
     if (!draggingAffixId) return null;
     return affixList.find((affix) => affix.id === draggingAffixId) ?? null;
   }, [draggingAffixId]);
+
+  const isWordComplete = useStore($isWordComplete);
 
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
@@ -41,11 +44,11 @@ export default function Home() {
           </div>
           <div className="flex flex-col items-center gap-8">
             <WordBreakdown />
-            <BeginningTip />
+            {!isWordComplete && <BeginningTip />}
           </div>
         </div>
         <AffixPanels className="row-start-2 row-span-2 col-span-full grid grid-rows-subgrid grid-cols-subgrid" />
-        <div className="row-start-2 col-start-2 place-items-center">
+        <div className="row-start-2 col-start-2 place-items-center empty:h-24">
           <WordInfo />
         </div>
       </div>
