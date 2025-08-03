@@ -3,9 +3,9 @@ import WordBreakdownItem from "./word-breakdown-item";
 function WordBreakdown() {
   return (
     <div className="flex">
-      <WordBreakdownItem label="PRE" />
-      <WordBreakdownItem label="ROOT" />
-      <WordBreakdownItem label="SUF" />
+      <WordBreakdownItem label="PRE" affixType="prefix" />
+      <WordBreakdownItem label="ROOT" affixType="root" />
+      <WordBreakdownItem label="SUF" affixType="suffix" />
     </div>
   );
 }

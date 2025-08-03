@@ -10,7 +10,8 @@ export function DraggableAffix(props: DraggableProps) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: props.affix.id,
     data: {
-      type: props.affix.type,
+      type: "affix",
+      affix: props.affix,
     },
   });
 

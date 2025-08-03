@@ -1,6 +1,11 @@
 "use client";
 
-import { DndContext, DragOverlay, DragStartEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+} from "@dnd-kit/core";
 import AffixPanels from "./components/affix-panels";
 import BeginningTip from "./components/beginning-tip";
 import Logo from "./components/logo";
@@ -8,8 +13,14 @@ import Tagline from "./components/tagline";
 import WordBreakdown from "./components/word-breakdown";
 import WordInfo from "./components/word-info";
 import { useMemo, useState } from "react";
-import { prefixList, rootList, suffixList } from "@/features/affix";
+import {
+  type Affix as AffixType,
+  prefixList,
+  rootList,
+  suffixList,
+} from "@/features/affix";
 import Affix from "./components/affix/affix";
+import { placeAffix } from "./stores/placed-affixes";
 
 const affixList = [...prefixList, ...rootList, ...suffixList];
 
@@ -50,7 +61,17 @@ export default function Home() {
     setDraggingAffixId(affixId);
   }
 
-  function handleDragEnd() {
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+
+    if (over && over.data.current?.type === "droppable") {
+      const affix = active.data.current?.affix as AffixType;
+
+      if (affix.type === over.data.current.affixType) {
+        setTimeout(() => placeAffix(affix.type, affix), 0);
+      }
+    }
+
     setDraggingAffixId(null);
   }
 }
