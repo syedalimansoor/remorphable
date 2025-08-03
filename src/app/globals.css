@@ -4,6 +4,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-prefix: #f7f5d7;
+  --color-root: #d7f7e1;
+  --color-suffix: #d7edf7;
   --font-body: var(--font-roboto-mono);
   --font-display: var(--font-roboto-serif);
   --color-sidebar-ring: var(--sidebar-ring);

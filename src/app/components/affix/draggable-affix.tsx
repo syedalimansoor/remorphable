@@ -1,6 +1,7 @@
 import { Affix as AffixType } from "@/features/affix";
 import Affix from "./affix";
 import { useDraggable } from "@dnd-kit/core";
+import { cn } from "@/lib/utils";
 
 type DraggableProps = {
   affix: AffixType;
@@ -15,17 +16,17 @@ export function DraggableAffix(props: DraggableProps) {
     },
   });
 
-  const style = {
-    opacity: isDragging ? 0.5 : 1,
-    cursor: isDragging ? "grabbing" : "grab",
-  };
-
   return (
     <Affix
       affix={props.affix}
       ref={setNodeRef}
-      style={style}
-      className="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-[box-shadow]"
+      className={cn(
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-[background-color,box-shadow]",
+        {
+          "cursor-grabbing opacity-50": isDragging,
+          "cursor-grab opacity-100": !isDragging,
+        }
+      )}
       {...attributes}
       {...listeners}
     />

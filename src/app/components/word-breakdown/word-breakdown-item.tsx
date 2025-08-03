@@ -23,6 +23,7 @@ function WordBreakdownItem({ label, affixType }: Props) {
   });
 
   const activeAffix = active?.data.current?.affix as Affix | undefined;
+  const isValidDrop = activeAffix?.type === affixType;
 
   return (
     <div className="flex flex-col gap-4 items-center group">
@@ -30,9 +31,16 @@ function WordBreakdownItem({ label, affixType }: Props) {
       <div
         ref={setNodeRef}
         className={cn(
-          "border border-foreground not-group-first:border-l-0 group-first:rounded-l-lg group-last:rounded-r-lg p-5 text-7xl text-muted-foreground",
+          "border border-foreground not-group-first:border-l-0 group-first:rounded-l-lg group-last:rounded-r-lg p-5 text-7xl text-muted-foreground transition-shadow",
           {
-            "bg-green-500": isOver && activeAffix?.type === affixType,
+            "ring-foreground/50 ring-[3px]": isOver && isValidDrop,
+            "z-10": isValidDrop,
+          },
+          placedAffix && {
+            "text-foreground": true,
+            "bg-prefix": affixType === "prefix",
+            "bg-root": affixType === "root",
+            "bg-suffix": affixType === "suffix",
           }
         )}
       >

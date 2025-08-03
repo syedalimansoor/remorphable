@@ -11,6 +11,11 @@ function Affix({ affix, className, ...props }: Props) {
     <span
       className={cn(
         "block bg-background text-foreground px-2 py-1 rounded-sm select-none",
+        {
+          "hover:bg-prefix": affix.type === "prefix",
+          "hover:bg-root": affix.type === "root",
+          "hover:bg-suffix": affix.type === "suffix",
+        },
         className
       )}
       {...props}
