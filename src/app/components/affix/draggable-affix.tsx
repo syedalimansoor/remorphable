@@ -24,6 +24,7 @@ export function DraggableAffix(props: DraggableProps) {
       affix={props.affix}
       ref={setNodeRef}
       style={style}
+      className="focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-[box-shadow]"
       {...attributes}
       {...listeners}
     />
