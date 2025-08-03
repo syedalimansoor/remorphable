@@ -1,8 +1,7 @@
-import { Prettify } from "@/lib/utils";
-
 export type AffixType = "prefix" | "root" | "suffix";
 
 export type Affix = {
+  id: string;
   label: string;
   value: string;
   type: AffixType;
@@ -10,26 +9,21 @@ export type Affix = {
   examples: string[];
 };
 
-export type Prefix = Prettify<
-  Affix & {
-    type: "prefix";
-  }
->;
+export type Prefix = Affix & {
+  type: "prefix";
+};
 
-export type Root = Prettify<
-  Affix & {
-    type: "root";
-  }
->;
+export type Root = Affix & {
+  type: "root";
+};
 
-export type Suffix = Prettify<
-  Affix & {
-    type: "suffix";
-  }
->;
+export type Suffix = Affix & {
+  type: "suffix";
+};
 
-export const prefixes: Prefix[] = [
+export const prefixList: Prefix[] = [
   {
+    id: "6a2b6713-53f7-4ef5-8e2a-6338ef8f275a",
     label: "anti-",
     value: "anti",
     type: "prefix",
@@ -37,6 +31,7 @@ export const prefixes: Prefix[] = [
     examples: ["anticlimax"],
   },
   {
+    id: "f95927da-bba3-49df-beea-5693bfb2cc8f",
     label: "de-",
     value: "de",
     type: "prefix",
@@ -44,6 +39,7 @@ export const prefixes: Prefix[] = [
     examples: ["devalue"],
   },
   {
+    id: "4a89e61d-bcaa-4345-be20-91de9e5b6ba3",
     label: "dis-",
     value: "dis",
     type: "prefix",
@@ -51,6 +47,7 @@ export const prefixes: Prefix[] = [
     examples: ["discover"],
   },
   {
+    id: "70710189-9b79-4d3f-aef6-f5e07090f434",
     label: "en-",
     value: "en",
     type: "prefix",
@@ -58,6 +55,7 @@ export const prefixes: Prefix[] = [
     examples: ["enact"],
   },
   {
+    id: "87f505d9-2b50-4a1a-a4e7-ab0cc8e35d5b",
     label: "em-",
     value: "em",
     type: "prefix",
@@ -65,6 +63,7 @@ export const prefixes: Prefix[] = [
     examples: ["empower"],
   },
   {
+    id: "0bbaa424-2965-4b86-859c-f3945d68d151",
     label: "fore-",
     value: "fore",
     type: "prefix",
@@ -72,6 +71,7 @@ export const prefixes: Prefix[] = [
     examples: ["foreshadow", "forearm"],
   },
   {
+    id: "a9ef5f2e-d40b-44b8-8e7a-65a70f0209ea",
     label: "in-",
     value: "in",
     type: "prefix",
@@ -79,6 +79,7 @@ export const prefixes: Prefix[] = [
     examples: ["income"],
   },
   {
+    id: "f57b0c92-40a7-4b5c-9dcf-07da7a0561fa",
     label: "im-",
     value: "im",
     type: "prefix",
@@ -86,6 +87,7 @@ export const prefixes: Prefix[] = [
     examples: ["impulse"],
   },
   {
+    id: "97ef3cf5-1aec-4b57-b1a0-059e2e0cbde6",
     label: "in-",
     value: "in",
     type: "prefix",
@@ -93,6 +95,7 @@ export const prefixes: Prefix[] = [
     examples: ["indirect"],
   },
   {
+    id: "471f9e08-0839-4957-941d-a1dbdac04cc8",
     label: "im-",
     value: "im",
     type: "prefix",
@@ -100,6 +103,7 @@ export const prefixes: Prefix[] = [
     examples: ["immoral"],
   },
   {
+    id: "26024ff2-63f9-47a5-be69-0cd5ffd03c56",
     label: "il-",
     value: "il",
     type: "prefix",
@@ -107,6 +111,7 @@ export const prefixes: Prefix[] = [
     examples: ["illiterate"],
   },
   {
+    id: "9982a53f-889a-4a4c-8949-9fae0d457e83",
     label: "ir-",
     value: "ir",
     type: "prefix",
@@ -114,6 +119,7 @@ export const prefixes: Prefix[] = [
     examples: ["irreverent"],
   },
   {
+    id: "022d727e-81bd-42b8-ad9e-3822fa5535ad",
     label: "inter-",
     value: "inter",
     type: "prefix",
@@ -121,6 +127,7 @@ export const prefixes: Prefix[] = [
     examples: ["interrupt"],
   },
   {
+    id: "e9c1c9ad-a7c1-4f39-9776-ff0f3248f5a7",
     label: "mid-",
     value: "mid",
     type: "prefix",
@@ -128,6 +135,7 @@ export const prefixes: Prefix[] = [
     examples: ["midfield"],
   },
   {
+    id: "2340f3b7-11ad-49bd-a1d8-dced16fa513e",
     label: "mis-",
     value: "mis",
     type: "prefix",
@@ -135,6 +143,7 @@ export const prefixes: Prefix[] = [
     examples: ["misspell"],
   },
   {
+    id: "7d9c45af-0c18-4cfe-89df-965ee5244596",
     label: "non-",
     value: "non",
     type: "prefix",
@@ -142,6 +151,7 @@ export const prefixes: Prefix[] = [
     examples: ["nonviolent"],
   },
   {
+    id: "438de75f-7d33-469c-bb9f-a2666746585c",
     label: "over-",
     value: "over",
     type: "prefix",
@@ -149,6 +159,7 @@ export const prefixes: Prefix[] = [
     examples: ["overeat"],
   },
   {
+    id: "6e0f0142-9549-4080-8c01-9da70ead814a",
     label: "pre-",
     value: "pre",
     type: "prefix",
@@ -156,6 +167,7 @@ export const prefixes: Prefix[] = [
     examples: ["preview"],
   },
   {
+    id: "a4e9ca0d-967b-4619-b945-b71862a4add9",
     label: "re-",
     value: "re",
     type: "prefix",
@@ -163,6 +175,7 @@ export const prefixes: Prefix[] = [
     examples: ["rewrite"],
   },
   {
+    id: "dd751779-6546-46ae-87f9-8ebefa34178a",
     label: "semi-",
     value: "semi",
     type: "prefix",
@@ -170,6 +183,7 @@ export const prefixes: Prefix[] = [
     examples: ["semifinal"],
   },
   {
+    id: "39d1e307-2e7e-4a7d-b22a-7898c8ca2010",
     label: "sub-",
     value: "sub",
     type: "prefix",
@@ -177,6 +191,7 @@ export const prefixes: Prefix[] = [
     examples: ["subway"],
   },
   {
+    id: "659675d0-1859-4098-8349-67059be9fce1",
     label: "super-",
     value: "super",
     type: "prefix",
@@ -184,6 +199,7 @@ export const prefixes: Prefix[] = [
     examples: ["superhuman"],
   },
   {
+    id: "080af8c2-4c10-45e0-bf08-c9478b13136b",
     label: "trans-",
     value: "trans",
     type: "prefix",
@@ -191,6 +207,7 @@ export const prefixes: Prefix[] = [
     examples: ["transmit"],
   },
   {
+    id: "47036982-12c2-4dc1-a473-8d4e105fb1c8",
     label: "un-",
     value: "un",
     type: "prefix",
@@ -198,6 +215,7 @@ export const prefixes: Prefix[] = [
     examples: ["unusual"],
   },
   {
+    id: "02e7981c-a674-4019-b77a-5670d4170da3",
     label: "under-",
     value: "under",
     type: "prefix",
@@ -206,8 +224,9 @@ export const prefixes: Prefix[] = [
   },
 ];
 
-export const roots: Root[] = [
+export const rootList: Root[] = [
   {
+    id: "61e652cd-2cec-4c7b-98f2-f9689566751a",
     label: "ambi",
     value: "ambi",
     type: "root",
@@ -215,6 +234,7 @@ export const roots: Root[] = [
     examples: ["ambiguous", "ambidextrous"],
   },
   {
+    id: "8f753dc9-81d1-4541-b3c4-70bcdd1a1d72",
     label: "aqua",
     value: "aqua",
     type: "root",
@@ -222,6 +242,7 @@ export const roots: Root[] = [
     examples: ["aquarium", "aquamarine"],
   },
   {
+    id: "fa8680d1-c239-4a46-808e-0f9d938e30ff",
     label: "aud",
     value: "aud",
     type: "root",
@@ -229,6 +250,7 @@ export const roots: Root[] = [
     examples: ["audience", "audition"],
   },
   {
+    id: "0a041b24-dfd8-4bb1-9e70-236b48dd1671",
     label: "bene",
     value: "bene",
     type: "root",
@@ -236,6 +258,7 @@ export const roots: Root[] = [
     examples: ["benefactor", "benevolent"],
   },
   {
+    id: "765f3bb4-e19a-4b1c-83a1-7c379623f28e",
     label: "cent",
     value: "cent",
     type: "root",
@@ -243,6 +266,7 @@ export const roots: Root[] = [
     examples: ["century", "percent"],
   },
   {
+    id: "0e9591d9-c368-42a9-9550-ce68a428977f",
     label: "circum",
     value: "circum",
     type: "root",
@@ -250,6 +274,7 @@ export const roots: Root[] = [
     examples: ["circumference", "circumstance"],
   },
   {
+    id: "f1c4afe8-efb8-4972-8b83-bcaf8e8231c4",
     label: "contra",
     value: "contra",
     type: "root",
@@ -257,6 +282,7 @@ export const roots: Root[] = [
     examples: ["contradict"],
   },
   {
+    id: "521c29fb-345e-44f8-a085-42f8d39d55fe",
     label: "counter",
     value: "counter",
     type: "root",
@@ -264,6 +290,7 @@ export const roots: Root[] = [
     examples: ["encounter"],
   },
   {
+    id: "3e2cbe84-c47b-48f1-b1bc-beefabb420a4",
     label: "dict",
     value: "dict",
     type: "root",
@@ -271,6 +298,7 @@ export const roots: Root[] = [
     examples: ["dictation", "dictator"],
   },
   {
+    id: "85355dbc-2e34-4d8f-b8b9-3f7eab274d06",
     label: "duc",
     value: "duc",
     type: "root",
@@ -278,6 +306,7 @@ export const roots: Root[] = [
     examples: ["conduct"],
   },
   {
+    id: "8477111b-2ba7-4559-8e12-ebe42b291fe3",
     label: "duct",
     value: "duct",
     type: "root",
@@ -285,6 +314,7 @@ export const roots: Root[] = [
     examples: ["induce"],
   },
   {
+    id: "83c63bba-3c1e-4fea-884c-dc7d9d5d8446",
     label: "fac",
     value: "fac",
     type: "root",
@@ -292,6 +322,7 @@ export const roots: Root[] = [
     examples: ["factory", "manufacture"],
   },
   {
+    id: "ce949f8e-5dac-4e5f-8eea-59814ffc43cf",
     label: "form",
     value: "form",
     type: "root",
@@ -299,6 +330,7 @@ export const roots: Root[] = [
     examples: ["conform", "reform"],
   },
   {
+    id: "0a8ddca8-499a-4b6d-80ad-cf0252217ad9",
     label: "fort",
     value: "fort",
     type: "root",
@@ -306,6 +338,7 @@ export const roots: Root[] = [
     examples: ["fortitude", "fortress"],
   },
   {
+    id: "52b373ef-6c4f-439b-a425-9996522bcf64",
     label: "fract",
     value: "fract",
     type: "root",
@@ -313,6 +346,7 @@ export const roots: Root[] = [
     examples: ["fracture", "fraction"],
   },
   {
+    id: "a9eb82a3-4319-426e-bbbe-b636112ffd3c",
     label: "ject",
     value: "ject",
     type: "root",
@@ -320,6 +354,7 @@ export const roots: Root[] = [
     examples: ["projection", "rejection"],
   },
   {
+    id: "eaa39b75-0948-4c0c-829e-5f049191daad",
     label: "jud",
     value: "jud",
     type: "root",
@@ -327,6 +362,7 @@ export const roots: Root[] = [
     examples: ["judicial", "prejudice"],
   },
   {
+    id: "4406c5f2-d689-4111-8bf7-963735c70afc",
     label: "mal",
     value: "mal",
     type: "root",
@@ -334,6 +370,7 @@ export const roots: Root[] = [
     examples: ["malevolent", "malefactor"],
   },
   {
+    id: "2c239861-c19c-4ce8-8a52-90852f82d7f8",
     label: "mater",
     value: "mater",
     type: "root",
@@ -341,6 +378,7 @@ export const roots: Root[] = [
     examples: ["material", "maternity"],
   },
   {
+    id: "d3df286d-6955-4121-ae71-2182eb45cb47",
     label: "mit",
     value: "mit",
     type: "root",
@@ -348,6 +386,7 @@ export const roots: Root[] = [
     examples: ["transmit", "admit"],
   },
   {
+    id: "d74dec25-6c44-4f70-be70-613181fbecbc",
     label: "mort",
     value: "mort",
     type: "root",
@@ -355,6 +394,7 @@ export const roots: Root[] = [
     examples: ["mortal", "mortician"],
   },
   {
+    id: "746d74ae-615b-4493-89b6-38b400e8f118",
     label: "multi",
     value: "multi",
     type: "root",
@@ -362,6 +402,7 @@ export const roots: Root[] = [
     examples: ["multimedia", "multiple"],
   },
   {
+    id: "646d438d-3fc1-4771-a8a4-59ea1862eb9a",
     label: "pater",
     value: "pater",
     type: "root",
@@ -369,6 +410,7 @@ export const roots: Root[] = [
     examples: ["paternal", "paternity"],
   },
   {
+    id: "3c073282-caf4-47f6-b124-0fce542e73c5",
     label: "port",
     value: "port",
     type: "root",
@@ -376,6 +418,7 @@ export const roots: Root[] = [
     examples: ["portable", "transportation"],
   },
   {
+    id: "1c00e4cc-1353-47fb-9932-99bed447f4e0",
     label: "rupt",
     value: "rupt",
     type: "root",
@@ -383,6 +426,7 @@ export const roots: Root[] = [
     examples: ["bankrupt", "disruption"],
   },
   {
+    id: "83dc1dd9-2763-479a-b753-c9899de055dc",
     label: "scrib",
     value: "scrib",
     type: "root",
@@ -390,6 +434,7 @@ export const roots: Root[] = [
     examples: ["inscription"],
   },
   {
+    id: "49e4b53f-0986-4924-8ca1-3c0d00074fa9",
     label: "scribe",
     value: "scribe",
     type: "root",
@@ -397,6 +442,7 @@ export const roots: Root[] = [
     examples: ["prescribe"],
   },
   {
+    id: "cb963069-b6fe-46af-8557-a35c1ac2fb5b",
     label: "sect",
     value: "sect",
     type: "root",
@@ -404,6 +450,7 @@ export const roots: Root[] = [
     examples: ["section"],
   },
   {
+    id: "5be25e19-06d9-4d6d-afe3-a2ea198faf80",
     label: "sec",
     value: "sec",
     type: "root",
@@ -411,6 +458,7 @@ export const roots: Root[] = [
     examples: ["bisect"],
   },
   {
+    id: "aaefb6ea-7d8b-408c-837d-a84f12ea7132",
     label: "sent",
     value: "sent",
     type: "root",
@@ -418,6 +466,7 @@ export const roots: Root[] = [
     examples: ["consent", "resent"],
   },
   {
+    id: "6bb0bb27-88fd-4aad-b988-be65b3a4670b",
     label: "spect",
     value: "spect",
     type: "root",
@@ -425,6 +474,7 @@ export const roots: Root[] = [
     examples: ["inspection", "spectator"],
   },
   {
+    id: "82c34a68-c42d-4f32-9959-b6d4413a4a31",
     label: "struct",
     value: "struct",
     type: "root",
@@ -432,6 +482,7 @@ export const roots: Root[] = [
     examples: ["destruction", "restructure"],
   },
   {
+    id: "de86d9c7-83e3-40ec-a574-e0e1c9af66d9",
     label: "vid",
     value: "vid",
     type: "root",
@@ -439,6 +490,7 @@ export const roots: Root[] = [
     examples: ["video"],
   },
   {
+    id: "e30d06c8-d5f8-4700-a75b-b03b94485e0b",
     label: "vis",
     value: "vis",
     type: "root",
@@ -446,6 +498,7 @@ export const roots: Root[] = [
     examples: ["televise"],
   },
   {
+    id: "fd1a8ec8-c1a1-4784-b46f-f25625804ced",
     label: "voc",
     value: "voc",
     type: "root",
@@ -453,6 +506,7 @@ export const roots: Root[] = [
     examples: ["vocalize", "advocate"],
   },
   {
+    id: "aab707e9-529c-4f68-9cfa-7bcbd50d0180",
     label: "anthropo",
     value: "anthropo",
     type: "root",
@@ -460,6 +514,7 @@ export const roots: Root[] = [
     examples: ["anthropologist", "philanthropy"],
   },
   {
+    id: "26fe2db9-e725-4122-86f4-2a526145c312",
     label: "auto",
     value: "auto",
     type: "root",
@@ -467,6 +522,7 @@ export const roots: Root[] = [
     examples: ["autobiography", "automobile"],
   },
   {
+    id: "77f07589-eafc-4c15-9740-8677efb25dad",
     label: "bio",
     value: "bio",
     type: "root",
@@ -474,6 +530,7 @@ export const roots: Root[] = [
     examples: ["biology", "biography"],
   },
   {
+    id: "cccf7ed8-ae39-4e9a-8b80-27dac0978fdb",
     label: "chron",
     value: "chron",
     type: "root",
@@ -481,6 +538,7 @@ export const roots: Root[] = [
     examples: ["chronological", "chronic"],
   },
   {
+    id: "b6cec4ea-960d-428e-a976-aa402c1be7cb",
     label: "dyna",
     value: "dyna",
     type: "root",
@@ -488,6 +546,7 @@ export const roots: Root[] = [
     examples: ["dynamic", "dynamite"],
   },
   {
+    id: "85302f8a-dcaa-44ce-848b-5b97a8ad08e4",
     label: "dys",
     value: "dys",
     type: "root",
@@ -495,6 +554,7 @@ export const roots: Root[] = [
     examples: ["dysfunctional", "dyslexic"],
   },
   {
+    id: "882fd0e6-f973-4bb3-9167-619124e3c9bd",
     label: "gram",
     value: "gram",
     type: "root",
@@ -502,6 +562,7 @@ export const roots: Root[] = [
     examples: ["epigram", "telegram"],
   },
   {
+    id: "58808176-88e0-408d-8e97-19661a9d3913",
     label: "graph",
     value: "graph",
     type: "root",
@@ -509,6 +570,7 @@ export const roots: Root[] = [
     examples: ["graphic", "phonograph"],
   },
   {
+    id: "dc8a9fb3-6d92-425d-acc7-c44977867533",
     label: "hetero",
     value: "hetero",
     type: "root",
@@ -516,6 +578,7 @@ export const roots: Root[] = [
     examples: ["heteronym", "heterogeneous"],
   },
   {
+    id: "0ff7e409-339c-400d-9d31-6cda7ce5f3bb",
     label: "homo",
     value: "homo",
     type: "root",
@@ -523,6 +586,7 @@ export const roots: Root[] = [
     examples: ["homonym", "homogenous"],
   },
   {
+    id: "3f699e95-3b60-45b8-804a-6c381ce60fb8",
     label: "hydr",
     value: "hydr",
     type: "root",
@@ -530,6 +594,7 @@ export const roots: Root[] = [
     examples: ["hydration", "dehydrate"],
   },
   {
+    id: "4283af71-43c5-46fe-ae0e-877c17d7e4aa",
     label: "hypo",
     value: "hypo",
     type: "root",
@@ -537,6 +602,7 @@ export const roots: Root[] = [
     examples: ["hypothermia", "hypothetical"],
   },
   {
+    id: "6036f0f3-18d7-4d31-9668-f48a1c9603bf",
     label: "logy",
     value: "logy",
     type: "root",
@@ -544,6 +610,7 @@ export const roots: Root[] = [
     examples: ["biology", "psychology"],
   },
   {
+    id: "346eaac5-e75c-4231-8ffd-e6bbf453523f",
     label: "meter",
     value: "meter",
     type: "root",
@@ -551,6 +618,7 @@ export const roots: Root[] = [
     examples: ["thermometer"],
   },
   {
+    id: "eadac924-2296-46c5-ac3e-3c7ae0e0cf25",
     label: "metr",
     value: "metr",
     type: "root",
@@ -558,6 +626,7 @@ export const roots: Root[] = [
     examples: ["perimeter", "metrics"],
   },
   {
+    id: "688aeb89-e992-4bde-b157-b4da236a64e9",
     label: "micro",
     value: "micro",
     type: "root",
@@ -565,6 +634,7 @@ export const roots: Root[] = [
     examples: ["microbe", "microscope"],
   },
   {
+    id: "b0b476a0-3acd-46f6-bb26-4dcab3eccaa3",
     label: "mis",
     value: "mis",
     type: "root",
@@ -572,6 +642,7 @@ export const roots: Root[] = [
     examples: ["misanthrope"],
   },
   {
+    id: "616e2f7c-5c48-42b8-8509-c6e003dd0ff6",
     label: "miso",
     value: "miso",
     type: "root",
@@ -579,6 +650,7 @@ export const roots: Root[] = [
     examples: ["misogyny"],
   },
   {
+    id: "c0d42830-bf5c-4453-b57b-7d9e6abd5d15",
     label: "mono",
     value: "mono",
     type: "root",
@@ -586,6 +658,7 @@ export const roots: Root[] = [
     examples: ["monologue", "monotonous"],
   },
   {
+    id: "9f617117-0406-476e-b2ed-68a6680282fe",
     label: "morph",
     value: "morph",
     type: "root",
@@ -593,6 +666,7 @@ export const roots: Root[] = [
     examples: ["morphology", "morphing"],
   },
   {
+    id: "cdd90bea-2653-44f8-ab65-31fd485f1822",
     label: "nym",
     value: "nym",
     type: "root",
@@ -600,6 +674,7 @@ export const roots: Root[] = [
     examples: ["antonym", "synonym"],
   },
   {
+    id: "6f700697-a33c-4a40-9eba-a49ff63aab85",
     label: "phil",
     value: "phil",
     type: "root",
@@ -607,6 +682,7 @@ export const roots: Root[] = [
     examples: ["philanthropist", "philosophy"],
   },
   {
+    id: "494e8d7e-6eae-4163-a831-f0973948fe0d",
     label: "phobia",
     value: "phobia",
     type: "root",
@@ -614,6 +690,7 @@ export const roots: Root[] = [
     examples: ["claustrophobia", "phobic"],
   },
   {
+    id: "b0bfa43f-a752-48b9-a394-b00166dfdd0c",
     label: "phon",
     value: "phon",
     type: "root",
@@ -621,6 +698,7 @@ export const roots: Root[] = [
     examples: ["phone", "symphony"],
   },
   {
+    id: "2a20174f-5ba1-42da-b29a-3a11c9fd1542",
     label: "photo",
     value: "photo",
     type: "root",
@@ -628,6 +706,7 @@ export const roots: Root[] = [
     examples: ["photograph"],
   },
   {
+    id: "a634f6d6-0f3f-4f27-9804-dd2fe4324629",
     label: "phos",
     value: "phos",
     type: "root",
@@ -635,6 +714,7 @@ export const roots: Root[] = [
     examples: ["phosphorous"],
   },
   {
+    id: "93a8e399-5c3f-4879-982f-3eef30458438",
     label: "pseudo",
     value: "pseudo",
     type: "root",
@@ -642,6 +722,7 @@ export const roots: Root[] = [
     examples: ["pseudonym", "pseudoscience"],
   },
   {
+    id: "d882abd2-a55b-4387-aee8-e4bdfb14dc9a",
     label: "psycho",
     value: "psycho",
     type: "root",
@@ -649,6 +730,7 @@ export const roots: Root[] = [
     examples: ["psychology", "psychic"],
   },
   {
+    id: "4abda9c4-cec8-44d1-8035-343a99826708",
     label: "scope",
     value: "scope",
     type: "root",
@@ -656,6 +738,7 @@ export const roots: Root[] = [
     examples: ["microscope", "telescope"],
   },
   {
+    id: "972517b4-9fbf-459e-859c-9dcc3c9dbe85",
     label: "techno",
     value: "techno",
     type: "root",
@@ -663,6 +746,7 @@ export const roots: Root[] = [
     examples: ["technique", "technological"],
   },
   {
+    id: "3b9d5732-02e1-43c7-972a-5a2d807c68a4",
     label: "tele",
     value: "tele",
     type: "root",
@@ -670,6 +754,7 @@ export const roots: Root[] = [
     examples: ["television", "telephone"],
   },
   {
+    id: "00a282d0-256f-447f-a392-1ddc8fc4aa36",
     label: "therm",
     value: "therm",
     type: "root",
@@ -678,8 +763,9 @@ export const roots: Root[] = [
   },
 ];
 
-export const suffixes: Suffix[] = [
+export const suffixList: Suffix[] = [
   {
+    id: "5ba22553-cab3-4ffb-a815-694110b3925f",
     label: "-able",
     value: "able",
     type: "suffix",
@@ -687,6 +773,7 @@ export const suffixes: Suffix[] = [
     examples: ["affordable"],
   },
   {
+    id: "56081d31-5632-4e1b-bd4e-e52ad73157e1",
     label: "-ible",
     value: "ible",
     type: "suffix",
@@ -694,6 +781,7 @@ export const suffixes: Suffix[] = [
     examples: ["sensible"],
   },
   {
+    id: "a1f1e8a8-5ec5-49bd-a5a6-38ce1aafacce",
     label: "-al",
     value: "al",
     type: "suffix",
@@ -701,6 +789,7 @@ export const suffixes: Suffix[] = [
     examples: ["universal"],
   },
   {
+    id: "6f737f6c-8f72-4981-a152-a04ec4d9eedd",
     label: "-ial",
     value: "ial",
     type: "suffix",
@@ -708,6 +797,7 @@ export const suffixes: Suffix[] = [
     examples: ["facial"],
   },
   {
+    id: "754f8165-248a-4636-9cf1-4aa4e662ac01",
     label: "-ed",
     value: "ed",
     type: "suffix",
@@ -715,6 +805,7 @@ export const suffixes: Suffix[] = [
     examples: ["walked"],
   },
   {
+    id: "34f3cc4d-3adb-4a15-8af6-48830f576d98",
     label: "-en",
     value: "en",
     type: "suffix",
@@ -722,6 +813,7 @@ export const suffixes: Suffix[] = [
     examples: ["golden"],
   },
   {
+    id: "b381d1c3-6de5-4fcb-a899-7915ac2a4fa3",
     label: "-er",
     value: "er",
     type: "suffix",
@@ -729,6 +821,7 @@ export const suffixes: Suffix[] = [
     examples: ["teacher"],
   },
   {
+    id: "ebd81326-c984-4d61-b9d0-b20bd179c42d",
     label: "-or",
     value: "or",
     type: "suffix",
@@ -736,6 +829,7 @@ export const suffixes: Suffix[] = [
     examples: ["professor"],
   },
   {
+    id: "0d99becd-97cd-4aa0-9b66-1334a6808da8",
     label: "-er",
     value: "er",
     type: "suffix",
@@ -743,6 +837,7 @@ export const suffixes: Suffix[] = [
     examples: ["taller"],
   },
   {
+    id: "85fd2b8f-8736-4c5b-bedf-259002b31b63",
     label: "-est",
     value: "est",
     type: "suffix",
@@ -750,6 +845,7 @@ export const suffixes: Suffix[] = [
     examples: ["tallest"],
   },
   {
+    id: "2542d08d-3e01-4597-b3a2-525d4eb2b3c5",
     label: "-ful",
     value: "ful",
     type: "suffix",
@@ -757,6 +853,7 @@ export const suffixes: Suffix[] = [
     examples: ["helpful"],
   },
   {
+    id: "5cc7aa03-6d4b-4790-b821-cb6897042f3e",
     label: "-ic",
     value: "ic",
     type: "suffix",
@@ -764,6 +861,7 @@ export const suffixes: Suffix[] = [
     examples: ["poetic"],
   },
   {
+    id: "a9b5337c-b488-4571-8c9f-cfc59770d34d",
     label: "-ing",
     value: "ing",
     type: "suffix",
@@ -771,6 +869,7 @@ export const suffixes: Suffix[] = [
     examples: ["sleeping"],
   },
   {
+    id: "191bc595-cd66-4dd6-960f-890960891e74",
     label: "-ion",
     value: "ion",
     type: "suffix",
@@ -778,6 +877,7 @@ export const suffixes: Suffix[] = [
     examples: ["submission"],
   },
   {
+    id: "6b212054-57a0-40d5-a406-cb234fb395be",
     label: "-tion",
     value: "tion",
     type: "suffix",
@@ -785,6 +885,7 @@ export const suffixes: Suffix[] = [
     examples: ["motion"],
   },
   {
+    id: "7107e20f-ed33-4c35-a13d-63e44ad392e4",
     label: "-ation",
     value: "ation",
     type: "suffix",
@@ -792,6 +893,7 @@ export const suffixes: Suffix[] = [
     examples: ["relation"],
   },
   {
+    id: "9d7da37b-98f8-4561-ae98-bd641dff0ff9",
     label: "-ition",
     value: "ition",
     type: "suffix",
@@ -799,6 +901,7 @@ export const suffixes: Suffix[] = [
     examples: ["edition"],
   },
   {
+    id: "20af9e80-ef4b-49a7-ba17-b0588ecc532c",
     label: "-ity",
     value: "ity",
     type: "suffix",
@@ -806,6 +909,7 @@ export const suffixes: Suffix[] = [
     examples: ["activity"],
   },
   {
+    id: "9d274427-c19f-48b1-a518-7ce3eb7e60c3",
     label: "-ty",
     value: "ty",
     type: "suffix",
@@ -813,6 +917,7 @@ export const suffixes: Suffix[] = [
     examples: ["society"],
   },
   {
+    id: "1e325cc9-faae-40ec-b017-4ef2532c5891",
     label: "-ive",
     value: "ive",
     type: "suffix",
@@ -820,6 +925,7 @@ export const suffixes: Suffix[] = [
     examples: ["active"],
   },
   {
+    id: "6afcea6f-6fdd-492a-a110-30f8bce1c559",
     label: "-ative",
     value: "ative",
     type: "suffix",
@@ -827,6 +933,7 @@ export const suffixes: Suffix[] = [
     examples: ["comparative"],
   },
   {
+    id: "b8719197-dfc9-4141-bec2-14cd598d8702",
     label: "-itive",
     value: "itive",
     type: "suffix",
@@ -834,6 +941,7 @@ export const suffixes: Suffix[] = [
     examples: ["sensitive"],
   },
   {
+    id: "b8fbffce-194a-4cf7-aa76-17f1e10c733a",
     label: "-less",
     value: "less",
     type: "suffix",
@@ -841,6 +949,7 @@ export const suffixes: Suffix[] = [
     examples: ["hopeless"],
   },
   {
+    id: "19c9ac09-c99e-4e43-88fb-f80e1196320e",
     label: "-ly",
     value: "ly",
     type: "suffix",
@@ -848,6 +957,7 @@ export const suffixes: Suffix[] = [
     examples: ["lovely"],
   },
   {
+    id: "438c5c5c-d9b3-4f61-b877-7182444d45a7",
     label: "-ment",
     value: "ment",
     type: "suffix",
@@ -855,6 +965,7 @@ export const suffixes: Suffix[] = [
     examples: ["contentment"],
   },
   {
+    id: "a40bb8d1-0046-4bcb-b38b-100607eae491",
     label: "-ness",
     value: "ness",
     type: "suffix",
@@ -862,6 +973,7 @@ export const suffixes: Suffix[] = [
     examples: ["openness"],
   },
   {
+    id: "a577d408-2ea2-435f-a202-0d792a178248",
     label: "-ous",
     value: "ous",
     type: "suffix",
@@ -869,6 +981,7 @@ export const suffixes: Suffix[] = [
     examples: ["riotous"],
   },
   {
+    id: "1e818090-bb1f-4965-aece-37c02af74646",
     label: "-eous",
     value: "eous",
     type: "suffix",
@@ -876,6 +989,7 @@ export const suffixes: Suffix[] = [
     examples: ["courageous"],
   },
   {
+    id: "5d6895a2-2900-46ff-8bb3-c1d8983250c6",
     label: "-ious",
     value: "ious",
     type: "suffix",
@@ -883,6 +997,7 @@ export const suffixes: Suffix[] = [
     examples: ["gracious"],
   },
   {
+    id: "134d6c3c-26f6-4a5b-aaa2-5aa489a30cb7",
     label: "-s",
     value: "s",
     type: "suffix",
@@ -890,6 +1005,7 @@ export const suffixes: Suffix[] = [
     examples: ["trains"],
   },
   {
+    id: "24befd0e-11b9-406f-b405-d1b19d40ad7b",
     label: "-es",
     value: "es",
     type: "suffix",
@@ -897,6 +1013,7 @@ export const suffixes: Suffix[] = [
     examples: ["trenches"],
   },
   {
+    id: "2160286f-bae2-4750-b3fb-cb4b8e1edaa0",
     label: "-y",
     value: "y",
     type: "suffix",

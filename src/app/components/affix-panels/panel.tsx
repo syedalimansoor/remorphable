@@ -5,29 +5,34 @@ import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Search } from "lucide-react";
 import { type Affix as AffixType } from "@/features/affix";
-import Affix from "./affix";
-import { ChangeEvent, useMemo, useState } from "react";
-import { v4 as uuid } from "uuid";
+import { ChangeEvent, useState } from "react";
+import { DraggableAffix } from "@/app/components/affix/draggable-affix";
+import { useStore } from "@nanostores/react";
+import { type Atom } from "nanostores";
 
 type Props = {
   className?: string;
   title: string;
   message: string;
   placeholder: string;
-  affixes: AffixType[];
+  affixStore: Atom<AffixType[]>;
+  filterAffixes: (search: string) => void;
 };
 
-function Panel({ className, title, message, placeholder, affixes }: Props) {
+function Panel({
+  className,
+  title,
+  message,
+  placeholder,
+  affixStore,
+  filterAffixes,
+}: Props) {
+  const affixes = useStore(affixStore);
   const [searchValue, setSearchValue] = useState("");
-
-  const filteredAffixes = useMemo(() => {
-    return affixes.filter((affix) =>
-      affix.value.toLowerCase().includes(searchValue.toLowerCase())
-    );
-  }, [searchValue, affixes]);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
+    filterAffixes(event.target.value);
   };
 
   return (
@@ -48,8 +53,8 @@ function Panel({ className, title, message, placeholder, affixes }: Props) {
       </header>
       <ScrollArea className="overflow-auto">
         <div className="flex gap-3 flex-wrap">
-          {filteredAffixes.map((affix) => (
-            <Affix key={uuid()} affix={affix} />
+          {affixes.map((affix) => (
+            <DraggableAffix key={affix.id} affix={affix} />
           ))}
         </div>
       </ScrollArea>
@@ -57,4 +62,5 @@ function Panel({ className, title, message, placeholder, affixes }: Props) {
     </div>
   );
 }
+
 export default Panel;
