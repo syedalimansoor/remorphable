@@ -23,6 +23,14 @@ export const usePlacedAffix = (type: AffixType) => {
   return useStore($placedAffixes)[type];
 };
 
+export const $isAnyAffixPlaced = computed($placedAffixes, (placedAffixes) => {
+  return (
+    placedAffixes.prefix !== null ||
+    placedAffixes.root !== null ||
+    placedAffixes.suffix !== null
+  );
+});
+
 export const $isWordComplete = computed($placedAffixes, (placedAffixes) => {
   return (
     placedAffixes.prefix !== null &&

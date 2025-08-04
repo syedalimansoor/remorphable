@@ -7,7 +7,7 @@ import {
   DragStartEvent,
 } from "@dnd-kit/core";
 import AffixPanels from "./components/affix-panels";
-import BeginningTip from "./components/beginning-tip";
+import Tip from "./components/tip";
 import Logo from "./components/logo";
 import Tagline from "./components/tagline";
 import WordBreakdown from "./components/word-breakdown";
@@ -44,7 +44,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col items-center gap-8">
             <WordBreakdown />
-            {!isWordComplete && <BeginningTip />}
+            {!isWordComplete && <Tip />}
           </div>
         </div>
         <AffixPanels className="row-start-2 row-span-2 col-span-full grid grid-rows-subgrid grid-cols-subgrid" />
