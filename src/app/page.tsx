@@ -27,6 +27,7 @@ const affixList = [...prefixList, ...rootList, ...suffixList];
 
 export default function Home() {
   const [draggingAffixId, setDraggingAffixId] = useState<string | null>(null);
+
   const draggingAffix = useMemo(() => {
     if (!draggingAffixId) return null;
     return affixList.find((affix) => affix.id === draggingAffixId) ?? null;
@@ -36,8 +37,8 @@ export default function Home() {
 
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="h-svh grid grid-cols-[2fr_3fr_2fr] grid-rows-[auto_auto_1fr] gap-20 pt-12">
-        <div className="col-span-full place-self-center flex flex-col items-center gap-16">
+      <div className="min-h-lvh grid grid-cols-[2fr_3fr_2fr] grid-rows-[auto_auto_auto] gap-12 lg:gap-x-20 pt-12">
+        <div className="col-span-full justify-self-center flex flex-col items-center justify-between gap-16">
           <div className="flex flex-col items-center gap-2">
             <Logo />
             <Tagline />
