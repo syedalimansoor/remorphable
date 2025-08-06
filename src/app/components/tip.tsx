@@ -7,7 +7,7 @@ function Tip() {
   return (
     <span>
       {!isAnyAffixPlaced
-        ? "Start building a word by dragging an affix!"
+        ? "Start building a word by dragging a prefix!"
         : "Keep adding affixes to complete your word."}
       <br />
     </span>
