@@ -20,7 +20,7 @@ function WordInfo() {
   if (!word) {
     return (
       <div className="border border-foreground rounded-lg p-4 flex flex-col gap-4 max-w-128">
-        <h3 className="text-xl">
+        <h3 className="text-lg md:text-xl">
           {prefix.value}
           {root.value}
           {suffix.value}
@@ -34,17 +34,17 @@ function WordInfo() {
     <div className="border border-foreground rounded-lg p-4 flex flex-col gap-4 min-w-96 max-w-128">
       <div className="flex flex-col gap-1">
         <div className="flex justify-between items-center gap-2">
-          <h3 className="text-xl">{word.form}</h3>
+          <h3 className="text-lg md:text-xl">{word.form}</h3>
           <span className="text-sm italic ml-auto">tis a real word</span>
           <BadgeCheck size={16} />
         </div>
         <span className="font-display text-sm">{word.ipa}</span>
       </div>
       <div className="flex flex-col gap-2">
-        <span className="bg-foreground text-background self-start px-2">
+        <span className="bg-foreground text-background self-start px-2 text-sm md:text-base">
           {word.partsOfSpeech.join(", ")}
         </span>
-        <p className="leading-snug">{word.definition}</p>
+        <p className="leading-snug text-sm md:text-base">{word.definition}</p>
       </div>
     </div>
   );

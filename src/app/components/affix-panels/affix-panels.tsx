@@ -18,9 +18,10 @@ type Props = {
 
 function AffixPanels({ className }: Props) {
   const multiColumnLayout = useMediaQuery("(min-width: 768px)");
+  const isServer = typeof window === "undefined";
   const [affixType, setAffixType] = useState<AffixType>("prefix");
 
-  if (multiColumnLayout)
+  if (multiColumnLayout || isServer)
     return (
       <div
         className={cn("grid grid-cols-subgrid grid-rows-subgrid", className)}
@@ -78,7 +79,7 @@ function AffixPanels({ className }: Props) {
   return (
     <div className={cn("px-8", className)}>
       <Panel
-        className="h-96 self-end"
+        className="h-128 self-end"
         title={title}
         placeholder={placeholder}
         affixStore={affixStore}

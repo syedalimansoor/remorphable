@@ -5,7 +5,7 @@ function Tip() {
   const isAnyAffixPlaced = useStore($isAnyAffixPlaced);
 
   return (
-    <span>
+    <span className="text-center">
       {!isAnyAffixPlaced
         ? "Start building a word by dragging a prefix!"
         : "Keep adding affixes to complete your word."}

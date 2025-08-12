@@ -58,7 +58,7 @@ function Panel(props: Props) {
       )}
     >
       <header className="flex flex-col gap-6">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-4">
           <h2 className="text-xl lg:text-2xl">{title}</h2>
           {props.combined && (
             <div className="flex gap-4">
