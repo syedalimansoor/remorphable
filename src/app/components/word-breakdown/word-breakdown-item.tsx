@@ -31,7 +31,7 @@ function WordBreakdownItem({ label, affixType }: Props) {
       <div
         ref={setNodeRef}
         className={cn(
-          "border border-foreground not-group-first:border-l-0 group-first:rounded-l-sm group-last:rounded-r-sm md:group-first:rounded-l-lg md:group-last:rounded-r-lg p-2 md:p-5 text-4xl md:text-7xl text-muted-foreground transition-shadow",
+          "border border-foreground not-group-first:border-l-0 group-first:rounded-l-sm group-last:rounded-r-sm md:group-first:rounded-l-lg md:group-last:rounded-r-lg p-2 md:p-5 text-4xl sm:text-6xl md:text-7xl text-muted-foreground transition-shadow",
           {
             "ring-foreground/50 ring-[3px]": isOver && isValidDrop,
             "z-10": isValidDrop,
