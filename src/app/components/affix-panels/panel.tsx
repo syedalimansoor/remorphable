@@ -53,7 +53,7 @@ function Panel(props: Props) {
   return (
     <div
       className={cn(
-        "bg-foreground text-background p-6 lg:p-8 flex flex-col gap-6 rounded-t-2xl md:first:rounded-tl-none md:last:rounded-tr-none",
+        "bg-foreground text-background p-6 lg:p-8 pb-0! flex flex-col gap-6 rounded-t-2xl md:first:rounded-tl-none md:last:rounded-tr-none",
         className
       )}
     >
@@ -109,7 +109,7 @@ function Panel(props: Props) {
         />
       </header>
       <ScrollArea className="overflow-auto min-h-24">
-        <div className="flex gap-3 flex-wrap p-1">
+        <div className="flex gap-3 flex-wrap p-1 pb-6">
           {affixes.map((affix) => (
             <DraggableAffix key={affix.id} affix={affix} />
           ))}
