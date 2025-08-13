@@ -22,6 +22,7 @@ import {
 import Affix from "./components/affix/affix";
 import { $isWordComplete, placeAffix } from "./stores/placed-affixes";
 import { useStore } from "@nanostores/react";
+import AffixTooltip from "./components/affix/affix-tooltip";
 
 const affixList = [...prefixList, ...rootList, ...suffixList];
 
@@ -57,6 +58,8 @@ export default function Home() {
       <DragOverlay dropAnimation={null} className="cursor-grabbing">
         {draggingAffix ? <Affix affix={draggingAffix} /> : null}
       </DragOverlay>
+
+      <AffixTooltip />
     </DndContext>
   );
 

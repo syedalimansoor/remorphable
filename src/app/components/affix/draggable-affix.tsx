@@ -2,6 +2,7 @@ import { Affix as AffixType } from "@/features/affix";
 import Affix from "./affix";
 import { useDraggable } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
+import { setHoveringAffix } from "@/app/stores/hovering-affix";
 
 type DraggableProps = {
   affix: AffixType;
@@ -28,6 +29,8 @@ export function DraggableAffix(props: DraggableProps) {
         }
       )}
       whileHover={{ scale: 1.1 }}
+      onHoverStart={() => setHoveringAffix(props.affix)}
+      onHoverEnd={() => setHoveringAffix(null)}
       {...attributes}
       {...listeners}
     />
