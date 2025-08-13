@@ -109,7 +109,7 @@ function Panel(props: Props) {
         />
       </header>
       <ScrollArea className="overflow-auto min-h-24">
-        <div className="flex gap-3 flex-wrap">
+        <div className="flex gap-3 flex-wrap p-1">
           {affixes.map((affix) => (
             <DraggableAffix key={affix.id} affix={affix} />
           ))}

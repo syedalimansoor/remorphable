@@ -1,14 +1,15 @@
 import type { Affix as AffixType } from "@/features/affix";
 import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
 import { ComponentProps } from "react";
 
-type Props = ComponentProps<"span"> & {
+type Props = ComponentProps<typeof motion.span> & {
   affix: AffixType;
 };
 
 function Affix({ affix, className, ...props }: Props) {
   return (
-    <span
+    <motion.span
       className={cn(
         "block bg-background text-foreground px-2 py-1 rounded-sm select-none",
         {
@@ -21,7 +22,7 @@ function Affix({ affix, className, ...props }: Props) {
       {...props}
     >
       {affix.label}
-    </span>
+    </motion.span>
   );
 }
 export default Affix;

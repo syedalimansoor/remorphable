@@ -27,6 +27,7 @@ export function DraggableAffix(props: DraggableProps) {
           "cursor-grab opacity-100": !isDragging,
         }
       )}
+      whileHover={{ scale: 1.1 }}
       {...attributes}
       {...listeners}
     />
