@@ -22,19 +22,30 @@ import {
 import Affix from "./components/affix/affix";
 import { $isWordComplete, placeAffix } from "./stores/placed-affixes";
 import { useStore } from "@nanostores/react";
+import { flip, offset, shift, useFloating } from "@floating-ui/react";
+import { $hoveredAffix } from "./stores/hovered-affix";
 import AffixTooltip from "./components/affix/affix-tooltip";
+import { AnimatePresence } from "motion/react";
 
 const affixList = [...prefixList, ...rootList, ...suffixList];
 
 export default function Home() {
-  const [draggingAffixId, setDraggingAffixId] = useState<string | null>(null);
+  const [draggedAffixId, setDraggedAffixId] = useState<string | null>(null);
 
-  const draggingAffix = useMemo(() => {
-    if (!draggingAffixId) return null;
-    return affixList.find((affix) => affix.id === draggingAffixId) ?? null;
-  }, [draggingAffixId]);
+  const draggedAffix = useMemo(() => {
+    if (!draggedAffixId) return null;
+    return affixList.find((affix) => affix.id === draggedAffixId) ?? null;
+  }, [draggedAffixId]);
 
   const isWordComplete = useStore($isWordComplete);
+
+  const hoveredAffix = useStore($hoveredAffix);
+  const { refs, floatingStyles } = useFloating({
+    elements: {
+      reference: hoveredAffix?.element,
+    },
+    middleware: [offset(5), shift(), flip()],
+  });
 
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
@@ -56,16 +67,24 @@ export default function Home() {
       </div>
 
       <DragOverlay dropAnimation={null} className="cursor-grabbing">
-        {draggingAffix ? <Affix affix={draggingAffix} /> : null}
+        {draggedAffix ? <Affix affix={draggedAffix} /> : null}
       </DragOverlay>
 
-      <AffixTooltip />
+      <AnimatePresence>
+        {!!hoveredAffix && (
+          <AffixTooltip
+            affix={hoveredAffix.affix}
+            ref={refs.setFloating}
+            style={floatingStyles}
+          />
+        )}
+      </AnimatePresence>
     </DndContext>
   );
 
   function handleDragStart(event: DragStartEvent) {
     const affixId = event.active.id as string;
-    setDraggingAffixId(affixId);
+    setDraggedAffixId(affixId);
   }
 
   function handleDragEnd(event: DragEndEvent) {
@@ -79,6 +98,6 @@ export default function Home() {
       }
     }
 
-    setDraggingAffixId(null);
+    setDraggedAffixId(null);
   }
 }

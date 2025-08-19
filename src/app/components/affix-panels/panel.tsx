@@ -46,9 +46,10 @@ function Panel(props: Props) {
     }
   };
 
+  const affixTypeOnSmallScreens = props.combined ? props.affixType : undefined;
   useEffect(() => {
     filterAffixes(searchValue);
-  }, [searchValue, filterAffixes, props.combined && props.affixType]);
+  }, [searchValue, filterAffixes, affixTypeOnSmallScreens]);
 
   return (
     <div
