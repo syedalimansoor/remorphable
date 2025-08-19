@@ -31,12 +31,16 @@ export function DraggableAffix(props: DraggableProps) {
       ref={getRefs}
       className={cn(
         "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-[background-color,box-shadow]",
+        "relative before:absolute before:-inset-1.5",
         {
           "cursor-grabbing opacity-50": isDragging,
           "cursor-grab opacity-100": !isDragging,
         }
       )}
-      whileHover={{ scale: 1.1 }}
+      whileHover={{
+        scale: 1.1,
+      }}
+      transition={{ type: "spring", duration: 0.3 }}
       onHoverStart={() =>
         setHoveredAffixAndElement({
           affix: props.affix,
