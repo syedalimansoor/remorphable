@@ -67,7 +67,9 @@ export default function Home() {
       </div>
 
       <DragOverlay dropAnimation={null} className="cursor-grabbing">
-        {draggedAffix ? <Affix affix={draggedAffix} /> : null}
+        <AnimatePresence>
+          {draggedAffix ? <Affix affix={draggedAffix} dragging /> : null}
+        </AnimatePresence>
       </DragOverlay>
 
       <AnimatePresence>
