@@ -68,19 +68,23 @@ export default function Home() {
 
       <DragOverlay dropAnimation={null} className="cursor-grabbing">
         <AnimatePresence>
-          {draggedAffix ? <Affix affix={draggedAffix} dragging /> : null}
+          {draggedAffix ? (
+            <Affix affix={draggedAffix} className="cursor-grabbing" dragging />
+          ) : null}
         </AnimatePresence>
       </DragOverlay>
 
-      <AnimatePresence>
-        {!!hoveredAffix && (
-          <AffixTooltip
-            affix={hoveredAffix.affix}
-            ref={refs.setFloating}
-            style={floatingStyles}
-          />
-        )}
-      </AnimatePresence>
+      <div className="absolute top-0 left-0 h-screen w-screen pointer-events-none overflow-clip">
+        <AnimatePresence>
+          {!!hoveredAffix && (
+            <AffixTooltip
+              affix={hoveredAffix.affix}
+              ref={refs.setFloating}
+              style={floatingStyles}
+            />
+          )}
+        </AnimatePresence>
+      </div>
     </DndContext>
   );
 
