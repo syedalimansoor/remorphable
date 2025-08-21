@@ -19,6 +19,11 @@ function Affix({ affix, className, dragging, ...props }: Props) {
           "hover:bg-root": affix.type === "root",
           "hover:bg-suffix": affix.type === "suffix",
         },
+        dragging && {
+          "bg-prefix": affix.type === "prefix",
+          "bg-root": affix.type === "root",
+          "bg-suffix": affix.type === "suffix",
+        },
         className
       )}
       {...props}
