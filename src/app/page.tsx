@@ -74,7 +74,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col items-center gap-8 px-8">
             <WordBreakdown />
-            {!isWordComplete && <Tip />}
+            <Tip />
           </div>
         </div>
         <div className="row-start-2 md:col-start-2 place-items-center empty:h-0 md:empty:h-24 px-8">
