@@ -32,6 +32,7 @@ export function DraggableAffix(props: DraggableProps) {
       className={cn(
         "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-[background-color,box-shadow]",
         "relative before:absolute before:-inset-1.5",
+        "touch-manipulation",
         {
           "cursor-grabbing opacity-50": isDragging,
           "cursor-grab opacity-100": !isDragging,

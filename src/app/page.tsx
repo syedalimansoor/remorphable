@@ -5,6 +5,10 @@ import {
   DragEndEvent,
   DragOverlay,
   DragStartEvent,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
 } from "@dnd-kit/core";
 import AffixPanels from "./components/affix-panels";
 import Tip from "./components/tip";
@@ -47,9 +51,22 @@ export default function Home() {
     middleware: [offset(5), shift(), flip()],
   });
 
+  const mouseSensor = useSensor(MouseSensor);
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 250,
+      tolerance: 5,
+    },
+  });
+  const sensors = useSensors(mouseSensor, touchSensor);
+
   return (
-    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="min-h-lvh grid md:grid-cols-[2fr_3fr_2fr] grid-rows-[auto_auto_auto] gap-12 lg:gap-x-20 pt-12">
+    <DndContext
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+    >
+      <div className="min-h-svh grid md:grid-cols-[2fr_3fr_2fr] grid-rows-[auto_auto_auto] gap-12 lg:gap-x-20 pt-12">
         <div className="col-span-full justify-self-center flex flex-col items-center justify-between gap-16">
           <div className="flex flex-col items-center gap-2 text-center px-8">
             <Logo />
