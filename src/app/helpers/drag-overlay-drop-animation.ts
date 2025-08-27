@@ -1,9 +1,10 @@
 import { KeyframeResolverParameters } from "@dnd-kit/core/dist/components/DragOverlay/hooks/useDropAnimation";
+import { media } from "../stores/media";
 
 /** Custom drop animation which animates the drag overlay:
  * 1. to the center of the droppable container being dropped over, scaling it up and fading it out
  * 2. back to its initial position if not dropped over a droppable container */
-export function dropAnimationKeyframeResolver({
+export function createDropAnimationKeyframeResolver({
   active,
   dragOverlay,
   droppableContainers,
@@ -58,11 +59,15 @@ export function dropAnimationKeyframeResolver({
   const finalX = initial.x + offsetX;
   const finalY = initial.y + offsetY;
 
+  let scale = 3;
+  if (media.get().isTablet) scale = 2.5;
+  if (media.get().isMobile) scale = 1.5;
+
   return [
     {},
     {
       composite: "replace",
-      transform: `translate3d(${finalX}px, ${finalY}px, 0) scale(3)`,
+      transform: `translate3d(${finalX}px, ${finalY}px, 0) scale(${scale})`,
       opacity: 0,
     },
   ];

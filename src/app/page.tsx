@@ -30,7 +30,7 @@ import { flip, offset, shift, useFloating } from "@floating-ui/react";
 import { $hoveredAffix } from "./stores/hovered-affix";
 import AffixTooltip from "./components/affix/affix-tooltip";
 import { AnimatePresence } from "motion/react";
-import { dropAnimationKeyframeResolver } from "./helpers/drag-overlay-drop-animation";
+import { createDropAnimationKeyframeResolver } from "./helpers/drag-overlay-drop-animation";
 
 const affixList = [...prefixList, ...rootList, ...suffixList];
 
@@ -85,7 +85,7 @@ export default function Home() {
       <DragOverlay
         dropAnimation={{
           duration: 150,
-          keyframes: dropAnimationKeyframeResolver,
+          keyframes: createDropAnimationKeyframeResolver,
         }}
         className="cursor-grabbing will-change-transform"
       >
