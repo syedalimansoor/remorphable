@@ -24,12 +24,13 @@ import {
   suffixList,
 } from "@/features/affix";
 import Affix from "./components/affix/affix";
-import { $isWordComplete, placeAffix } from "./stores/placed-affixes";
+import { placeAffix } from "./stores/placed-affixes";
 import { useStore } from "@nanostores/react";
 import { flip, offset, shift, useFloating } from "@floating-ui/react";
 import { $hoveredAffix } from "./stores/hovered-affix";
 import AffixTooltip from "./components/affix/affix-tooltip";
 import { AnimatePresence } from "motion/react";
+import { dropAnimationKeyframeResolver } from "./helpers/drag-overlay-drop-animation";
 
 const affixList = [...prefixList, ...rootList, ...suffixList];
 
@@ -40,8 +41,6 @@ export default function Home() {
     if (!draggedAffixId) return null;
     return affixList.find((affix) => affix.id === draggedAffixId) ?? null;
   }, [draggedAffixId]);
-
-  const isWordComplete = useStore($isWordComplete);
 
   const hoveredAffix = useStore($hoveredAffix);
   const { refs, floatingStyles } = useFloating({
@@ -83,23 +82,32 @@ export default function Home() {
         <AffixPanels className="md:row-start-2 md:row-span-2 col-span-full grid grid-rows-subgrid grid-cols-subgrid" />
       </div>
 
-      <DragOverlay dropAnimation={null} className="cursor-grabbing">
-        <AnimatePresence>
-          {draggedAffix ? (
-            <Affix affix={draggedAffix} className="cursor-grabbing" dragging />
-          ) : null}
-        </AnimatePresence>
+      <DragOverlay
+        dropAnimation={{
+          duration: 150,
+          keyframes: dropAnimationKeyframeResolver,
+        }}
+        className="cursor-grabbing will-change-transform"
+      >
+        {draggedAffix ? (
+          <Affix
+            exit={{ opacity: 0 }}
+            affix={draggedAffix}
+            className="cursor-grabbing"
+            dragging
+          />
+        ) : null}
       </DragOverlay>
 
       <div className="absolute top-0 left-0 h-screen w-screen pointer-events-none overflow-clip">
         <AnimatePresence>
-          {!!hoveredAffix && (
+          {hoveredAffix ? (
             <AffixTooltip
               affix={hoveredAffix.affix}
               ref={refs.setFloating}
               style={floatingStyles}
             />
-          )}
+          ) : null}
         </AnimatePresence>
       </div>
     </DndContext>
