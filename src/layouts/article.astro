@@ -1,0 +1,43 @@
+---
+import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
+import LogoWhite from "../assets/logo-white.svg";
+import { Button } from "../components/button";
+import BaseLayout from "../layouts/base.astro";
+
+const { title, previousPath, nextPath } = Astro.props;
+---
+
+<BaseLayout title={`${title} | Remorphable`}>
+  <main class="flex flex-col gap-2">
+    <header class="flex gap-2">
+      <a href="/">
+        <Button size="icon">
+          <LogoWhite />
+        </Button>
+      </a>
+
+      <div
+        class="grow self-stretch grid grid-cols-[repeat(3,1fr)] items-center justify-items-center px-3 bg-background-200 rounded-lg"
+      >
+        <span class="justify-self-start text-xs">1 of 7</span>
+        <h1 class="font-display text-blue-500">{title}</h1>
+        <span></span>
+      </div>
+
+      <a href={previousPath}>
+        <Button size="icon" variant="teal" disabled={!previousPath}>
+          <ArrowLeftIcon weight="duotone" size={20} />
+        </Button>
+      </a>
+
+      <a href={nextPath}>
+        <Button disabled={!nextPath}>
+          Next
+          <ArrowRightIcon weight="duotone" size={20} />
+        </Button>
+      </a>
+    </header>
+
+    <slot />
+  </main>
+</BaseLayout>

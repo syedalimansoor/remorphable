@@ -1,17 +1,21 @@
 ---
-
+import LogoWithWordmarkWhite from "../assets/logo-with-wordmark-white.svg";
+import { Button } from "../components/button";
+import BaseLayout from "../layouts/base.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<BaseLayout title="Astro">
+  <main
+    class="rounded-xl bg-blue-500 grid justify-center justify-items-center content-between p-8 text-center text-blue-300"
+  >
+    <span></span>
+    <div class="flex flex-col items-center">
+      <LogoWithWordmarkWhite class="mb-5" />
+      <p class="text-xl max-w-84 mb-8">
+        Learn about morphology by creating your own language!
+      </p>
+      <a href="/morphology"> <Button variant="teal" size="lg">START</Button></a>
+    </div>
+    <span></span>
+  </main>
+</BaseLayout>
