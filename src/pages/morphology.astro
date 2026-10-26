@@ -1,6 +1,7 @@
 ---
 import Article from "../components/article.astro";
 import Heading from "../components/heading.astro";
+import { SetConlangName } from "../components/morphology/set-conlang-name";
 import Paragraph from "../components/paragraph.astro";
 import { Popup } from "../components/popup";
 import SectionLayout from "../layouts/section.astro";
@@ -37,5 +38,7 @@ import SectionLayout from "../layouts/section.astro";
       you learn at each stage, you’ll gradually give shape to a conlang that gets
       more morphologically rich as you progress through the website.
     </Paragraph>
+
+    <SetConlangName client:idle />
   </Article>
 </SectionLayout>

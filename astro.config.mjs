@@ -22,7 +22,7 @@ export default defineConfig({
       provider: fontProviders.google(),
       name: "Fira Sans",
       cssVariable: "--font-fira-sans",
-      weights: ["400", "700"],
+      weights: ["400", "500", "700"],
     },
   ],
 
