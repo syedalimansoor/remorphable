@@ -2,6 +2,7 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import LogoWhite from "../assets/logo-white.svg";
 import { Button } from "../components/button";
+import { ResetProgressButton } from "../components/reset-progress-button";
 import BaseLayout from "../layouts/base.astro";
 
 const { title, previousPath, nextPath } = Astro.props;
@@ -17,11 +18,11 @@ const { title, previousPath, nextPath } = Astro.props;
       </a>
 
       <div
-        class="grow self-stretch grid grid-cols-[repeat(3,1fr)] items-center justify-items-center px-3 bg-background-200 rounded-lg"
+        class="grow self-stretch grid grid-cols-[repeat(3,auto)] items-center justify-between px-3 bg-background-200 rounded-lg"
       >
-        <span class="justify-self-start text-xs">1 of 7</span>
+        <span class="text-xs">1 of 7</span>
         <h1 class="font-display text-blue-500">{title}</h1>
-        <span></span>
+        <div><ResetProgressButton client:idle /></div>
       </div>
 
       <a href={previousPath}>

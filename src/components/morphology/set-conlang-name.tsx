@@ -1,18 +1,26 @@
 import { useStore } from "@nanostores/react";
 import { KeyReturnIcon } from "@phosphor-icons/react";
+import type { SubmitEvent } from "react";
+import { PAGES } from "../../constants";
 import { $conlangName } from "../../stores/conlang-name";
+import { $progress } from "../../stores/progress";
 import { Button } from "../button";
 import { InteractiveBlock } from "../interactive-block";
 
 export function SetConlangName() {
   const conlangName = useStore($conlangName);
 
+  const handleSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+    $progress.setKey(PAGES.morphology, 1);
+  };
+
   return (
     <InteractiveBlock>
       <p className="font-medium text-blue-500 mb-3">
         Let’s get started by giving your conlang a name:
       </p>
-      <form className="relative mb-3" onSubmit={(e) => e.preventDefault()}>
+      <form className="relative mb-3" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Doodleflorp..."
@@ -23,6 +31,7 @@ export function SetConlangName() {
         <Button
           className="absolute inset-y-2 right-2 rounded-sm"
           variant="teal"
+          disabled={conlangName.length === 0}
         >
           <KeyReturnIcon weight="duotone" />
         </Button>
