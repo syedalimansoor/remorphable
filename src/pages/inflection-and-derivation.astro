@@ -1,0 +1,59 @@
+---
+import Article from "../components/article.astro";
+import Heading from "../components/heading.astro";
+import Paragraph from "../components/paragraph.astro";
+import SectionLayout from "../layouts/section.astro";
+---
+
+<SectionLayout
+  title="Inflection and derivation"
+  position="3"
+  previousPath="/morphemes"
+  nextPath="/allomorphy"
+>
+  <Article>
+    <Heading>Is all word formation the same?</Heading>
+
+    <Paragraph>
+      Let’s look at the free morpheme “teach”. If we attach the suffix “-er”, we
+      get “teacher”. If we attach the suffix “-es”, we get “teaches”.
+    </Paragraph>
+
+    <Paragraph>Are these two affixes doing the same kind of work?</Paragraph>
+
+    <!-- TODO: Add the interactive derivation-and-inflection matching demo. -->
+
+    <Paragraph>
+      As you can see, affixes serve different purposes depending on how they
+      interact with the base. This brings us to two major categories of
+      affixation: <b>derivation</b> and <b>inflection</b>.
+    </Paragraph>
+
+    <Paragraph>
+      When an affix fundamentally changes the core meaning or the grammatical
+      category (e.g. noun, adjective, adverb, etc.) of the base, this process is
+      called <b>derivation</b>. Turning the <i>verb</i> “teach” into the
+      <i>noun</i> “teacher” is a derivational process.
+    </Paragraph>
+
+    <Paragraph>
+      Conversely, when an affix attaches to a base merely to express a
+      grammatical feature—such as tense (past/present/future) or quantity
+      (single/dual/multiple)—without changing the word’s underlying meaning or
+      category, it is called <b>inflection</b>. Adding “-es” to “teach” simply
+      gives us the third-person singular present tense of the exact same verb.
+    </Paragraph>
+
+    <Paragraph>
+      Now that you have learnt about the two different categories of affixation,
+      it is time to start building your conlang! <b>Click here</b> to open the conlang
+      panel, where you can experiment with creating morphemes and fusing them to define
+      words in your language.
+    </Paragraph>
+
+    <Paragraph>
+      The English toolkit now also tells you whether the morphemes of a word are
+      serving an inflectional or derivational purpose.
+    </Paragraph>
+  </Article>
+</SectionLayout>

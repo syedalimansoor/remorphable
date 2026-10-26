@@ -1,0 +1,67 @@
+---
+import Article from "../components/article.astro";
+import { Definition } from "../components/definition";
+import Heading from "../components/heading.astro";
+import Paragraph from "../components/paragraph.astro";
+import SectionLayout from "../layouts/section.astro";
+---
+
+<SectionLayout
+  title="Allomorphy"
+  position="4"
+  previousPath="/inflection-and-derivation"
+  nextPath="/suppletion-and-lexemes"
+>
+  <Article>
+    <Heading>Allomorphy</Heading>
+
+    <Paragraph>
+      You’re familiar with the English prefix “in-”, which generally means “not”
+      or “opposite of”. Can we use this same prefix for all words where we need
+      a negative counterpart?
+    </Paragraph>
+
+    <!-- TODO: Add the interactive negative-prefix allomorphy demo. -->
+
+    <Paragraph>
+      Wait a minute, you used “im-” for impossible and “il-” for illegal! The
+      prefix changed depending on its surrounding context. This phenomenon is
+      known as <b>allomorphy</b>.
+    </Paragraph>
+
+    <Definition
+      term="allomorph"
+      category="noun"
+      ipa="ˈaləmɔːrf"
+      definition="any of the different variant forms of a single morpheme"
+    />
+
+    <Paragraph>
+      Allomorphy occurs when a single morpheme has multiple
+      <b>phonological variants</b>—called allomorphs—depending on the linguistic
+      context surrounding it.
+    </Paragraph>
+
+    <Paragraph>
+      Why <i>phonological</i>? Because linguistics prioritizes the spoken form
+      of language over its written realizations. Hence, there may even be
+      allomorphs of a morpheme that are <i>spelt the same</i> but <i
+        >sound different</i
+      >.
+    </Paragraph>
+
+    <!-- TODO: Add the interactive plural-sound allomorph selection demo. -->
+
+    <Paragraph>
+      The English plural suffix is the perfect example of a morpheme with
+      multiple allomorphs, <i>including</i> allomorphs with the same spelling but
+      different pronunciations.
+    </Paragraph>
+
+    <Paragraph>
+      Awesome stuff. You’ll now see the different allomorphs of any morpheme
+      that you locate in the English toolkit, and you’ll also be able to create
+      allomorphs in your conlang through the conlang panel!
+    </Paragraph>
+  </Article>
+</SectionLayout>

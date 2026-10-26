@@ -1,0 +1,98 @@
+---
+import Article from "../components/article.astro";
+import Heading from "../components/heading.astro";
+import Paragraph from "../components/paragraph.astro";
+import { Popup } from "../components/popup";
+import SectionLayout from "../layouts/section.astro";
+---
+
+<SectionLayout
+  title="Conclusion"
+  position="6"
+  previousPath="/suppletion-and-lexemes"
+>
+  <Article>
+    <Heading>Congratulations</Heading>
+
+    <Paragraph>
+      You have reached the end of this web experience. You now know about some
+      of the fundamental concepts of morphology, including morphemes, their
+      basic classifications, and the phenomena of inflection, derivation,
+      allomorphy, and suppletion!
+    </Paragraph>
+
+    <Paragraph>
+      But the journey doesn’t end here! Morphology as a branch of linguistics is
+      much, <b>much</b> larger than what we have covered on this website. We’ve discussed
+      solutions to some of the easiest morphological problems that the English language
+      presents, but indeed English can get much more complicated and irregular!
+    </Paragraph>
+
+    <Paragraph>
+      It doesn’t stop at English either; the languages of the world have all
+      sorts of different methods in which they form words, and you can learn
+      more about these differences in the branch of <Popup
+        client:idle
+        triggerText="morphological typology"
+        ><p>
+          A branch of linguistics that classifies the languages of the world
+          based on how they form words.
+        </p></Popup
+      >.
+    </Paragraph>
+
+    <Paragraph>
+      You can continue experimenting with the English toolkit or your own
+      conlang as you wish. Once you feel like your conlang has reached a state
+      where you are ready to share it with the world, press the
+      <b>&lt;TBD&gt;</b> button near the top corner to generate a shareable poster
+      that helps anyone learn your conlang in 10 minutes! (Uses AI)
+    </Paragraph>
+
+    <Heading>Further reading</Heading>
+
+    <Paragraph>
+      If you wish to keep learning about different morphology concepts, here are
+      some good resources:
+    </Paragraph>
+
+    <Paragraph>
+      Lieber, R. (2016). <i>Introducing morphology</i> (Second edition.). Cambridge
+      University Press.
+    </Paragraph>
+
+    <Paragraph>
+      A concise and comprehensive introduction to morphology for students of
+      linguistics. Covers a wide range of topics and serves as the primary
+      source of information for this website.
+    </Paragraph>
+
+    <Paragraph>
+      Quinion, M. (2026). <i>Affixes: The building blocks of English</i>.
+      <a href="https://www.affixes.org/index.php">Affixes.Org</a>.
+    </Paragraph>
+
+    <Paragraph>
+      A collection of affixes in the English language with their definitions and
+      example usages. Useful if you would like to further explore the different
+      affixes available in English.
+    </Paragraph>
+
+    <Paragraph>
+      Ramoo, D. (2021). 3.3 Morphology of different languages.
+      <i>Psychologyoflanguage.Pressbooks.Tru.Ca</i>.
+      <a
+        href="https://psychologyoflanguage.pressbooks.tru.ca/chapter/morphology-of-different-languages/"
+        >https://psychologyoflanguage.pressbooks.tru.ca/chapter/morphology-of-different-languages/</a
+      >
+    </Paragraph>
+
+    <Paragraph>
+      This chapter from the online textbook “Psychology of Language” details the
+      different ways in which languages can be classified based on their
+      approach to word formation, and draws on examples from Turkish, Mandarin
+      Chinese, Inuktitut, Arabic, and others. Check it out if you would like a
+      quick intro to the morphologies of different languages of the world!
+    </Paragraph>
+  </Article>
+</SectionLayout>

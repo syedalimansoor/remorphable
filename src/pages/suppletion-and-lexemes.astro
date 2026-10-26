@@ -1,0 +1,97 @@
+---
+import Article from "../components/article.astro";
+import { Definition } from "../components/definition";
+import Heading from "../components/heading.astro";
+import Paragraph from "../components/paragraph.astro";
+import SectionLayout from "../layouts/section.astro";
+---
+
+<SectionLayout
+  title="Suppletion and lexemes"
+  position="5"
+  previousPath="/allomorphy"
+  nextPath="/conclusion"
+>
+  <Article>
+    <Heading>What’s up with “go” and “went”?</Heading>
+
+    <Paragraph>
+      With allomorphy, we saw how an affix can take on different forms when it
+      finds itself in different linguistic contexts. However, sometimes the
+      addition of an affix completely changes the <b>base</b> of the word:
+    </Paragraph>
+
+    <!-- TODO: Add the interactive past-tense form demo. -->
+
+    <Paragraph>
+      “Walked” makes perfect sense; it follows the standard rules of inflection.
+      “Taught” is a bit quirky, but we can still sort of see the historical
+      connection to “teach”.
+    </Paragraph>
+
+    <Paragraph>
+      But there’s not a single shared letter or sound between “go” and “went”!
+    </Paragraph>
+
+    <Definition
+      term="suppletion"
+      category="noun"
+      ipa="səˈpliːʃ(ə)n"
+      definition="when an inflected form of a word is completely phonologically unrelated to its base form"
+    />
+
+    <Paragraph>
+      This morphological phenomenon is known as <b>suppletion</b>. It happens
+      when a grammatical change (like changing the tense or making an adjective
+      comparative) forces a word into a completely different form.
+    </Paragraph>
+
+    <Paragraph>
+      We also see this happen with the adjective “good”. Turning it into its
+      comparative counterpart changes the form to “better”, which does <i>not</i
+      >
+      share the same base as “good”.
+    </Paragraph>
+
+    <Heading>Lexemes</Heading>
+
+    <Paragraph>
+      So if “go” and “went” are completely different morphemes, how do we know
+      that they’re the “same” word? Or rather <i>different grammatical forms</i>
+      of the same word?
+    </Paragraph>
+
+    <Paragraph>
+      To solve this puzzle, linguists rely on the concept of a
+      <b>lexeme</b>, which is an abstract unit of meaning that represents a
+      complete set of <i>inflected</i> word forms.
+    </Paragraph>
+
+    <Paragraph>
+      The lexeme <i>go</i> represents the core, abstract concept of moving from one
+      place to another. “Go”, “goes”, “going”, “gone”, and “went” are not separate
+      words but rather different word <i>forms</i> belonging to the same underlying
+      lexeme <i>go</i>.
+    </Paragraph>
+
+    <Paragraph>
+      We’re able to link completely different phonetic sounds to the same core
+      meaning because we store the abstract <b>lexeme</b> in our heads.
+      <b>Suppletion</b>, is therefore simply a scenario where a single lexeme is
+      realized by word forms that sound nothing alike.
+    </Paragraph>
+
+    <!-- TODO: Add the interactive lexeme-sorting demo. -->
+
+    <Paragraph>
+      Exactly! Even though “am” and “was” look like total strangers, they are
+      all simply different word forms of the same lexeme.
+    </Paragraph>
+
+    <Paragraph>
+      You will now see the underlying lexemes for bases in the English toolkit,
+      and you’ll also be able to create lexemes to group different related
+      morphemes in your conlang!
+    </Paragraph>
+  </Article>
+</SectionLayout>

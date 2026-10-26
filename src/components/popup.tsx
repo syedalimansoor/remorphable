@@ -1,4 +1,5 @@
 import {
+  autoUpdate,
   offset,
   safePolygon,
   useFloating,
@@ -22,6 +23,7 @@ export function Popup({
     onOpenChange: setIsOpen,
     placement: "top",
     middleware: [offset(8)],
+    whileElementsMounted: autoUpdate,
   });
 
   const hover = useHover(context, {
