@@ -19,15 +19,15 @@ import SectionLayout from "../layouts/section.astro";
       Through this interactive web experience, you will get an introduction to
       <b>morphology</b>, one of the many fascinating branches of
       <Popup client:load triggerText="linguistics">
-        <span>
+        <p>
           Linguistics is the scientific study of language, including learning
           how it is structured, developed, and used.
-        </span>
-        <span>
+        </p>
+        <p>
           It does <b>not</b> mean learning a specific language or languages (a common
           misconception), although linguists <i>may</i> end up learning languages
           that they are analyzing.
-        </span>
+        </p>
       </Popup>. You will learn about some of the basic concepts in morphology,
       including morphemes, lexemes, allomorphy, inflection, derivation, and
       more. These words may sound intimidating at the moment, but fret not! Very
@@ -37,8 +37,31 @@ import SectionLayout from "../layouts/section.astro";
 
     <Paragraph>
       The fun part? <b>You’ll get to build your own language!</b> Incorporating what
-      you learn at each stage, you’ll gradually give shape to a conlang that gets
-      more morphologically rich as you progress through the website.
+      you learn at each stage, you’ll gradually give shape to a
+      <Popup client:idle triggerText="conlang">
+        <p>
+          A conlang (short for constructed language) is an artificial language
+          that is specifically created by a person or group, rather than
+          naturally emerging from human interaction.
+        </p>
+        <p>Some famous examples of conlangs include:</p>
+        <ul>
+          <li>
+            <a href="https://www.babbel.com/en/magazine/klingon-language"
+              >Klingon</a
+            >, from Star Trek, developed by a linguist to be intentionally
+            distinct from human languages through the use of rare linguistic
+            features.
+          </li>
+          <li>
+            <a href="https://en.wikipedia.org/wiki/Newspeak">Newspeak</a>, from
+            the novel 1984. Although this conlang is similar to English, it
+            features a much more simplified vocabulary and restricted grammar,
+            made to limit free thought and personal expression.
+          </li>
+        </ul>
+      </Popup>
+      that gets more morphologically rich as you progress through the website.
     </Paragraph>
 
     <SetConlangName client:idle />
@@ -48,9 +71,37 @@ import SectionLayout from "../layouts/section.astro";
 
       <Heading>What exactly is morphology?</Heading>
 
-      <Paragraph
-        >Let’s say we have the following (imaginary) English word:</Paragraph
-      >
+      <Paragraph>
+        Let’s say we have the following (imaginary) English word:
+      </Paragraph>
+
+      <!-- Splinch definition -->
+
+      <Paragraph>Try to use this word in the following sentence:</Paragraph>
+
+      <!-- Sentence demo -->
+
+      <Paragraph>
+        If you entered <b>“splinched”</b>, then this demonstrates that you have
+        an intuitive knowledge of how to form new words in English, even if you
+        have never used or heard of them before. We never defined the past tense
+        of “splinch” as “splinched,” and yet you inferred that adding the suffix
+        “-ed” to the word would change its form and make it appropriate to use
+        in this sentence.
+      </Paragraph>
+
+      <Paragraph>
+        How did you know that adding “-ed” has this effect? In fact, what other
+        rules and techniques exist that help you modify words to convey
+        different meanings? <i>How exactly are words formed?</i>
+      </Paragraph>
+
+      <Paragraph>
+        Morphology is the branch of linguistics that deals with this sort of
+        thing. It is <b>the study of word formation</b>.
+      </Paragraph>
+
+      <!-- Morphology definition -->
     </WaitUntil>
   </Article>
 </SectionLayout>
