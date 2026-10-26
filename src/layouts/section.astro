@@ -5,7 +5,7 @@ import { Button } from "../components/button";
 import { ResetProgressButton } from "../components/reset-progress-button";
 import BaseLayout from "../layouts/base.astro";
 
-const { title, previousPath, nextPath } = Astro.props;
+const { title, previousPath, nextPath, position } = Astro.props;
 ---
 
 <BaseLayout title={`${title} | Remorphable`}>
@@ -20,8 +20,8 @@ const { title, previousPath, nextPath } = Astro.props;
       <div
         class="grow self-stretch grid grid-cols-[repeat(3,auto)] items-center justify-between px-3 bg-background-200 rounded-lg"
       >
-        <span class="text-xs">1 of 7</span>
-        <h1 class="font-display text-blue-500">{title}</h1>
+        <span class="text-xs">{position} of 7</span>
+        <h1 class="font-display text-blue-500 text-sm">{title}</h1>
         <div><ResetProgressButton client:idle /></div>
       </div>
 
