@@ -19,10 +19,10 @@ export function Button({
     <button
       {...props}
       className={cn(
-        "inline-flex gap-2 items-center justify-center not-disabled:cursor-pointer disabled:opacity-50",
+        "inline-flex gap-2 items-center justify-center not-disabled:cursor-pointer disabled:opacity-50 outline-none ring-0 focus-visible:ring-3 transition-shadow",
         {
           "bg-blue-500 text-white": variant === "blue",
-          "bg-teal-100 text-teal-500": variant === "teal",
+          "bg-teal-100 text-teal-500 ring-teal-500": variant === "teal",
         },
         {
           "py-1 px-2 text-sm rounded-sm": size === "sm",

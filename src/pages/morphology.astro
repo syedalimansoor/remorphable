@@ -1,6 +1,8 @@
 ---
 import Article from "../components/article.astro";
+import { Definition } from "../components/definition";
 import Heading from "../components/heading.astro";
+import { CompleteSentence } from "../components/morphology/complete-sentence";
 import { SetConlangName } from "../components/morphology/set-conlang-name";
 import Paragraph from "../components/paragraph.astro";
 import { Popup } from "../components/popup";
@@ -64,7 +66,7 @@ import SectionLayout from "../layouts/section.astro";
       that gets more morphologically rich as you progress through the website.
     </Paragraph>
 
-    <SetConlangName client:idle />
+    <SetConlangName client:load />
 
     <WaitUntil progress={1} page={PAGES.morphology} client:idle>
       <Paragraph>Now, then...</Paragraph>
@@ -75,12 +77,19 @@ import SectionLayout from "../layouts/section.astro";
         Let’s say we have the following (imaginary) English word:
       </Paragraph>
 
-      <!-- Splinch definition -->
+      <Definition
+        term="splinch"
+        category="verb"
+        ipa="splɪntʃ"
+        definition="to step on broken glass"
+      />
 
       <Paragraph>Try to use this word in the following sentence:</Paragraph>
 
-      <!-- Sentence demo -->
+      <CompleteSentence client:idle />
+    </WaitUntil>
 
+    <WaitUntil progress={2} page={PAGES.morphology} client:idle>
       <Paragraph>
         If you entered <b>“splinched”</b>, then this demonstrates that you have
         an intuitive knowledge of how to form new words in English, even if you
@@ -101,7 +110,12 @@ import SectionLayout from "../layouts/section.astro";
         thing. It is <b>the study of word formation</b>.
       </Paragraph>
 
-      <!-- Morphology definition -->
+      <Definition
+        term="morphology"
+        category="noun"
+        ipa="mɔɹˈfɑ.lə.dʒi"
+        definition="a study of structure and form; in linguistics, it is the study and description of word formation in language"
+      />
     </WaitUntil>
   </Article>
 </SectionLayout>
