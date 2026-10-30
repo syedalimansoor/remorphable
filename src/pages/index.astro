@@ -1,6 +1,6 @@
 ---
 import LogoWithWordmarkWhite from "../assets/logo-with-wordmark-white.svg";
-import { Button } from "../components/button";
+import { StartButton } from "../components/start-button";
 import BaseLayout from "../layouts/base.astro";
 ---
 
@@ -14,9 +14,7 @@ import BaseLayout from "../layouts/base.astro";
       <p class="text-xl max-w-84 mb-8">
         Learn about morphology by creating your own language!
       </p>
-      <a href="/morphology">
-        <Button variant="teal" size="lg" className="font-bold">START</Button></a
-      >
+      <StartButton client:load />
     </div>
     <span></span>
   </main>

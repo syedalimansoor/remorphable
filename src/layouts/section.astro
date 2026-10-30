@@ -1,21 +1,20 @@
 ---
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
-import LogoWhite from "../assets/logo-white.svg";
+
 import { Button } from "../components/button";
+import { HeaderLogoLink } from "../components/header-logo-link";
 import { ResetProgressButton } from "../components/reset-progress-button";
+import type { Page } from "../constants";
 import BaseLayout from "../layouts/base.astro";
 
 const { title, previousPath, nextPath, position } = Astro.props;
+const pathname = Astro.url.pathname;
 ---
 
 <BaseLayout title={`${title} | Remorphable`}>
   <main class="flex h-full min-h-0 flex-col gap-2">
     <header class="flex gap-2">
-      <a href="/">
-        <Button size="icon">
-          <LogoWhite />
-        </Button>
-      </a>
+      <HeaderLogoLink client:idle pathname={pathname as Page} />
 
       <div
         class="grow self-stretch grid grid-cols-[repeat(3,auto)] items-center justify-between px-3 bg-background-200 rounded-lg"

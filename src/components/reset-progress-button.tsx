@@ -1,14 +1,15 @@
 import { ArrowCounterClockwiseIcon } from "@phosphor-icons/react";
-import { resetSuffixConnections } from "./inflection-and-derivation/match-suffixes";
+import { navigate } from "astro:transitions/client";
+import { $progress, initialProgress } from "../stores/progress";
 import { resetNegativePrefixes } from "./allomorphy/negative-prefix";
 import { resetPluralSounds } from "./allomorphy/plural-sounds";
+import { resetSuffixConnections } from "./inflection-and-derivation/match-suffixes";
 import { resetFreeAndBoundMorphemes } from "./morphemes/classify-free-and-bound-morphemes";
 import { resetUnbreakable } from "./morphemes/separate-unbreakable";
 import { resetSentenceAnswer } from "./morphology/complete-sentence";
 import { resetConlangName } from "./morphology/set-conlang-name";
 import { resetLexemeSort } from "./suppletion/lexeme-sort";
 import { resetPastTense } from "./suppletion/past-tense";
-import { $progress, initialProgress } from "../stores/progress";
 
 export function ResetProgressButton() {
   return (
@@ -25,6 +26,7 @@ export function ResetProgressButton() {
         resetPluralSounds();
         resetPastTense();
         resetLexemeSort();
+        navigate("/morphology");
       }}
     >
       <ArrowCounterClockwiseIcon />
