@@ -23,6 +23,19 @@
   --color-foreground-500: #4b4b4b;
 
   --color-border-500: #d4d4d4;
+
+  --animate-slide-in: slide-in 0.3s ease-out both;
+
+  @keyframes slide-in {
+    0% {
+      transform: translateY(15px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 }
 
 @layer base {
