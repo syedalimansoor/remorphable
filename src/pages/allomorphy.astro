@@ -2,6 +2,7 @@
 import { NegativePrefix } from "../components/allomorphy/negative-prefix";
 import { PluralSounds } from "../components/allomorphy/plural-sounds";
 import Article from "../components/article.astro";
+import Banner from "../components/banner.astro";
 import { Definition } from "../components/definition";
 import Heading from "../components/heading.astro";
 import Paragraph from "../components/paragraph.astro";
@@ -64,11 +65,13 @@ import SectionLayout from "../layouts/section.astro";
         different pronunciations.
       </Paragraph>
 
-      <Paragraph>
-        Awesome stuff. You’ll now see the different allomorphs of any morpheme
-        that you locate in the English toolkit, and you’ll also be able to
-        create allomorphs in your conlang through the conlang panel!
-      </Paragraph>
+      <Banner>
+        <p>
+          Awesome stuff. You’ll now see the different allomorphs of any morpheme
+          that you locate in the English toolkit, and you’ll also be able to
+          create allomorphs in your conlang through the conlang panel!
+        </p>
+      </Banner>
     </WaitUntil>
   </Article>
 </SectionLayout>

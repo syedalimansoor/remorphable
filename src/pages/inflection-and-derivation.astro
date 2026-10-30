@@ -1,5 +1,6 @@
 ---
 import Article from "../components/article.astro";
+import Banner from "../components/banner.astro";
 import Heading from "../components/heading.astro";
 import { MatchSuffixes } from "../components/inflection-and-derivation/match-suffixes";
 import Paragraph from "../components/paragraph.astro";
@@ -47,17 +48,20 @@ import SectionLayout from "../layouts/section.astro";
         gives us the third-person singular present tense of the exact same verb.
       </Paragraph>
 
-      <Paragraph>
-        Now that you have learnt about the two different categories of
-        affixation, it is time to start building your conlang! <b>Click here</b> to
-        open the conlang panel, where you can experiment with creating morphemes and
-        fusing them to define words in your language.
-      </Paragraph>
+      <Banner>
+        <p>
+          Now that you have learnt about the two different categories of
+          affixation, it is time to start building your conlang! <b
+            >Click here</b
+          > to open the conlang panel, where you can experiment with creating morphemes
+          and fusing them to define words in your language.
+        </p>
 
-      <Paragraph>
-        The English toolkit now also tells you whether the morphemes of a word
-        are serving an inflectional or derivational purpose.
-      </Paragraph>
+        <p>
+          The English toolkit now also tells you whether the morphemes of a word
+          are serving an inflectional or derivational purpose.
+        </p>
+      </Banner>
     </WaitUntil>
   </Article>
 </SectionLayout>

@@ -1,5 +1,6 @@
 ---
 import Article from "../components/article.astro";
+import Banner from "../components/banner.astro";
 import { Definition } from "../components/definition";
 import Heading from "../components/heading.astro";
 import { ClassifyFreeAndBoundMorphemes } from "../components/morphemes/classify-free-and-bound-morphemes";
@@ -96,19 +97,21 @@ import SectionLayout from "../layouts/section.astro";
         prefix, and “-able” is an affix.
       </Paragraph>
 
-      <Paragraph>
-        Awesome! You now have a basic understanding of the very core concepts of
-        morphology.
-      </Paragraph>
+      <Banner>
+        <p>
+          Awesome! You now have a basic understanding of the very core concepts
+          of morphology.
+        </p>
 
-      <Paragraph>
-        By getting this far, you have unlocked the
-        <b>English morphology toolkit</b>, which will allow you to explore the
-        morphological breakdown of different English words. <b>Click here</b> to open
-        the toolkit.
-      </Paragraph>
+        <p>
+          By getting this far, you have unlocked the <b
+            >English morphology toolkit</b
+          >, which will allow you to explore the morphological breakdown of
+          different English words. <b>Click here</b> to open the toolkit.
+        </p>
+      </Banner>
 
-      <Paragraph>
+      <!-- <Paragraph>
         Clicking on the “Click here” link/button will turn the website into a
         two-column layout, with this lesson content on the left and the English
         toolkit on the right.
@@ -118,7 +121,7 @@ import SectionLayout from "../layouts/section.astro";
         The user can now experiment with English morphology, or proceed to the
         next section. The toolkit stays visible throughout the rest of the
         experience, unless the user hides it.
-      </Paragraph>
+      </Paragraph> -->
     </WaitUntil>
   </Article>
 </SectionLayout>

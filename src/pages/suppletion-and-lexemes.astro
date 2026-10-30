@@ -1,5 +1,6 @@
 ---
 import Article from "../components/article.astro";
+import Banner from "../components/banner.astro";
 import { Definition } from "../components/definition";
 import Heading from "../components/heading.astro";
 import Paragraph from "../components/paragraph.astro";
@@ -97,11 +98,13 @@ import SectionLayout from "../layouts/section.astro";
         all simply different word forms of the same lexeme.
       </Paragraph>
 
-      <Paragraph>
-        You will now see the underlying lexemes for bases in the English
-        toolkit, and you’ll also be able to create lexemes to group different
-        related morphemes in your conlang!
-      </Paragraph>
+      <Banner>
+        <p>
+          You will now see the underlying lexemes for bases in the English
+          toolkit, and you’ll also be able to create lexemes to group different
+          related morphemes in your conlang!
+        </p>
+      </Banner>
     </WaitUntil>
   </Article>
 </SectionLayout>
