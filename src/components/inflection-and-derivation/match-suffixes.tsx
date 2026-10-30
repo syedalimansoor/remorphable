@@ -1,3 +1,5 @@
+import { persistentMap } from "@nanostores/persistent";
+import { useStore } from "@nanostores/react";
 import {
   useEffect,
   useLayoutEffect,
@@ -5,8 +7,6 @@ import {
   useState,
   type PointerEvent,
 } from "react";
-import { persistentMap } from "@nanostores/persistent";
-import { useStore } from "@nanostores/react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
 import { InteractiveBlock } from "../interactive-block";
@@ -195,11 +195,11 @@ export function MatchSuffixes() {
         </svg>
 
         <button
-          className="absolute left-0 top-3 rounded-md bg-teal-100 px-3 py-2 text-base text-teal-500"
+          className="absolute left-0 top-3 rounded-md bg-teal-100 px-3 py-2 text-base text-teal-500/50"
           onPointerDown={(event) => startDragging("es", event)}
           aria-label="Connect teaches"
         >
-          teach<span className="font-bold">es</span>
+          teach<span className="font-bold text-teal-500">es</span>
           <ConnectionPoint
             filled={Boolean(connections.es)}
             side="right"
@@ -209,11 +209,11 @@ export function MatchSuffixes() {
           />
         </button>
         <button
-          className="absolute left-0 top-21 rounded-md bg-teal-100 px-3 py-2 text-base text-teal-500"
+          className="absolute left-0 top-21 rounded-md bg-teal-100 px-3 py-2 text-base text-teal-500/50"
           onPointerDown={(event) => startDragging("er", event)}
           aria-label="Connect teacher"
         >
-          teach<span className="font-bold">er</span>
+          teach<span className="font-bold text-teal-500">er</span>
           <ConnectionPoint
             filled={Boolean(connections.er)}
             side="right"
