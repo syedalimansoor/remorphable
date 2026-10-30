@@ -4,7 +4,8 @@ import {
   useDraggable,
   useDroppable,
 } from "@dnd-kit/core";
-import { useState } from "react";
+import { persistentMap } from "@nanostores/persistent";
+import { useStore } from "@nanostores/react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
 import { shuffle } from "../../utils/shuffle-array";
@@ -16,6 +17,12 @@ const groups = {
   mouse: ["mouse", "mice"],
 };
 const words = shuffle(Object.values(groups).flat());
+const $placedLexemes = persistentMap<Record<string, string>>(
+  "interactive-lexeme-sort",
+  {},
+  { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
+);
+export const resetLexemeSort = () => $placedLexemes.set({});
 function Word({ value }: { value: string }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: value,
@@ -53,13 +60,13 @@ function LexemeBox({ id, values }: { id: string; values: string[] }) {
   );
 }
 export function LexemeSort() {
-  const [placed, setPlaced] = useState<Record<string, string>>({});
+  const placed = useStore($placedLexemes);
   const onDragEnd = ({ active, over }: DragEndEvent) => {
     if (!over || !(over.id in groups)) return;
     const value = String(active.id);
     const category = String(over.id);
-    setPlaced((current) => {
-      const next = { ...current, [value]: category };
+    $placedLexemes.setKey(value, category);
+    const next = { ...placed, [value]: category };
       if (
         words.every(
           (word) =>
@@ -70,8 +77,7 @@ export function LexemeSort() {
         )
       )
         $progress.setKey(PAGES.suppletionAndLexemes, 2);
-      return next;
-    });
+    
   };
   return (
     <InteractiveBlock>

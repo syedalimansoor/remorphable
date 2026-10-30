@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { persistentMap } from "@nanostores/persistent";
+import { useStore } from "@nanostores/react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
 import { InteractiveBlock } from "../interactive-block";
@@ -8,8 +10,14 @@ const answers: Record<string, string> = {
   teach: "taught",
   go: "went",
 };
+const $pastTenseAnswers = persistentMap<Record<string, string>>(
+  "interactive-past-tense",
+  {},
+  { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
+);
+export const resetPastTense = () => $pastTenseAnswers.set({});
 export function PastTense() {
-  const [values, setValues] = useState<Record<string, string>>({});
+  const values = useStore($pastTenseAnswers);
   const complete = Object.entries(answers).every(
     ([word, answer]) => values[word]?.trim().toLowerCase() === answer,
   );
@@ -45,10 +53,7 @@ export function PastTense() {
                   className="w-36 rounded-md bg-background-100 px-2 py-1 outline-none transition-shadow ring-teal-100 focus:ring-3"
                   value={value}
                   onChange={(event) =>
-                    setValues((current) => ({
-                      ...current,
-                      [word]: event.target.value,
-                    }))
+                    $pastTenseAnswers.setKey(word, event.target.value)
                   }
                 />
               )}

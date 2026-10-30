@@ -1,13 +1,20 @@
 import { cn } from "cn";
-import { useState } from "react";
+import { persistentAtom } from "@nanostores/persistent";
+import { useStore } from "@nanostores/react";
 import { $progress } from "../../stores/progress";
 import { InteractiveBlock } from "../interactive-block";
 
+const $isSeparated = persistentAtom("interactive-unbreakable-separated", false, {
+  encode: JSON.stringify,
+  decode: (value) => value === "true",
+});
+export const resetUnbreakable = () => $isSeparated.set(false);
+
 export function SeparateUnbreakable() {
-  const [isSeparated, setIsSeparated] = useState(false);
+  const isSeparated = useStore($isSeparated);
 
   const handleClick = () => {
-    setIsSeparated((prev) => !prev);
+    $isSeparated.set(!isSeparated);
     $progress.setKey("morphemes", 1);
   };
 

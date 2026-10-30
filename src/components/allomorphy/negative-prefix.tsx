@@ -1,5 +1,7 @@
 import { cn } from "cn";
-import { useEffect, useState } from "react";
+import { persistentMap } from "@nanostores/persistent";
+import { useStore } from "@nanostores/react";
+import { useEffect } from "react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
 import { InteractiveBlock } from "../interactive-block";
@@ -9,9 +11,15 @@ const answers: Record<string, string> = {
   possible: "im",
   legal: "il",
 };
+const $prefixAnswers = persistentMap<Record<string, string>>(
+  "interactive-negative-prefixes",
+  {},
+  { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
+);
+export const resetNegativePrefixes = () => $prefixAnswers.set({});
 
 export function NegativePrefix() {
-  const [values, setValues] = useState<Record<string, string>>({});
+  const values = useStore($prefixAnswers);
   const complete = Object.entries(answers).every(
     ([word, answer]) => values[word] === answer,
   );
@@ -40,10 +48,7 @@ export function NegativePrefix() {
                 disabled={isCorrect}
                 value={value}
                 onChange={(event) =>
-                  setValues((current) => ({
-                    ...current,
-                    [word]: event.target.value,
-                  }))
+                  $prefixAnswers.setKey(word, event.target.value)
                 }
               />
               <span>+</span>

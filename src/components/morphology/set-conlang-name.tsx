@@ -1,11 +1,14 @@
 import { useStore } from "@nanostores/react";
+import { persistentAtom } from "@nanostores/persistent";
 import { KeyReturnIcon } from "@phosphor-icons/react";
 import type { SubmitEvent } from "react";
 import { PAGES } from "../../constants";
-import { $conlangName } from "../../stores/conlang-name";
 import { $progress } from "../../stores/progress";
 import { Button } from "../button";
 import { InteractiveBlock } from "../interactive-block";
+
+const $conlangName = persistentAtom("interactive-conlang-name", "");
+export const resetConlangName = () => $conlangName.set("");
 
 export function SetConlangName() {
   const conlangName = useStore($conlangName);

@@ -1,3 +1,6 @@
+import { persistentMap } from "@nanostores/persistent";
+import { useStore } from "@nanostores/react";
+import { cn } from "cn";
 import { useEffect, useState } from "react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
@@ -9,15 +12,29 @@ const descriptions = {
   "/z/": "as in “zoo”",
   "/ɪz/": "as in “is”",
 };
+const $pluralAnswers = persistentMap<Record<string, string>>(
+  "interactive-plural-sounds",
+  {
+    cats: "",
+    dogs: "",
+    buses: "",
+  },
+  { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
+);
+export const resetPluralSounds = () => $pluralAnswers.set({});
 
 export function PluralSounds() {
-  const [values, setValues] = useState<Record<string, string>>({});
+  const values = useStore($pluralAnswers);
+  const [isHydrated, setIsHydrated] = useState(false);
   const complete = Object.entries(answers).every(
     ([word, answer]) => values[word] === answer,
   );
   useEffect(() => {
-    if (complete) $progress.setKey(PAGES.allomorphy, 2);
-  }, [complete]);
+    setIsHydrated(true);
+  }, []);
+  useEffect(() => {
+    if (isHydrated && complete) $progress.setKey(PAGES.allomorphy, 2);
+  }, [complete, isHydrated]);
   return (
     <InteractiveBlock>
       <p className="mb-4 max-w-xl font-medium leading-snug text-blue-500">
@@ -30,7 +47,7 @@ export function PluralSounds() {
             <legend className="mb-2 font-bold text-teal-500">{word}</legend>
             <div className="space-y-2">
               {Object.entries(descriptions).map(([sound, description]) => {
-                const isSelected = values[word] === sound;
+                const isSelected = isHydrated && values[word] === sound;
 
                 return (
                   <label
@@ -38,11 +55,12 @@ export function PluralSounds() {
                     className="flex items-center gap-2 text-sm"
                   >
                     <span
-                      className={`rounded-md px-2 py-1 select-none cursor-pointer ${
+                      className={cn(
+                        "rounded-md px-2 py-1 select-none cursor-pointer",
                         isSelected
                           ? "bg-teal-100 font-bold text-teal-500"
-                          : "bg-background-100"
-                      }`}
+                          : "bg-background-100",
+                      )}
                     >
                       <input
                         className="sr-only"
@@ -50,10 +68,7 @@ export function PluralSounds() {
                         name={word}
                         checked={isSelected}
                         onChange={() =>
-                          setValues((current) => ({
-                            ...current,
-                            [word]: sound,
-                          }))
+                          $pluralAnswers.setKey(word, sound)
                         }
                       />
                       {sound}

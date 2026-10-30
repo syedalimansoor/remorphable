@@ -4,7 +4,8 @@ import {
   useDraggable,
   useDroppable,
 } from "@dnd-kit/core";
-import { useState } from "react";
+import { persistentMap } from "@nanostores/persistent";
+import { useStore } from "@nanostores/react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
 import { InteractiveBlock } from "../interactive-block";
@@ -21,6 +22,12 @@ const MORPHEMES = [
   "-ing",
 ];
 const FREE = new Set(["break", "cat", "the", "quick"]);
+const $placedMorphemes = persistentMap<Record<string, string>>(
+  "interactive-free-bound-morphemes",
+  {},
+  { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
+);
+export const resetFreeAndBoundMorphemes = () => $placedMorphemes.set({});
 
 function Morpheme({ value }: { value: string }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -71,7 +78,7 @@ function Category({
 }
 
 export function ClassifyFreeAndBoundMorphemes() {
-  const [placed, setPlaced] = useState<Record<string, string>>({});
+  const placed = useStore($placedMorphemes);
 
   const handleDragEnd = ({ active, over }: DragEndEvent) => {
     if (!over || !["free", "bound"].includes(String(over.id))) return;
@@ -79,7 +86,7 @@ export function ClassifyFreeAndBoundMorphemes() {
     const value = String(active.id);
     const category = String(over.id);
 
-    setPlaced((current) => ({ ...current, [value]: category }));
+    $placedMorphemes.setKey(value, category);
 
     if (
       MORPHEMES.every((item) =>
@@ -97,7 +104,7 @@ export function ClassifyFreeAndBoundMorphemes() {
         Classify the following English morphemes into free and bound status.
       </p>
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="mb-4 flex flex-wrap gap-2">
+        <div className="not-empty:mb-4 flex flex-wrap gap-2">
           {MORPHEMES.filter((value) => !placed[value]).map((value) => (
             <Morpheme key={value} value={value} />
           ))}

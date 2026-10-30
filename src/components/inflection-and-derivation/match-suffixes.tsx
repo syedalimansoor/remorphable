@@ -5,6 +5,8 @@ import {
   useState,
   type PointerEvent,
 } from "react";
+import { persistentMap } from "@nanostores/persistent";
+import { useStore } from "@nanostores/react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
 import { InteractiveBlock } from "../interactive-block";
@@ -27,6 +29,13 @@ const correctConnections: Record<Source, Target> = {
   es: "inflection",
   er: "derivation",
 };
+const $suffixConnections = persistentMap<Record<Source, Target | null>>(
+  "interactive-suffix-connections",
+  { es: null, er: null },
+  { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
+);
+export const resetSuffixConnections = () =>
+  $suffixConnections.set({ es: null, er: null });
 
 function ConnectionPath({ from, to }: { from: Point; to: Point }) {
   const controlOffset = (to.x - from.x) * 0.45;
@@ -62,9 +71,7 @@ function ConnectionPoint({
 export function MatchSuffixes() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pointRefs = useRef<Record<string, HTMLSpanElement | null>>({});
-  const [connections, setConnections] = useState<
-    Partial<Record<Source, Target>>
-  >({});
+  const connections = useStore($suffixConnections);
   const [points, setPoints] = useState({
     es: sourcePoints.es,
     er: sourcePoints.er,
@@ -131,12 +138,7 @@ export function MatchSuffixes() {
     event: PointerEvent<HTMLButtonElement>,
   ) => {
     event.currentTarget.setPointerCapture(event.pointerId);
-    setConnections((current) => {
-      if (!current[source]) return current;
-      const next = { ...current };
-      delete next[source];
-      return next;
-    });
+    $suffixConnections.setKey(source, null);
     setDragging(source);
     setPointer(getPoint(event));
   };
@@ -152,7 +154,7 @@ export function MatchSuffixes() {
     )?.[0];
 
     if (target) {
-      setConnections((current) => ({ ...current, [dragging]: target }));
+      $suffixConnections.setKey(dragging, target);
     }
     setDragging(null);
     setPointer(null);
@@ -178,15 +180,15 @@ export function MatchSuffixes() {
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          {(Object.entries(connections) as [Source, Target][]).map(
-            ([source, target]) => (
+          {(Object.entries(connections) as [Source, Target | null][])
+            .filter(([, target]) => target !== null)
+            .map(([source, target]) => (
               <ConnectionPath
                 key={source}
                 from={points[source]}
-                to={points[target]}
+                to={points[target as Target]}
               />
-            ),
-          )}
+            ))}
           {dragging && pointer && (
             <ConnectionPath from={points[dragging]} to={pointer} />
           )}
