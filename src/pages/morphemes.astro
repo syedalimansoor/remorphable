@@ -2,8 +2,11 @@
 import Article from "../components/article.astro";
 import { Definition } from "../components/definition";
 import Heading from "../components/heading.astro";
+import { ClassifyFreeAndBoundMorphemes } from "../components/morphemes/classify-free-and-bound-morphemes";
+import { SeparateUnbreakable } from "../components/morphemes/separate-unbreakable";
 import Paragraph from "../components/paragraph.astro";
 import { Popup } from "../components/popup";
+import { WaitUntil } from "../components/wait-until";
 import SectionLayout from "../layouts/section.astro";
 ---
 
@@ -35,83 +38,87 @@ import SectionLayout from "../layouts/section.astro";
       the past tense of “splinch.”
     </Paragraph>
 
-    <!-- TODO: Add the interactive morpheme-separation demo for “unbreakable”. -->
+    <SeparateUnbreakable client:idle />
 
-    <Paragraph> Looks like that wasn’t too impossible… </Paragraph>
+    <WaitUntil client:idle page="morphemes" progress={1}>
+      <Paragraph> Looks like that wasn’t too impossible… </Paragraph>
 
-    <Paragraph>
-      Morphemes can also be independent words themselves. Take the morpheme
-      “break” for example—it can stand on its own, as well as join other
-      morphemes to form a larger word. Such morphemes are called
-      <b>free morphemes</b>.
-    </Paragraph>
+      <Paragraph>
+        Morphemes can also be independent words themselves. Take the morpheme
+        “break” for example—it can stand on its own, as well as join other
+        morphemes to form a larger word. Such morphemes are called
+        <b>free morphemes</b>.
+      </Paragraph>
 
-    <Paragraph>
-      The opposite of a free morpheme is a <b>bound morpheme</b>, which can only
-      be part of a larger word and cannot stand on its own. In the example
-      above, the prefix “un-” is a bound morpheme because it needs to attach to
-      a base to modify its meaning, and it is not a valid word on its own.
-    </Paragraph>
+      <Paragraph>
+        The opposite of a free morpheme is a <b>bound morpheme</b>, which can
+        only be part of a larger word and cannot stand on its own. In the
+        example above, the prefix “un-” is a bound morpheme because it needs to
+        attach to a base to modify its meaning, and it is not a valid word on
+        its own.
+      </Paragraph>
 
-    <!-- TODO: Add the interactive free-and-bound morpheme classification demo. -->
+      <ClassifyFreeAndBoundMorphemes client:idle />
+    </WaitUntil>
 
-    <Paragraph>Great work!</Paragraph>
+    <WaitUntil client:idle page="morphemes" progress={2}>
+      <Paragraph>Great work!</Paragraph>
 
-    <Paragraph>
-      Another way to classify morphemes is by their semantic attributes. In
-      English words with
+      <Paragraph>
+        Another way to classify morphemes is by their semantic attributes. In
+        English words with
 
-      <Popup client:idle triggerText="multiple morphemes">
-        <p>
-          Such words are known as <b>polymorphemic words</b> (like <i
-            >unbreakable</i
-          >), which have two or more morphemes that fuse together to form the
-          word.
-        </p>
-        <p>
-          This is in contrast to <b>monomorphemic words</b>, which are made up
-          of only one morpheme (like <i>break</i>).
-        </p>
-      </Popup>
-      , we usually observe a
-      <b>base</b> that contains the core meaning of the word, and
-      <b>affixes</b> that attach to the base to modify its meaning.
-    </Paragraph>
+        <Popup client:idle triggerText="multiple morphemes">
+          <p>
+            Such words are known as <b>polymorphemic words</b> (like <i
+              >unbreakable</i
+            >), which have two or more morphemes that fuse together to form the
+            word.
+          </p>
+          <p>
+            This is in contrast to <b>monomorphemic words</b>, which are made up
+            of only one morpheme (like <i>break</i>).
+          </p>
+        </Popup>, we usually observe a
+        <b>base</b> that contains the core meaning of the word, and
+        <b>affixes</b> that attach to the base to modify its meaning.
+      </Paragraph>
 
-    <Paragraph>
-      In the “unbreakable” example, the morpheme “break” is a base, whereas
-      “un-” and “-able” are affixes.
-    </Paragraph>
+      <Paragraph>
+        In the “unbreakable” example, the morpheme “break” is a base, whereas
+        “un-” and “-able” are affixes.
+      </Paragraph>
 
-    <Paragraph>
-      Affixes can be further categorized into <b>prefixes</b> and
-      <b>suffixes</b>, where prefixes always attach to the start of the base,
-      while suffixes always attach to the end. In our example, “un-” is a
-      prefix, and “-able” is an affix.
-    </Paragraph>
+      <Paragraph>
+        Affixes can be further categorized into <b>prefixes</b> and
+        <b>suffixes</b>, where prefixes always attach to the start of the base,
+        while suffixes always attach to the end. In our example, “un-” is a
+        prefix, and “-able” is an affix.
+      </Paragraph>
 
-    <Paragraph>
-      Awesome! You now have a basic understanding of the very core concepts of
-      morphology.
-    </Paragraph>
+      <Paragraph>
+        Awesome! You now have a basic understanding of the very core concepts of
+        morphology.
+      </Paragraph>
 
-    <Paragraph>
-      By getting this far, you have unlocked the
-      <b>English morphology toolkit</b>, which will allow you to explore the
-      morphological breakdown of different English words. <b>Click here</b> to open
-      the toolkit.
-    </Paragraph>
+      <Paragraph>
+        By getting this far, you have unlocked the
+        <b>English morphology toolkit</b>, which will allow you to explore the
+        morphological breakdown of different English words. <b>Click here</b> to open
+        the toolkit.
+      </Paragraph>
 
-    <Paragraph>
-      Clicking on the “Click here” link/button will turn the website into a
-      two-column layout, with this lesson content on the left and the English
-      toolkit on the right.
-    </Paragraph>
+      <Paragraph>
+        Clicking on the “Click here” link/button will turn the website into a
+        two-column layout, with this lesson content on the left and the English
+        toolkit on the right.
+      </Paragraph>
 
-    <Paragraph>
-      The user can now experiment with English morphology, or proceed to the
-      next section. The toolkit stays visible throughout the rest of the
-      experience, unless the user hides it.
-    </Paragraph>
+      <Paragraph>
+        The user can now experiment with English morphology, or proceed to the
+        next section. The toolkit stays visible throughout the rest of the
+        experience, unless the user hides it.
+      </Paragraph>
+    </WaitUntil>
   </Article>
 </SectionLayout>

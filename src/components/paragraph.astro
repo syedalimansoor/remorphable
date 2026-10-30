@@ -1,4 +1,10 @@
-<p class="mb-4 animate-slide-in"><slot /></p>
+---
+import { cn } from "cn";
+
+const { className } = Astro.props;
+---
+
+<p class={cn("mb-4 animate-slide-in", className)}><slot /></p>
 
 <style>
   p :global(b) {
