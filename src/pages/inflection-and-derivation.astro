@@ -23,7 +23,7 @@ import SectionLayout from "../layouts/section.astro";
 
     <Paragraph>Are these two affixes doing the same kind of work?</Paragraph>
 
-    <MatchSuffixes client:idle />
+    <MatchSuffixes client:load />
 
     <WaitUntil client:idle page="inflection-and-derivation" progress={1}>
       <Paragraph>

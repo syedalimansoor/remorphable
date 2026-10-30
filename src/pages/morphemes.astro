@@ -38,7 +38,7 @@ import SectionLayout from "../layouts/section.astro";
       the past tense of “splinch.”
     </Paragraph>
 
-    <SeparateUnbreakable client:idle />
+    <SeparateUnbreakable client:load />
 
     <WaitUntil client:idle page="morphemes" progress={1}>
       <Paragraph> Looks like that wasn’t too impossible… </Paragraph>

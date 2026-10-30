@@ -24,7 +24,7 @@ import SectionLayout from "../layouts/section.astro";
       a negative counterpart?
     </Paragraph>
 
-    <NegativePrefix client:idle />
+    <NegativePrefix client:load />
 
     <WaitUntil client:idle page="allomorphy" progress={1}>
       <Paragraph>
