@@ -1,22 +1,34 @@
-import { KeyReturnIcon } from "@phosphor-icons/react";
 import { persistentAtom } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
+import { CheckIcon, KeyReturnIcon } from "@phosphor-icons/react";
 import type { SubmitEvent } from "react";
+import { useEffect, useState } from "react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
 import { Button } from "../button";
 import { InteractiveBlock } from "../interactive-block";
 
-const $sentenceAnswer = persistentAtom("interactive-sentence-answer", "");
+const $sentenceAnswer = persistentAtom<string>(
+  "interactive-sentence-answer",
+  "",
+);
 export const resetSentenceAnswer = () => $sentenceAnswer.set("");
 
 export function CompleteSentence() {
   const inputValue = useStore($sentenceAnswer);
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!submitted) return;
+    const timeout = window.setTimeout(() => setSubmitted(false), 2000);
+    return () => window.clearTimeout(timeout);
+  }, [submitted]);
 
   const handleSubmit = (event: SubmitEvent) => {
     event.preventDefault();
     if (!inputValue.trim().toLowerCase().includes("splinch")) return;
     $progress.setKey(PAGES.morphology, 2);
+    setSubmitted(true);
   };
 
   return (
@@ -33,7 +45,11 @@ export function CompleteSentence() {
             className="absolute inset-y-1 right-1 rounded-sm px-2"
             variant="teal"
           >
-            <KeyReturnIcon weight="duotone" size={12} />
+            {submitted ? (
+              <CheckIcon weight="bold" size={12} />
+            ) : (
+              <KeyReturnIcon weight="duotone" size={12} />
+            )}
           </Button>
         </form>{" "}
         on a broken window pane, leaving a trail of bloody footprints across the

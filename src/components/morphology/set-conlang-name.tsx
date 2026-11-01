@@ -1,21 +1,30 @@
-import { useStore } from "@nanostores/react";
 import { persistentAtom } from "@nanostores/persistent";
-import { KeyReturnIcon } from "@phosphor-icons/react";
+import { useStore } from "@nanostores/react";
+import { CheckIcon, KeyReturnIcon } from "@phosphor-icons/react";
 import type { SubmitEvent } from "react";
+import { useEffect, useState } from "react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
 import { Button } from "../button";
 import { InteractiveBlock } from "../interactive-block";
 
-const $conlangName = persistentAtom("interactive-conlang-name", "");
+const $conlangName = persistentAtom<string>("interactive-conlang-name", "");
 export const resetConlangName = () => $conlangName.set("");
 
 export function SetConlangName() {
   const conlangName = useStore($conlangName);
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!submitted) return;
+    const timeout = window.setTimeout(() => setSubmitted(false), 2000);
+    return () => window.clearTimeout(timeout);
+  }, [submitted]);
 
   const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
     $progress.setKey(PAGES.morphology, 1);
+    setSubmitted(true);
   };
 
   return (
@@ -36,7 +45,11 @@ export function SetConlangName() {
           variant="teal"
           disabled={conlangName.length === 0}
         >
-          <KeyReturnIcon weight="duotone" />
+          {submitted ? (
+            <CheckIcon weight="bold" />
+          ) : (
+            <KeyReturnIcon weight="duotone" />
+          )}
         </Button>
       </form>
       <p className="text-xs italic text-foreground-400 text-center mb-1">
