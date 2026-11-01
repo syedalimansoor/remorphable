@@ -1,5 +1,6 @@
 import { ArrowCounterClockwiseIcon } from "@phosphor-icons/react";
 import { navigate } from "astro:transitions/client";
+import { resetConceptBank } from "../stores/concept-bank";
 import { $progress, initialProgress } from "../stores/progress";
 import { resetNegativePrefixes } from "./allomorphy/negative-prefix";
 import { resetPluralSounds } from "./allomorphy/plural-sounds";
@@ -7,7 +8,7 @@ import { resetSuffixConnections } from "./inflection-and-derivation/match-suffix
 import { resetFreeAndBoundMorphemes } from "./morphemes/classify-free-and-bound-morphemes";
 import { resetUnbreakable } from "./morphemes/separate-unbreakable";
 import { resetSentenceAnswer } from "./morphology/complete-sentence";
-import { resetConlangName } from "./morphology/set-conlang-name";
+import { resetConlangName } from "../stores/conlang-name";
 import { resetLexemeSort } from "./suppletion/lexeme-sort";
 import { resetPastTense } from "./suppletion/past-tense";
 
@@ -18,6 +19,7 @@ export function ResetProgressButton() {
       onClick={() => {
         $progress.set(initialProgress);
         resetConlangName();
+        resetConceptBank();
         resetSentenceAnswer();
         resetUnbreakable();
         resetFreeAndBoundMorphemes();

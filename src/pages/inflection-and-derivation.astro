@@ -17,6 +17,7 @@ import SectionLayout from "../layouts/section.astro";
   <Article
     page="inflection-and-derivation"
     progress={1}
+    concepts={["affixation", "inflection", "derivation"]}
     previousPath="/morphemes"
     nextPath="/allomorphy"
   >
@@ -27,7 +28,7 @@ import SectionLayout from "../layouts/section.astro";
       get “teacher”. If we attach the suffix “-es”, we get “teaches”.
     </Paragraph>
 
-    <Paragraph>Are these two affixes doing the same kind of work?</Paragraph>
+    <Paragraph>Are these two suffixes doing the same kind of work?</Paragraph>
 
     <MatchSuffixes client:load />
 
