@@ -1,0 +1,22 @@
+---
+import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
+
+import { Button } from "./button";
+
+const { previousPath, nextPath, class: className } = Astro.props;
+---
+
+<nav class:list={["flex justify-between gap-2", className]} aria-label="Lesson navigation">
+  <a href={previousPath}>
+    <Button size="icon" variant="teal" disabled={!previousPath}>
+      <ArrowLeftIcon weight="duotone" size={20} />
+    </Button>
+  </a>
+
+  <a href={nextPath}>
+    <Button disabled={!nextPath}>
+      Next
+      <ArrowRightIcon weight="duotone" size={20} />
+    </Button>
+  </a>
+</nav>

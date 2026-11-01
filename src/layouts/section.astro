@@ -1,8 +1,6 @@
 ---
-import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
-
-import { Button } from "../components/button";
 import { HeaderLogoLink } from "../components/header-logo-link";
+import LessonNavigation from "../components/lesson-navigation.astro";
 import { ResetProgressButton } from "../components/reset-progress-button";
 import type { Page } from "../constants";
 import BaseLayout from "../layouts/base.astro";
@@ -24,18 +22,7 @@ const pathname = Astro.url.pathname;
         <div><ResetProgressButton client:idle /></div>
       </div>
 
-      <a href={previousPath}>
-        <Button size="icon" variant="teal" disabled={!previousPath}>
-          <ArrowLeftIcon weight="duotone" size={20} />
-        </Button>
-      </a>
-
-      <a href={nextPath}>
-        <Button disabled={!nextPath}>
-          Next
-          <ArrowRightIcon weight="duotone" size={20} />
-        </Button>
-      </a>
+      <LessonNavigation previousPath={previousPath} nextPath={nextPath} />
     </header>
 
     <slot />

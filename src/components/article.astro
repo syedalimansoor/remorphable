@@ -1,7 +1,21 @@
+---
+import LessonNavigation from "./lesson-navigation.astro";
+import { WaitUntil } from "./wait-until";
+
+const { previousPath, nextPath, page, progress } = Astro.props;
+---
+
 <section
   class="min-h-0 grow overflow-y-auto rounded-lg border py-20 px-8 scrollbar-thumb-border-500 scrollbar-track-transparent scrollbar-gutter-stable"
 >
   <div class="mx-auto max-w-[75ch]">
     <slot />
+    <WaitUntil client:load page={page} progress={progress}>
+      <LessonNavigation
+        previousPath={previousPath}
+        nextPath={nextPath}
+        class="mt-12 border-t pt-6"
+      />
+    </WaitUntil>
   </div>
 </section>
