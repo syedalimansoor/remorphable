@@ -71,8 +71,13 @@ import SectionLayout from "../layouts/section.astro";
       <Paragraph>Great work!</Paragraph>
 
       <Paragraph>
-        Another way to classify morphemes is by their semantic attributes. In
-        English words with
+        Another way to classify morphemes is by their
+        <Popup client:idle triggerText="semantic function">
+          <p>
+            The type of meaning that a morpheme conveys: whether it provides
+            the core meaning of a word or modifies an existing meaning.
+          </p>
+        </Popup>. In English words with
 
         <Popup client:idle triggerText="multiple morphemes">
           <p>
