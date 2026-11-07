@@ -29,9 +29,11 @@ const pathname = Astro.url.pathname;
 
     <div class="flex min-h-0 grow flex-col gap-2 items-stretch md:flex-row">
       <ConceptBank client:load />
-      <div class="relative min-w-0 min-h-0 grow flex flex-col gap-2 md:flex-row">
+      <div
+        class="relative min-w-0 min-h-0 grow flex flex-col gap-2 md:flex-row"
+      >
         <slot />
-        <EnglishToolkit client:load />
+        <EnglishToolkit client:load transition:persist />
       </div>
     </div>
   </main>

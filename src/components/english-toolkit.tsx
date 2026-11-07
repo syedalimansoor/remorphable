@@ -1,10 +1,12 @@
+import { useStore } from "@nanostores/react";
 import {
   ArrowLineRightIcon,
   BriefcaseIcon,
   MagnifyingGlassIcon,
 } from "@phosphor-icons/react";
 import { cn } from "cn";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { $progress } from "../stores/progress";
 
 type Morpheme = {
   form: string;
@@ -234,8 +236,12 @@ const words: WordEntry[] = [
 ];
 
 export function EnglishToolkit() {
-  const [isOpen, setIsOpen] = useState(true);
+  const progress = useStore($progress);
+  const [isOpen, setIsOpen] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
   const [query, setQuery] = useState("");
+
+  useEffect(() => setHasMounted(true), []);
 
   const filteredWords = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -243,6 +249,8 @@ export function EnglishToolkit() {
       entry.word.toLowerCase().includes(normalizedQuery),
     );
   }, [query]);
+
+  if (!hasMounted || progress.morphemes < 2) return null;
 
   return (
     <aside
