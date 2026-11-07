@@ -1,5 +1,6 @@
 ---
 import { ConceptBank } from "../components/concept-bank";
+import { EnglishToolkit } from "../components/english-toolkit";
 import { HeaderLogoLink } from "../components/header-logo-link";
 import LessonNavigation from "../components/lesson-navigation.astro";
 import { ResetProgressButton } from "../components/reset-progress-button";
@@ -26,10 +27,11 @@ const pathname = Astro.url.pathname;
       <LessonNavigation previousPath={previousPath} nextPath={nextPath} />
     </header>
 
-    <div class="flex min-h-0 grow gap-2 items-stretch">
+    <div class="flex min-h-0 grow flex-col gap-2 items-stretch md:flex-row">
       <ConceptBank client:load />
-      <div class="min-w-0 min-h-0 grow flex">
+      <div class="relative min-w-0 min-h-0 grow flex flex-col gap-2 md:flex-row">
         <slot />
+        <EnglishToolkit client:load />
       </div>
     </div>
   </main>

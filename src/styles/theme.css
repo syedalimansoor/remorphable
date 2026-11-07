@@ -16,9 +16,19 @@
   --color-teal-100: #d2eded;
   --color-teal-500: #3c6e71;
 
+  --color-yellow-*: initial;
+  --color-yellow-500: #f2cc8f;
+  --color-yellow-900: #564222;
+
   --color-background-100: #ffffff;
   --color-background-200: #f2f2f2;
+  --color-background-600: #4b4b4b;
+  --color-background-700: #353535;
+  --color-background-800: #282828;
+  --color-background-900: #202020;
 
+  --color-foreground-100: #bbbbbb;
+  --color-foreground-200: #9e9e9e;
   --color-foreground-400: #6b6b6b;
   --color-foreground-500: #4b4b4b;
 
