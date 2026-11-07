@@ -2,6 +2,7 @@
 import Article from "../components/article.astro";
 import Banner from "../components/banner.astro";
 import { Definition } from "../components/definition";
+import { EnableEnglishToolkitButton } from "../components/english-toolkit/enable-button";
 import Heading from "../components/heading.astro";
 import { ClassifyFreeAndBoundMorphemes } from "../components/morphemes/classify-free-and-bound-morphemes";
 import { SeparateUnbreakable } from "../components/morphemes/separate-unbreakable";
@@ -137,7 +138,8 @@ import SectionLayout from "../layouts/section.astro";
             By getting this far, you have unlocked the <b
               >English morphology toolkit</b
             >, which will allow you to explore the morphological breakdown of
-            different English words. <b>Click here</b> to open the toolkit.
+            different English words. <EnableEnglishToolkitButton client:load /> to
+            open the toolkit.
           </p>
         </Banner>
 

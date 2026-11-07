@@ -2,6 +2,7 @@ import { ArrowCounterClockwiseIcon } from "@phosphor-icons/react";
 import { navigate } from "astro:transitions/client";
 import { resetConceptBank } from "../stores/concept-bank";
 import { resetCurrentPage } from "../stores/current-page";
+import { resetEnglishToolkit } from "../stores/english-toolkit";
 import { resetProgress } from "../stores/progress";
 import { resetNegativePrefixes } from "./allomorphy/negative-prefix";
 import { resetPluralSounds } from "./allomorphy/plural-sounds";
@@ -19,6 +20,7 @@ export function ResetProgressButton() {
       className="text-xs text-foreground-400 cursor-pointer p-1 inline-flex gap-2 items-center"
       onClick={() => {
         resetProgress();
+        resetEnglishToolkit();
         resetCurrentPage();
         resetConlangName();
         resetConceptBank();
