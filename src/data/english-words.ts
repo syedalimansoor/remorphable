@@ -13,6 +13,10 @@ export type Morpheme = {
   definition: string;
   tags: MorphemeTag[];
   allomorphs?: { spelling: string; pronunciation: string }[];
+  lexeme?: {
+    name: string;
+    members: { spelling: string; pronunciation: string }[];
+  };
 };
 
 export type EnglishWord = {
@@ -27,11 +31,13 @@ const freeBase = (
   spelling: string,
   pronunciation: string,
   definition: string,
+  lexeme?: Morpheme["lexeme"],
 ): Morpheme => ({
   spelling,
   pronunciation,
   definition,
   tags: ["FREE", "BASE"],
+  ...(lexeme ? { lexeme } : {}),
 });
 
 const boundBase = (
@@ -282,6 +288,27 @@ export const englishWords: EnglishWord[] = [
     morphemes: [
       freeBase("friend", "/frɛnd/", "a person whom one knows and likes"),
       suffix("-ship", "/ʃɪp/", "forms a noun for a state or relationship"),
+    ],
+  },
+  {
+    spelling: "goose",
+    pronunciation: "/ɡuːs/",
+    definition:
+      "a large water bird similar to a duck but larger, or the meat from this bird",
+    partOfSpeech: "noun",
+    morphemes: [
+      freeBase(
+        "goose",
+        "/ɡuːs/",
+        "a large water bird similar to a duck but larger, or the meat from this bird",
+        {
+          name: "GOOSE",
+          members: [
+            { spelling: "goose", pronunciation: "/ɡuːs/" },
+            { spelling: "geese", pronunciation: "/ɡiːs/" },
+          ],
+        },
+      ),
     ],
   },
   {

@@ -36,6 +36,14 @@ export function WordDetails({ word }: { word: EnglishWord }) {
   const hasReachedInflectionAndDerivation =
     progress["inflection-and-derivation"] >= 1;
   const allomorphs = progress.allomorphy >= 2 ? morpheme.allomorphs : undefined;
+  const lexemeMembers =
+    progress["suppletion-and-lexemes"] >= 2
+      ? morpheme.lexeme?.members
+      : undefined;
+  const [lexemeSelection, setLexemeSelection] = useState<{
+    morphemeIndex: number;
+    memberIndex: number;
+  } | null>(null);
   const selectedAllomorphIndex =
     allomorphSelection?.morphemeIndex === selectedMorpheme
       ? allomorphSelection.allomorphIndex
@@ -46,6 +54,16 @@ export function WordDetails({ word }: { word: EnglishWord }) {
           ) ?? 0,
         );
   const selectedAllomorph = allomorphs?.[selectedAllomorphIndex];
+  const selectedLexemeMemberIndex =
+    lexemeSelection?.morphemeIndex === selectedMorpheme
+      ? lexemeSelection.memberIndex
+      : Math.max(
+          0,
+          lexemeMembers?.findIndex(
+            (member) => member.spelling === morpheme.spelling,
+          ) ?? 0,
+        );
+  const selectedLexemeMember = lexemeMembers?.[selectedLexemeMemberIndex];
 
   return (
     <section aria-label={`${word.spelling} word details`} className="mb-7">
@@ -73,7 +91,7 @@ export function WordDetails({ word }: { word: EnglishWord }) {
             <br />
             learn more about it
           </p>
-          <div className="flex flex-wrap justify-center gap-1">
+          <div className="flex flex-wrap justify-end gap-1">
             {word.morphemes.map((item, index) => (
               <button
                 type="button"
@@ -95,12 +113,55 @@ export function WordDetails({ word }: { word: EnglishWord }) {
       </div>
 
       <div className="mt-7 flex min-h-32 overflow-hidden rounded-lg bg-background-900 text-center">
+        {lexemeMembers && selectedLexemeMember && (
+          <aside
+            aria-label="Lexeme members"
+            className="flex w-28 shrink-0 flex-col bg-background-900 px-3 py-3 text-left"
+          >
+            <h5 className="mb-2 text-[10px] font-medium text-foreground-200">
+              LEXEME MEMBERS
+            </h5>
+            <div className="flex flex-wrap content-start gap-1">
+              {lexemeMembers.map((member, index) => {
+                const isSelected = index === selectedLexemeMemberIndex;
+                return (
+                  <button
+                    type="button"
+                    key={`${member.spelling}-${index}`}
+                    onClick={() =>
+                      setLexemeSelection({
+                        morphemeIndex: selectedMorpheme,
+                        memberIndex: index,
+                      })
+                    }
+                    aria-pressed={isSelected}
+                    className={cn(
+                      "cursor-pointer rounded px-1.5 py-1 text-xs leading-none transition-colors",
+                      isSelected
+                        ? "bg-white text-foreground-500"
+                        : "bg-background-700 text-foreground-100 hover:text-white",
+                    )}
+                  >
+                    {member.spelling}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="mt-auto pt-3 text-[10px] font-medium text-foreground-200">
+              {morpheme.lexeme?.name}
+            </p>
+          </aside>
+        )}
         <div className="flex min-w-0 flex-1 flex-col items-center rounded-lg justify-center px-5 py-4 bg-background-800">
           <h4 className="text-xl font-semibold text-white">
-            {selectedAllomorph?.spelling ?? morpheme.spelling}
+            {selectedLexemeMember?.spelling ??
+              selectedAllomorph?.spelling ??
+              morpheme.spelling}
           </h4>
           <p className="mt-2 text-sm text-foreground-200">
-            {selectedAllomorph?.pronunciation ?? morpheme.pronunciation}
+            {selectedLexemeMember?.pronunciation ??
+              selectedAllomorph?.pronunciation ??
+              morpheme.pronunciation}
           </p>
           <div className="mt-2 flex flex-wrap justify-center gap-2">
             {morpheme.tags
