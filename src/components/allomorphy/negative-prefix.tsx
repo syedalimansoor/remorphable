@@ -4,6 +4,7 @@ import { useStore } from "@nanostores/react";
 import { useEffect } from "react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
+import { clearPersistentMap } from "../../stores/reset-persistent";
 import { InteractiveBlock } from "../interactive-block";
 
 const answers: Record<string, string> = {
@@ -16,7 +17,10 @@ const $prefixAnswers = persistentMap<Record<string, string>>(
   {},
   { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
 );
-export const resetNegativePrefixes = () => $prefixAnswers.set({});
+export const resetNegativePrefixes = () => {
+  clearPersistentMap("interactive-negative-prefixes");
+  $prefixAnswers.set({});
+};
 
 export function NegativePrefix() {
   const values = useStore($prefixAnswers);

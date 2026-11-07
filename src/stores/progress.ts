@@ -1,5 +1,6 @@
 import { persistentMap } from "@nanostores/persistent";
 import type { Page } from "../constants";
+import { clearPersistentMap } from "./reset-persistent";
 
 export const initialProgress: Record<Page, number> = {
   morphology: 0,
@@ -24,3 +25,8 @@ export const $progress = persistentMap<Record<Page, number>>(
     },
   },
 );
+
+export const resetProgress = () => {
+  clearPersistentMap("progress");
+  $progress.set(initialProgress);
+};

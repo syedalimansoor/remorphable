@@ -8,6 +8,7 @@ import { persistentMap } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
+import { clearPersistentMap } from "../../stores/reset-persistent";
 import { InteractiveBlock } from "../interactive-block";
 
 const MORPHEMES = [
@@ -27,7 +28,10 @@ const $placedMorphemes = persistentMap<Record<string, string>>(
   {},
   { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
 );
-export const resetFreeAndBoundMorphemes = () => $placedMorphemes.set({});
+export const resetFreeAndBoundMorphemes = () => {
+  clearPersistentMap("interactive-free-bound-morphemes");
+  $placedMorphemes.set({});
+};
 
 function Morpheme({ value }: { value: string }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({

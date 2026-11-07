@@ -9,6 +9,7 @@ import {
 } from "react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
+import { clearPersistentMap } from "../../stores/reset-persistent";
 import { InteractiveBlock } from "../interactive-block";
 
 type Source = "es" | "er";
@@ -34,8 +35,10 @@ const $suffixConnections = persistentMap<Record<Source, Target | null>>(
   { es: null, er: null },
   { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
 );
-export const resetSuffixConnections = () =>
+export const resetSuffixConnections = () => {
+  clearPersistentMap("interactive-suffix-connections");
   $suffixConnections.set({ es: null, er: null });
+};
 
 function ConnectionPath({ from, to }: { from: Point; to: Point }) {
   const controlOffset = (to.x - from.x) * 0.45;

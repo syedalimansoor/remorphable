@@ -4,6 +4,7 @@ import { cn } from "cn";
 import { useEffect, useState } from "react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
+import { clearPersistentMap } from "../../stores/reset-persistent";
 import { InteractiveBlock } from "../interactive-block";
 
 const answers = { cats: "/s/", dogs: "/z/", buses: "/ɪz/" };
@@ -21,7 +22,10 @@ const $pluralAnswers = persistentMap<Record<string, string>>(
   },
   { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
 );
-export const resetPluralSounds = () => $pluralAnswers.set({});
+export const resetPluralSounds = () => {
+  clearPersistentMap("interactive-plural-sounds");
+  $pluralAnswers.set({});
+};
 
 export function PluralSounds() {
   const values = useStore($pluralAnswers);

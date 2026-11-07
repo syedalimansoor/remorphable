@@ -3,6 +3,7 @@ import { persistentMap } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
+import { clearPersistentMap } from "../../stores/reset-persistent";
 import { InteractiveBlock } from "../interactive-block";
 
 const answers: Record<string, string> = {
@@ -15,7 +16,10 @@ const $pastTenseAnswers = persistentMap<Record<string, string>>(
   {},
   { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
 );
-export const resetPastTense = () => $pastTenseAnswers.set({});
+export const resetPastTense = () => {
+  clearPersistentMap("interactive-past-tense");
+  $pastTenseAnswers.set({});
+};
 export function PastTense() {
   const values = useStore($pastTenseAnswers);
   const complete = Object.entries(answers).every(

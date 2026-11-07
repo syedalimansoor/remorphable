@@ -8,6 +8,7 @@ import { persistentMap } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
+import { clearPersistentMap } from "../../stores/reset-persistent";
 import { shuffle } from "../../utils/shuffle-array";
 import { InteractiveBlock } from "../interactive-block";
 
@@ -22,7 +23,10 @@ const $placedLexemes = persistentMap<Record<string, string>>(
   {},
   { encode: JSON.stringify, decode: (value) => JSON.parse(value) },
 );
-export const resetLexemeSort = () => $placedLexemes.set({});
+export const resetLexemeSort = () => {
+  clearPersistentMap("interactive-lexeme-sort");
+  $placedLexemes.set({});
+};
 function Word({ value }: { value: string }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: value,
