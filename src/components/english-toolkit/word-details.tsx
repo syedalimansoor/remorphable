@@ -1,5 +1,5 @@
-import { cn } from "cn";
 import { useStore } from "@nanostores/react";
+import { cn } from "cn";
 import { useState } from "react";
 import type { EnglishWord, MorphemeTag } from "../../data/english-words";
 import { $progress } from "../../stores/progress";
@@ -28,9 +28,24 @@ export function WordDetails({ word }: { word: EnglishWord }) {
   const [selectedMorpheme, setSelectedMorpheme] = useState(
     word.spelling === "deconstruction" ? 1 : 0,
   );
+  const [allomorphSelection, setAllomorphSelection] = useState<{
+    morphemeIndex: number;
+    allomorphIndex: number;
+  } | null>(null);
   const morpheme = word.morphemes[selectedMorpheme];
   const hasReachedInflectionAndDerivation =
     progress["inflection-and-derivation"] >= 1;
+  const allomorphs = progress.allomorphy >= 2 ? morpheme.allomorphs : undefined;
+  const selectedAllomorphIndex =
+    allomorphSelection?.morphemeIndex === selectedMorpheme
+      ? allomorphSelection.allomorphIndex
+      : Math.max(
+          0,
+          allomorphs?.findIndex(
+            (allomorph) => allomorph.spelling === morpheme.spelling,
+          ) ?? 0,
+        );
+  const selectedAllomorph = allomorphs?.[selectedAllomorphIndex];
 
   return (
     <section aria-label={`${word.spelling} word details`} className="mb-7">
@@ -79,30 +94,68 @@ export function WordDetails({ word }: { word: EnglishWord }) {
         </div>
       </div>
 
-      <div className="mt-7 flex min-h-32 flex-col items-center justify-center rounded-lg bg-background-800 px-5 py-4 text-center">
-        <h4 className="text-xl font-semibold text-white">
-          {morpheme.spelling}
-        </h4>
-        <p className="mt-2 text-sm text-foreground-200">
-          {morpheme.pronunciation}
-        </p>
-        <div className="mt-2 flex flex-wrap justify-center gap-2">
-          {morpheme.tags
-            .filter(
-              (tag) =>
-                hasReachedInflectionAndDerivation ||
-                (tag !== "INFLECTIONAL" && tag !== "DERIVATIONAL"),
-            )
-            .map((tag) => (
-              <MorphemeTagBadge
-                key={tag}
-                tag={tag}
-                label={tagDetails[tag].label}
-                icon={tagDetails[tag].icon}
-              />
-            ))}
+      <div className="mt-7 flex min-h-32 overflow-hidden rounded-lg bg-background-900 text-center">
+        <div className="flex min-w-0 flex-1 flex-col items-center rounded-lg justify-center px-5 py-4 bg-background-800">
+          <h4 className="text-xl font-semibold text-white">
+            {selectedAllomorph?.spelling ?? morpheme.spelling}
+          </h4>
+          <p className="mt-2 text-sm text-foreground-200">
+            {selectedAllomorph?.pronunciation ?? morpheme.pronunciation}
+          </p>
+          <div className="mt-2 flex flex-wrap justify-center gap-2">
+            {morpheme.tags
+              .filter(
+                (tag) =>
+                  hasReachedInflectionAndDerivation ||
+                  (tag !== "INFLECTIONAL" && tag !== "DERIVATIONAL"),
+              )
+              .map((tag) => (
+                <MorphemeTagBadge
+                  key={tag}
+                  tag={tag}
+                  label={tagDetails[tag].label}
+                  icon={tagDetails[tag].icon}
+                />
+              ))}
+          </div>
+          <p className="mt-2 text-sm text-white">{morpheme.definition}</p>
         </div>
-        <p className="mt-2 text-sm text-white">{morpheme.definition}</p>
+        {allomorphs && selectedAllomorph && (
+          <aside
+            aria-label="Allomorphs"
+            className="w-24 shrink-0 bg-background-900 px-3 py-3 text-left"
+          >
+            <h5 className="mb-2 text-[10px] font-medium text-foreground-200">
+              ALLOMORPHS
+            </h5>
+            <div className="flex flex-wrap gap-1.5">
+              {allomorphs.map((allomorph, index) => {
+                const isSelected = index === selectedAllomorphIndex;
+                return (
+                  <button
+                    type="button"
+                    key={`${allomorph.spelling}-${index}`}
+                    onClick={() =>
+                      setAllomorphSelection({
+                        morphemeIndex: selectedMorpheme,
+                        allomorphIndex: index,
+                      })
+                    }
+                    aria-pressed={isSelected}
+                    className={cn(
+                      "cursor-pointer rounded px-1.5 py-1 text-xs leading-none transition-colors",
+                      isSelected
+                        ? "bg-white text-foreground-500"
+                        : "bg-background-700 text-foreground-100 hover:text-white",
+                    )}
+                  >
+                    {allomorph.spelling}
+                  </button>
+                );
+              })}
+            </div>
+          </aside>
+        )}
       </div>
     </section>
   );

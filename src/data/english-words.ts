@@ -12,6 +12,7 @@ export type Morpheme = {
   pronunciation: string;
   definition: string;
   tags: MorphemeTag[];
+  allomorphs?: { spelling: string; pronunciation: string }[];
 };
 
 export type EnglishWord = {
@@ -48,12 +49,21 @@ const prefix = (
   spelling: string,
   pronunciation: string,
   definition: string,
+  allomorphs?: Morpheme["allomorphs"],
 ): Morpheme => ({
   spelling,
   pronunciation,
   definition,
   tags: ["BOUND", "PREFIX", "DERIVATIONAL"],
+  ...(allomorphs ? { allomorphs } : {}),
 });
+
+const negativePrefixAllomorphs = [
+  { spelling: "in-", pronunciation: "/ɪn/" },
+  { spelling: "im-", pronunciation: "/ɪm/" },
+  { spelling: "il-", pronunciation: "/ɪl/" },
+  { spelling: "ir-", pronunciation: "/ɪr/" },
+];
 
 const suffix = (
   spelling: string,
@@ -107,7 +117,12 @@ export const englishWords: EnglishWord[] = [
     definition: "not showing a proper sense of responsibility",
     partOfSpeech: "adjective",
     morphemes: [
-      prefix("ir-", "/ɪr/", "not; a form of the negative prefix in-"),
+      prefix(
+        "ir-",
+        "/ɪr/",
+        "not; a form of the negative prefix in-",
+        negativePrefixAllomorphs,
+      ),
       freeBase("responsible", "/rɪˈspɑːnsəbəl/", "having a duty to deal with something"),
     ],
   },
@@ -219,7 +234,7 @@ export const englishWords: EnglishWord[] = [
     definition: "unable or unwilling to change or bend",
     partOfSpeech: "adjective",
     morphemes: [
-      prefix("in-", "/ɪn/", "not; opposite of"),
+      prefix("in-", "/ɪn/", "not; opposite of", negativePrefixAllomorphs),
       freeBase("flex", "/flɛks/", "to bend"),
       suffix("-ible", "/əbəl/", "able or suitable to be"),
     ],
@@ -318,7 +333,12 @@ export const englishWords: EnglishWord[] = [
     definition: "not able to occur, exist, or be done",
     partOfSpeech: "adjective",
     morphemes: [
-      prefix("im-", "/ɪm/", "not; a form of the negative prefix in-"),
+      prefix(
+        "im-",
+        "/ɪm/",
+        "not; a form of the negative prefix in-",
+        negativePrefixAllomorphs,
+      ),
       freeBase("possible", "/ˈpɑːsəbəl/", "able to be done or to happen"),
     ],
   },
