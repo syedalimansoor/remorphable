@@ -1,15 +1,24 @@
-import { useState } from "react";
 import { cn } from "cn";
+import { useState } from "react";
 import type { EnglishWord, MorphemeTag } from "../../data/english-words";
 
-const tagLabels: Record<MorphemeTag, string> = {
-  BOUND: "BOUND",
-  FREE: "FREE",
-  PREFIX: "PREFIX",
-  BASE: "BASE",
-  SUFFIX: "SUFFIX",
-  INFLECTIONAL: "INFLECTIONAL",
-  DERIVATIONAL: "DERIVATIONAL",
+import baseIcon from "../../assets/morpheme-tags/base.svg?url";
+import boundIcon from "../../assets/morpheme-tags/bound.svg?url";
+import derivationalIcon from "../../assets/morpheme-tags/derivational.svg?url";
+import freeIcon from "../../assets/morpheme-tags/free.svg?url";
+import inflectionalIcon from "../../assets/morpheme-tags/inflectional.svg?url";
+import prefixIcon from "../../assets/morpheme-tags/prefix.svg?url";
+import suffixIcon from "../../assets/morpheme-tags/suffix.svg?url";
+import { MorphemeTagBadge } from "./morpheme-tag";
+
+const tagDetails: Record<MorphemeTag, { label: string; icon: string }> = {
+  BOUND: { label: "BOUND", icon: boundIcon },
+  FREE: { label: "FREE", icon: freeIcon },
+  PREFIX: { label: "PREFIX", icon: prefixIcon },
+  BASE: { label: "BASE", icon: baseIcon },
+  SUFFIX: { label: "SUFFIX", icon: suffixIcon },
+  INFLECTIONAL: { label: "INFLECTIONAL", icon: inflectionalIcon },
+  DERIVATIONAL: { label: "DERIVATIONAL", icon: derivationalIcon },
 };
 
 export function WordDetails({ word }: { word: EnglishWord }) {
@@ -72,14 +81,14 @@ export function WordDetails({ word }: { word: EnglishWord }) {
         <p className="mt-2 text-sm text-foreground-200">
           {morpheme.pronunciation}
         </p>
-        <div className="mt-2 flex flex-wrap justify-center gap-1">
+        <div className="mt-2 flex flex-wrap justify-center gap-2">
           {morpheme.tags.map((tag) => (
-            <span
+            <MorphemeTagBadge
               key={tag}
-              className="rounded-sm bg-teal-500 px-2 py-0.5 text-[10px] font-medium text-teal-100"
-            >
-              {tagLabels[tag]}
-            </span>
+              tag={tag}
+              label={tagDetails[tag].label}
+              icon={tagDetails[tag].icon}
+            />
           ))}
         </div>
         <p className="mt-2 text-sm text-white">{morpheme.definition}</p>
