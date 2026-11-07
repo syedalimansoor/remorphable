@@ -1,6 +1,8 @@
 import { cn } from "cn";
+import { useStore } from "@nanostores/react";
 import { useState } from "react";
 import type { EnglishWord, MorphemeTag } from "../../data/english-words";
+import { $progress } from "../../stores/progress";
 
 import baseIcon from "../../assets/morpheme-tags/base.svg?url";
 import boundIcon from "../../assets/morpheme-tags/bound.svg?url";
@@ -22,10 +24,13 @@ const tagDetails: Record<MorphemeTag, { label: string; icon: string }> = {
 };
 
 export function WordDetails({ word }: { word: EnglishWord }) {
+  const progress = useStore($progress);
   const [selectedMorpheme, setSelectedMorpheme] = useState(
     word.spelling === "deconstruction" ? 1 : 0,
   );
   const morpheme = word.morphemes[selectedMorpheme];
+  const hasReachedInflectionAndDerivation =
+    progress["inflection-and-derivation"] >= 1;
 
   return (
     <section aria-label={`${word.spelling} word details`} className="mb-7">
@@ -82,14 +87,20 @@ export function WordDetails({ word }: { word: EnglishWord }) {
           {morpheme.pronunciation}
         </p>
         <div className="mt-2 flex flex-wrap justify-center gap-2">
-          {morpheme.tags.map((tag) => (
-            <MorphemeTagBadge
-              key={tag}
-              tag={tag}
-              label={tagDetails[tag].label}
-              icon={tagDetails[tag].icon}
-            />
-          ))}
+          {morpheme.tags
+            .filter(
+              (tag) =>
+                hasReachedInflectionAndDerivation ||
+                (tag !== "INFLECTIONAL" && tag !== "DERIVATIONAL"),
+            )
+            .map((tag) => (
+              <MorphemeTagBadge
+                key={tag}
+                tag={tag}
+                label={tagDetails[tag].label}
+                icon={tagDetails[tag].icon}
+              />
+            ))}
         </div>
         <p className="mt-2 text-sm text-white">{morpheme.definition}</p>
       </div>
