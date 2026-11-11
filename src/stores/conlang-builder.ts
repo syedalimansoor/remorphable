@@ -63,8 +63,8 @@ export const $conlangData = persistentAtom<ConlangData>(
 );
 
 export const $conlangBuilderEnabled = persistentAtom(
-  "conlang-builder-enabled",
-  true,
+  "conlang-builder-enabled-v2",
+  false,
   {
     encode: JSON.stringify,
     decode: (value) => value === "true",
@@ -87,6 +87,6 @@ export function hideActiveTool() {
 
 export function resetConlangBuilder() {
   $conlangData.set({ words: [], morphemes: [] });
-  $conlangBuilderEnabled.set(true);
-  $activeTool.set("conlang");
+  $conlangBuilderEnabled.set(false);
+  $activeTool.set(null);
 }

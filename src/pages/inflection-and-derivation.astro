@@ -2,6 +2,7 @@
 import Article from "../components/article.astro";
 import Banner from "../components/banner.astro";
 import Heading from "../components/heading.astro";
+import { EnableConlangBuilderButton } from "../components/conlang-builder/enable-button";
 import { MatchSuffixes } from "../components/inflection-and-derivation/match-suffixes";
 import Paragraph from "../components/paragraph.astro";
 import { WaitUntil } from "../components/wait-until";
@@ -57,10 +58,10 @@ import SectionLayout from "../layouts/section.astro";
       <Banner>
         <p>
           Now that you have learnt about the two different categories of
-          affixation, it is time to start building your conlang! <b
-            >Click here</b
-          > to open the conlang panel, where you can experiment with creating morphemes
-          and fusing them to define words in your language.
+          affixation, it is time to start building your conlang!{" "}
+          <EnableConlangBuilderButton client:load /> to open the conlang panel,
+          where you can experiment with creating morphemes and fusing them to
+          define words in your language.
         </p>
 
         <p>
