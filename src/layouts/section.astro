@@ -1,7 +1,9 @@
 ---
 import { ConceptBank } from "../components/concept-bank";
+import { ConlangBuilder } from "../components/conlang-builder";
 import { EnglishToolkit } from "../components/english-toolkit";
 import { HeaderLogoLink } from "../components/header-logo-link";
+import { ToolLauncher } from "../components/tool-launcher";
 import LessonNavigation from "../components/lesson-navigation.astro";
 import { ResetProgressButton } from "../components/reset-progress-button";
 import type { Page } from "../constants";
@@ -33,6 +35,8 @@ const pathname = Astro.url.pathname;
         class="relative min-w-0 min-h-0 grow flex flex-col gap-2 md:flex-row"
       >
         <slot />
+        <ToolLauncher client:load transition:persist />
+        <ConlangBuilder client:load transition:persist />
         <EnglishToolkit client:load transition:persist />
       </div>
     </div>

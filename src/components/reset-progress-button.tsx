@@ -3,6 +3,7 @@ import { navigate } from "astro:transitions/client";
 import { resetConceptBank } from "../stores/concept-bank";
 import { resetCurrentPage } from "../stores/current-page";
 import { resetEnglishToolkit } from "../stores/english-toolkit";
+import { resetConlangBuilder } from "../stores/conlang-builder";
 import { resetProgress } from "../stores/progress";
 import { resetNegativePrefixes } from "./allomorphy/negative-prefix";
 import { resetPluralSounds } from "./allomorphy/plural-sounds";
@@ -21,6 +22,7 @@ export function ResetProgressButton() {
       onClick={() => {
         resetProgress();
         resetEnglishToolkit();
+        resetConlangBuilder();
         resetCurrentPage();
         resetConlangName();
         resetConceptBank();

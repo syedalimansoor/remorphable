@@ -9,8 +9,13 @@
   /* Colors */
 
   --color-blue-*: initial;
-  --color-blue-300: #a4c9e2;
+  --color-blue-100: #e8f4fc;
+  --color-blue-300: #9dbed3;
+  --color-blue-400: #396380;
   --color-blue-500: #284b63;
+  --color-blue-600: #1f4057;
+  --color-blue-700: #17364c;
+  --color-blue-800: #0f2a3e;
 
   --color-teal-*: initial;
   --color-teal-100: #d2eded;

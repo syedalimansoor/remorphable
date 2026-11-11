@@ -1,11 +1,11 @@
-import { $englishToolkitEnabled } from "../../stores/english-toolkit";
+import { showEnglishToolkit } from "../../stores/conlang-builder";
 
 export function EnableEnglishToolkitButton() {
   return (
     <button
       type="button"
       className="cursor-pointer font-bold underline"
-      onClick={() => $englishToolkitEnabled.set(true)}
+      onClick={showEnglishToolkit}
     >
       Click here
     </button>
