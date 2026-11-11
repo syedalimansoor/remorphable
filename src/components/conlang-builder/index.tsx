@@ -107,10 +107,16 @@ export function ConlangBuilder() {
   const createItem = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const trimmedSpelling = (
-      activeBank === "words" && composedSpelling ? composedSpelling : spelling
+      activeBank === "words" ? composedSpelling : spelling
     ).trim();
     const trimmedDefinition = definition.trim();
-    if (!trimmedSpelling || !trimmedDefinition) return;
+    if (
+      !trimmedSpelling ||
+      !trimmedDefinition ||
+      (activeBank === "words" && !selectedMorphemeIds.length)
+    ) {
+      return;
+    }
 
     const id = crypto.randomUUID();
     if (activeBank === "words") {
@@ -143,6 +149,19 @@ export function ConlangBuilder() {
       words: data.words.filter((word) => word.id !== wordId),
     });
     setSelectedWordId(null);
+  };
+
+  const deleteMorpheme = (morphemeId: string) => {
+    $conlangData.set({
+      words: data.words.map((word) => ({
+        ...word,
+        morphemeIds: word.morphemeIds.filter((id) => id !== morphemeId),
+      })),
+      morphemes: data.morphemes.filter(
+        (morpheme) => morpheme.id !== morphemeId,
+      ),
+    });
+    setSelectedMorphemeId(null);
   };
 
   const saveName = (event: FormEvent<HTMLFormElement>) => {
@@ -250,6 +269,7 @@ export function ConlangBuilder() {
                 setSelectedWordId(word.id);
                 setQuery("");
               }}
+              onDelete={() => deleteMorpheme(selectedMorpheme.id)}
             />
           ) : (
             <CreationForm
@@ -262,6 +282,7 @@ export function ConlangBuilder() {
               step={creationStep}
               onStepChange={setCreationStep}
               morphemes={availableMorphemes}
+              morphemeCount={data.morphemes.length}
               selectedMorphemeIds={selectedMorphemeIds}
               onToggleMorpheme={(id) =>
                 setSelectedMorphemeIds((current) =>

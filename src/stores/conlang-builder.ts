@@ -3,7 +3,7 @@ import { atom } from "nanostores";
 import { $englishToolkitEnabled } from "./english-toolkit";
 
 export type ActiveTool = "conlang" | "english" | null;
-export const $activeTool = atom<ActiveTool>("conlang");
+export const $activeTool = atom<ActiveTool>(null);
 
 export type ConlangWord = {
   id: string;

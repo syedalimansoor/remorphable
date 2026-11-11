@@ -37,7 +37,6 @@ export function BuilderHeader({
         CONLANG BUILDER
       </h2>
       <div className="flex items-center gap-2">
-        ]
         {editingName ? (
           <form onSubmit={onSaveName} className="flex items-center gap-1">
             <label className="sr-only" htmlFor="conlang-builder-name">

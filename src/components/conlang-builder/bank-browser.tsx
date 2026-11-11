@@ -110,7 +110,7 @@ function BankItem({
       onClick={onClick}
       aria-pressed={selected}
       className={cn(
-        "cursor-pointer rounded px-2 py-1 text-xs font-medium transition-colors sm:text-sm",
+        "cursor-pointer rounded px-2 py-1 text-xs transition-colors sm:text-sm",
         selected
           ? "bg-yellow-500 text-blue-800"
           : "bg-blue-400 text-blue-100 hover:bg-blue-300 hover:text-blue-800",

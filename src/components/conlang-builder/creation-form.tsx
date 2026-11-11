@@ -23,6 +23,7 @@ type CreationFormProps = {
   step: CreationStep;
   onStepChange: (step: CreationStep) => void;
   morphemes: ConlangMorpheme[];
+  morphemeCount: number;
   selectedMorphemeIds: string[];
   onToggleMorpheme: (id: string) => void;
   morphemeQuery: string;
@@ -40,6 +41,7 @@ export function CreationForm({
   step,
   onStepChange,
   morphemes,
+  morphemeCount,
   selectedMorphemeIds,
   onToggleMorpheme,
   morphemeQuery,
@@ -54,7 +56,6 @@ export function CreationForm({
   const [suggestions, setSuggestions] = useState<string[]>(() =>
     suggestionPool.slice(0, 3),
   );
-  const hasComposedSpelling = isWord && selectedMorphemeIds.length > 0;
   const definitionInputRef = useRef<HTMLInputElement>(null);
 
   const refreshSuggestions = () => {
@@ -170,8 +171,8 @@ export function CreationForm({
             </div>
           </div>
         ) : (
-          <div>
-            {isWord && morphemes.length > 0 && (
+          <div className="flex flex-col gap-1">
+            {isWord ? (
               <>
                 <label className="relative mb-3 block">
                   <span className="sr-only">Search for a morpheme</span>
@@ -191,68 +192,103 @@ export function CreationForm({
                   />
                 </label>
                 <div className="mb-3 flex max-h-20 flex-wrap gap-1.5 overflow-y-auto">
-                  {morphemes.map((morpheme) => (
-                    <button
-                      type="button"
-                      key={morpheme.id}
-                      onClick={() => onToggleMorpheme(morpheme.id)}
-                      aria-pressed={selectedMorphemeIds.includes(morpheme.id)}
-                      className={cn(
-                        "cursor-pointer rounded px-2 py-1 text-xs transition-colors",
-                        selectedMorphemeIds.includes(morpheme.id)
-                          ? "bg-yellow-500 text-blue-800"
-                          : "bg-blue-100 text-blue-500 hover:bg-blue-300",
-                      )}
-                    >
-                      {morpheme.spelling}
-                    </button>
-                  ))}
-                  {morphemes.length === 0 && (
+                  {morphemeCount === 0 ? (
+                    <p className="text-xs text-yellow-500 font-bold">
+                      No morphemes found! Create some morphemes in the Morpheme
+                      Bank first.
+                    </p>
+                  ) : morphemes.length > 0 ? (
+                    morphemes.map((morpheme) => (
+                      <button
+                        type="button"
+                        key={morpheme.id}
+                        onClick={() => onToggleMorpheme(morpheme.id)}
+                        aria-pressed={selectedMorphemeIds.includes(morpheme.id)}
+                        className={cn(
+                          "cursor-pointer rounded px-2 py-1 text-xs transition-colors",
+                          selectedMorphemeIds.includes(morpheme.id)
+                            ? "bg-yellow-500 text-blue-800"
+                            : "bg-blue-100 text-blue-500 hover:bg-blue-300",
+                        )}
+                      >
+                        {morpheme.spelling}
+                      </button>
+                    ))
+                  ) : (
                     <p className="text-xs text-blue-300">
-                      No matching morphemes. Enter a spelling below.
+                      No matching morphemes.
                     </p>
                   )}
                 </div>
               </>
-            )}
-            {hasComposedSpelling ? (
-              <p className="rounded border border-dashed border-blue-400 bg-blue-600 px-3 py-2 text-sm text-blue-100">
-                {composedSpelling}
-              </p>
+            ) : null}
+            {isWord ? (
+              <>
+                <div className="flex min-h-12 items-center gap-2 rounded border-2 border-dashed border-blue-400 bg-blue-600 px-3 py-2 ">
+                  <p className="text-sm text-blue-100">
+                    {composedSpelling || (
+                      <span className="text-blue-400">
+                        Your word gets built here
+                      </span>
+                    )}
+                  </p>
+                </div>
+                {definition.trim() && (
+                  <span className="mt-2 inline-block mb-0 max-w-full truncate text-xs text-blue-300 font-bold">
+                    {definition}
+                  </span>
+                )}
+                <div className="mt-2 flex justify-between">
+                  <button
+                    type="button"
+                    onClick={() => onStepChange("define")}
+                    className="cursor-pointer text-xs text-blue-300 underline hover:text-blue-100"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={
+                      !composedSpelling.trim() ||
+                      !selectedMorphemeIds.length ||
+                      !definition.trim()
+                    }
+                    className="cursor-pointer rounded bg-blue-100 p-1.5 text-blue-500 transition-colors hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-50"
+                    aria-label="Create word"
+                  >
+                    <CheckIcon size={16} weight="bold" />
+                  </button>
+                </div>
+              </>
             ) : (
               <input
                 autoFocus
                 value={spelling}
                 onChange={(event) => onSpellingChange(event.target.value)}
-                placeholder={
-                  isWord
-                    ? "Spell out your word..."
-                    : "Spell out your morpheme..."
-                }
-                aria-label={`${isWord ? "Word" : "Morpheme"} spelling`}
+                placeholder="Spell out your morpheme..."
+                aria-label="Morpheme spelling"
                 className="w-full rounded bg-blue-600 px-2 py-2 text-sm text-blue-100 outline-none placeholder:text-blue-400 focus:ring-2 focus:ring-yellow-500"
               />
             )}
-            <div className="mt-2 flex justify-between">
-              <button
-                type="button"
-                onClick={() => onStepChange("define")}
-                className="cursor-pointer text-xs text-blue-300 underline hover:text-blue-100"
-              >
-                Back
-              </button>
-              <button
-                type="submit"
-                disabled={
-                  !(hasComposedSpelling ? composedSpelling : spelling).trim() ||
-                  !definition.trim()
-                }
-                className="cursor-pointer rounded bg-blue-100 p-1.5 text-blue-500 transition-colors hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-50"
-                aria-label={`Create ${isWord ? "word" : "morpheme"}`}
-              >
-                <CheckIcon size={16} weight="bold" />
-              </button>
-            </div>
+            {!isWord && (
+              <div className="mt-2 flex justify-between">
+                <button
+                  type="button"
+                  onClick={() => onStepChange("define")}
+                  className="cursor-pointer text-xs text-blue-300 underline hover:text-blue-100"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  disabled={!spelling.trim() || !definition.trim()}
+                  className="cursor-pointer rounded bg-blue-100 p-1.5 text-blue-500 transition-colors hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-50"
+                  aria-label="Create morpheme"
+                >
+                  <CheckIcon size={16} weight="bold" />
+                </button>
+              </div>
+            )}
           </div>
         )}
       </form>
