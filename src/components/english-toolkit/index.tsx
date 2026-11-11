@@ -1,14 +1,20 @@
 import { useStore } from "@nanostores/react";
-import { ArrowLineRightIcon } from "@phosphor-icons/react";
+import { ArrowLineRightIcon, ArrowsLeftRightIcon } from "@phosphor-icons/react";
 import { useEffect, useMemo, useState } from "react";
 import { englishWords, type EnglishWord } from "../../data/english-words";
-import { $activeTool, hideActiveTool } from "../../stores/conlang-builder";
+import {
+  $activeTool,
+  $conlangBuilderEnabled,
+  hideActiveTool,
+  showConlangBuilder,
+} from "../../stores/conlang-builder";
 import { $englishToolkitEnabled } from "../../stores/english-toolkit";
 import { WordDetails } from "./word-details";
 import { WordPicker } from "./word-picker";
 
 export function EnglishToolkit() {
   const isEnabled = useStore($englishToolkitEnabled);
+  const conlangBuilderEnabled = useStore($conlangBuilderEnabled);
   const activeTool = useStore($activeTool);
   const [hasMounted, setHasMounted] = useState(false);
   const [query, setQuery] = useState("");
@@ -40,9 +46,20 @@ export function EnglishToolkit() {
         >
           <ArrowLineRightIcon size={16} weight="duotone" />
         </button>
-        <h2 className="absolute left-1/2 -translate-x-1/2 text-xs font-bold">
-          ENGLISH TOOLKIT
-        </h2>
+        <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-1">
+          <h2 className="text-xs font-bold">ENGLISH TOOLKIT</h2>
+          {conlangBuilderEnabled && (
+            <button
+              type="button"
+              onClick={showConlangBuilder}
+              className="cursor-pointer rounded p-1 transition-colors hover:bg-background-600 hover:text-white"
+              aria-label="Switch to Conlang Builder"
+              title="Switch to Conlang Builder"
+            >
+              <ArrowsLeftRightIcon size={14} weight="duotone" />
+            </button>
+          )}
+        </div>
       </header>
 
       <div className="mt-10 min-h-0 w-full self-center max-w-2xl overflow-y-auto px-4 pb-5">

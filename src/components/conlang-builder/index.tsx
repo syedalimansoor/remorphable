@@ -12,6 +12,7 @@ import {
   hideActiveTool,
 } from "../../stores/conlang-builder";
 import { $conlangName } from "../../stores/conlang-name";
+import { $englishToolkitEnabled } from "../../stores/english-toolkit";
 import { BankBrowser } from "./bank-browser";
 import { BuilderHeader } from "./builder-header";
 import { CreationForm } from "./creation-form";
@@ -21,6 +22,7 @@ import type { Bank, CreationStep } from "./types";
 export function ConlangBuilder() {
   const [hasMounted, setHasMounted] = useState(false);
   const isEnabled = useStore($conlangBuilderEnabled);
+  const englishToolkitEnabled = useStore($englishToolkitEnabled);
   const activeTool = useStore($activeTool);
   const data = useStore($conlangData);
   const conlangName = useStore($conlangName);
@@ -180,6 +182,7 @@ export function ConlangBuilder() {
         conlangName={conlangName}
         nameDraft={nameDraft}
         editingName={editingName}
+        englishToolkitEnabled={englishToolkitEnabled}
         onNameDraftChange={setNameDraft}
         onEditName={() => {
           setNameDraft(conlangName);

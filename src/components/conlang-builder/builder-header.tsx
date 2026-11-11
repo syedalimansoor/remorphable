@@ -1,14 +1,17 @@
 import {
   ArrowLineRightIcon,
+  ArrowsLeftRightIcon,
   CheckIcon,
   PencilSimpleIcon,
 } from "@phosphor-icons/react";
 import type { FormEvent } from "react";
+import { showEnglishToolkit } from "../../stores/conlang-builder";
 
 export function BuilderHeader({
   conlangName,
   nameDraft,
   editingName,
+  englishToolkitEnabled,
   onNameDraftChange,
   onEditName,
   onSaveName,
@@ -17,6 +20,7 @@ export function BuilderHeader({
   conlangName: string;
   nameDraft: string;
   editingName: boolean;
+  englishToolkitEnabled: boolean;
   onNameDraftChange: (value: string) => void;
   onEditName: () => void;
   onSaveName: (event: FormEvent<HTMLFormElement>) => void;
@@ -33,9 +37,20 @@ export function BuilderHeader({
       >
         <ArrowLineRightIcon size={16} weight="duotone" />
       </button>
-      <h2 className="absolute left-1/2 -translate-x-1/2 text-xs font-bold">
-        CONLANG BUILDER
-      </h2>
+      <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-1">
+        <h2 className="text-xs font-bold">CONLANG BUILDER</h2>
+        {englishToolkitEnabled && (
+          <button
+            type="button"
+            onClick={showEnglishToolkit}
+            className="cursor-pointer rounded p-1 transition-colors hover:bg-blue-600 hover:text-blue-100"
+            aria-label="Switch to English Toolkit"
+            title="Switch to English Toolkit"
+          >
+            <ArrowsLeftRightIcon size={14} weight="duotone" />
+          </button>
+        )}
+      </div>
       <div className="flex items-center gap-2">
         {editingName ? (
           <form onSubmit={onSaveName} className="flex items-center gap-1">
