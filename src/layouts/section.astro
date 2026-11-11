@@ -1,16 +1,32 @@
 ---
+import { ListIcon } from "@phosphor-icons/react";
 import { ConceptBank } from "../components/concept-bank";
 import { ConlangBuilder } from "../components/conlang-builder";
 import { EnglishToolkit } from "../components/english-toolkit";
 import { HeaderLogoLink } from "../components/header-logo-link";
-import { ToolLauncher } from "../components/tool-launcher";
 import LessonNavigation from "../components/lesson-navigation.astro";
 import { ResetProgressButton } from "../components/reset-progress-button";
-import type { Page } from "../constants";
+import { ToolLauncher } from "../components/tool-launcher";
+import { PAGES, type Page } from "../constants";
 import BaseLayout from "../layouts/base.astro";
 
 const { title, previousPath, nextPath, position } = Astro.props;
 const pathname = Astro.url.pathname;
+const currentPath = pathname.replace(/\/$/, "");
+const sections = [
+  { title: "Morphology", path: `/${PAGES.morphology}` },
+  { title: "Morphemes", path: `/${PAGES.morphemes}` },
+  {
+    title: "Inflection and derivation",
+    path: `/${PAGES.inflectionAndDerivation}`,
+  },
+  { title: "Allomorphy", path: `/${PAGES.allomorphy}` },
+  {
+    title: "Suppletion and lexemes",
+    path: `/${PAGES.suppletionAndLexemes}`,
+  },
+  { title: "Conclusion", path: `/${PAGES.conclusion}` },
+];
 ---
 
 <BaseLayout title={`${title} | Remorphable`}>
@@ -22,7 +38,44 @@ const pathname = Astro.url.pathname;
         class="grow self-stretch grid grid-cols-[repeat(3,auto)] items-center justify-between px-3 bg-background-200 rounded-lg"
       >
         <span class="text-xs">{position} of 6</span>
-        <h1 class="font-display text-blue-500 text-sm">{title}</h1>
+        <div class="relative flex items-center justify-self-center gap-1">
+          <h1 class="font-display text-blue-500 text-sm">{title}</h1>
+          <details class="group">
+            <summary
+              aria-label="Choose a section"
+              class="flex size-7 cursor-pointer list-none items-center justify-center rounded-sm text-foreground-400 transition-colors hover:bg-background-300 hover:text-foreground-500 focus-visible:outline-2 focus-visible:outline-blue-500 [&::-webkit-details-marker]:hidden"
+            >
+              <ListIcon size={18} aria-hidden="true" />
+            </summary>
+            <nav
+              aria-label="Website sections"
+              class="absolute left-1/2 top-full z-50 mt-2 min-w-52 -translate-x-1/2 rounded-lg bg-background-200 p-1 shadow-lg"
+            >
+              <ul class="flex flex-col gap-1">
+                {
+                  sections.map((section) => (
+                    <li>
+                      <a
+                        href={section.path}
+                        aria-current={
+                          currentPath === section.path ? "page" : undefined
+                        }
+                        class:list={[
+                          "block rounded-sm px-3 py-2 text-sm ",
+                          currentPath === section.path
+                            ? "bg-background-300 text-blue-500 font-bold"
+                            : "text-foreground-500 hover:bg-background-300",
+                        ]}
+                      >
+                        {section.title}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
+          </details>
+        </div>
         <div><ResetProgressButton client:idle /></div>
       </div>
 
