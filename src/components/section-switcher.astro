@@ -1,0 +1,128 @@
+---
+import { ListIcon } from "@phosphor-icons/react";
+import { PAGES } from "../constants";
+
+const { currentPath } = Astro.props;
+const sections = [
+  { title: "Morphology", page: PAGES.morphology },
+  {
+    title: "Morphemes",
+    page: PAGES.morphemes,
+    unlockPage: PAGES.morphology,
+    unlockProgress: 2,
+  },
+  {
+    title: "Inflection and derivation",
+    page: PAGES.inflectionAndDerivation,
+    unlockPage: PAGES.morphemes,
+    unlockProgress: 2,
+  },
+  {
+    title: "Allomorphy",
+    page: PAGES.allomorphy,
+    unlockPage: PAGES.inflectionAndDerivation,
+    unlockProgress: 1,
+  },
+  {
+    title: "Suppletion and lexemes",
+    page: PAGES.suppletionAndLexemes,
+    unlockPage: PAGES.allomorphy,
+    unlockProgress: 2,
+  },
+  {
+    title: "Conclusion",
+    page: PAGES.conclusion,
+    unlockPage: PAGES.suppletionAndLexemes,
+    unlockProgress: 2,
+  },
+];
+---
+
+<div class="relative flex items-center justify-self-center gap-1">
+  <details class="group">
+    <summary
+      aria-label="Choose a section"
+      class="flex size-7 cursor-pointer list-none items-center justify-center rounded-sm text-foreground-400 transition-colors hover:bg-background-300 hover:text-foreground-500 focus-visible:outline-2 focus-visible:outline-blue-500 [&::-webkit-details-marker]:hidden"
+    >
+      <ListIcon size={18} aria-hidden="true" />
+    </summary>
+    <nav
+      aria-label="Website sections"
+      class="absolute left-1/2 top-full z-50 mt-2 min-w-52 -translate-x-1/2 rounded-lg bg-background-200 p-1 shadow-lg"
+    >
+      <ul class="flex flex-col gap-1">
+        {
+          sections.map((section) => {
+            const path = `/${section.page}`;
+            const unlocked = !section.unlockPage;
+            const isCurrent = currentPath === path;
+
+            return (
+              <li>
+                <a
+                  href={unlocked ? path : undefined}
+                  aria-current={isCurrent ? "page" : undefined}
+                  aria-disabled={!unlocked ? "true" : undefined}
+                  tabindex={unlocked ? undefined : -1}
+                  data-section-link
+                  data-path={path}
+                  data-unlock-page={section.unlockPage}
+                  data-unlock-progress={section.unlockProgress}
+                  class:list={[
+                    "block rounded-sm px-3 py-2 text-sm",
+                    isCurrent
+                      ? "bg-background-300 text-blue-500 font-bold"
+                      : "text-foreground-500",
+                    unlocked
+                      ? !isCurrent && "hover:bg-background-300"
+                      : "cursor-not-allowed opacity-50",
+                  ]}
+                >
+                  {section.title}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+  </details>
+</div>
+
+<script>
+  import type { Page } from "../constants";
+  import { $progress } from "../stores/progress";
+
+  function updateSectionLinks() {
+    document.querySelectorAll<HTMLAnchorElement>("[data-section-link]").forEach(
+      (link) => {
+        const path = link.dataset.path;
+        const unlockPage = link.dataset.unlockPage as Page | undefined;
+        const requiredProgress = Number(link.dataset.unlockProgress);
+        const enabled =
+          !unlockPage ||
+          $progress.get()[unlockPage] >= requiredProgress;
+
+        if (enabled && path) {
+          link.href = path;
+          link.removeAttribute("aria-disabled");
+          link.removeAttribute("tabindex");
+          link.classList.remove("cursor-not-allowed", "opacity-50");
+          if (link.getAttribute("aria-current") !== "page") {
+            link.classList.add("hover:bg-background-300");
+          }
+        } else {
+          link.removeAttribute("href");
+          link.setAttribute("aria-disabled", "true");
+          link.tabIndex = -1;
+          link.classList.add("cursor-not-allowed", "opacity-50");
+          link.classList.remove("hover:bg-background-300");
+        }
+      },
+    );
+  }
+
+  $progress.subscribe(updateSectionLinks);
+  document.addEventListener("astro:page-load", updateSectionLinks);
+  updateSectionLinks();
+</script>

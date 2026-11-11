@@ -13,11 +13,14 @@ const { previousPath, nextPath, page, progress, concepts } = Astro.props;
     <slot />
     <WaitUntil client:load page={page} progress={progress}>
       <LessonConcepts client:load concepts={concepts} />
-      <LessonNavigation
-        previousPath={previousPath}
-        nextPath={nextPath}
-        class="mt-12 border-t pt-6"
-      />
     </WaitUntil>
+    <LessonNavigation
+      previousPath={previousPath}
+      nextPath={nextPath}
+      page={page}
+      progress={progress}
+      hideUntilComplete
+      class="mt-12 border-t pt-6"
+    />
   </div>
 </section>

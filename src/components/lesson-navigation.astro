@@ -1,22 +1,81 @@
 ---
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
-
 import { Button } from "./button";
 
-const { previousPath, nextPath, class: className } = Astro.props;
+const {
+  previousPath,
+  nextPath,
+  page,
+  progress,
+  hideUntilComplete = false,
+  class: className,
+} = Astro.props;
 ---
 
-<nav class:list={["flex justify-between gap-2", className]} aria-label="Lesson navigation">
+<nav
+  class:list={["flex justify-between gap-2", className]}
+  aria-label="Lesson navigation"
+  data-lesson-navigation
+  data-page={page}
+  data-progress={progress}
+  data-hide-until-complete={hideUntilComplete}
+  hidden={hideUntilComplete}
+>
   <a href={previousPath}>
     <Button size="icon" variant="teal" disabled={!previousPath}>
       <ArrowLeftIcon weight="duotone" size={20} />
     </Button>
   </a>
 
-  <a href={nextPath}>
-    <Button disabled={!nextPath}>
+  <a
+    data-lesson-next
+    data-next-path={nextPath}
+    aria-disabled="true"
+    tabindex="-1"
+  >
+    <Button disabled={Boolean(nextPath)}>
       Next
       <ArrowRightIcon weight="duotone" size={20} />
     </Button>
   </a>
 </nav>
+
+<script>
+  import type { Page } from "../constants";
+  import { $progress } from "../stores/progress";
+
+  function updateNextButtons() {
+    document.querySelectorAll<HTMLElement>("[data-lesson-navigation]").forEach(
+      (navigation) => {
+        const page = navigation.dataset.page;
+        const requiredProgress = Number(navigation.dataset.progress);
+        const nextLink = navigation.querySelector<HTMLAnchorElement>(
+          "[data-lesson-next]",
+        );
+        if (!page || !nextLink) return;
+
+        const nextPath = nextLink.dataset.nextPath;
+        const complete = $progress.get()[page as Page] >= requiredProgress;
+        const enabled = Boolean(nextPath) && complete;
+
+        navigation.hidden =
+          navigation.dataset.hideUntilComplete === "true" && !complete;
+
+        if (enabled && nextPath) {
+          nextLink.href = nextPath;
+        } else {
+          nextLink.removeAttribute("href");
+        }
+
+        nextLink.setAttribute("aria-disabled", String(!enabled));
+        nextLink.tabIndex = enabled ? 0 : -1;
+        const button = nextLink.querySelector("button");
+        if (button) button.disabled = !enabled;
+      },
+    );
+  }
+
+  $progress.subscribe(updateNextButtons);
+  document.addEventListener("astro:page-load", updateNextButtons);
+  updateNextButtons();
+</script>
