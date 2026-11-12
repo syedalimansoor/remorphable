@@ -20,6 +20,7 @@ const { previousPath, nextPath, page, progress, concepts } = Astro.props;
       page={page}
       progress={progress}
       hideUntilComplete
+      hideNext={page === "conclusion"}
       class="mt-12 border-t pt-6"
     />
   </div>
