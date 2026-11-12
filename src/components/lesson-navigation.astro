@@ -21,7 +21,8 @@ const {
   data-page={page}
   data-progress={progress}
   data-hide-until-complete={hideUntilComplete}
-  hidden={hideUntilComplete}
+  data-hide-next={hideNext}
+  hidden={hideUntilComplete && !hideNext}
 >
   <a href={previousPath ? withBase(previousPath) : undefined}>
     <Button size="icon" variant="teal" disabled={!previousPath}>
@@ -55,17 +56,21 @@ const {
       (navigation) => {
         const page = navigation.dataset.page;
         const requiredProgress = Number(navigation.dataset.progress);
+        const hideNext = navigation.dataset.hideNext === "true";
         const nextLink = navigation.querySelector<HTMLAnchorElement>(
           "[data-lesson-next]",
         );
-        if (!page || !nextLink) return;
+        if (!page) return;
+        const complete = $progress.get()[page as Page] >= requiredProgress;
+        navigation.hidden =
+          navigation.dataset.hideUntilComplete === "true" &&
+          !complete &&
+          !hideNext;
+
+        if (!nextLink) return;
 
         const nextPath = nextLink.dataset.nextPath;
-        const complete = $progress.get()[page as Page] >= requiredProgress;
         const enabled = Boolean(nextPath) && complete;
-
-        navigation.hidden =
-          navigation.dataset.hideUntilComplete === "true" && !complete;
 
         if (enabled && nextPath) {
           nextLink.href = nextPath;
