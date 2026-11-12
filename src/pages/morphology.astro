@@ -2,11 +2,11 @@
 import Article from "../components/article.astro";
 import { Definition } from "../components/definition";
 import Heading from "../components/heading.astro";
+import { CompleteSentence } from "../components/morphology/complete-sentence";
+import { SetConlangName } from "../components/morphology/set-conlang-name";
 import Paragraph from "../components/paragraph.astro";
 import { Popup } from "../components/popup";
 import { WaitUntil } from "../components/wait-until";
-import { CompleteSentence } from "../components/morphology/complete-sentence";
-import { SetConlangName } from "../components/morphology/set-conlang-name";
 import { PAGES } from "../constants";
 import SectionLayout from "../layouts/section.astro";
 ---
@@ -26,7 +26,9 @@ import SectionLayout from "../layouts/section.astro";
   >
     <Heading>Hello!</Heading>
 
-    <Paragraph>Welcome to <i>remorphable.</i></Paragraph>
+    <Paragraph>
+      Welcome to <i>remorphable.</i>
+    </Paragraph>
 
     <Paragraph>
       Through this interactive web experience, you will get an introduction to
@@ -37,20 +39,21 @@ import SectionLayout from "../layouts/section.astro";
           how it is structured, developed, and used.
         </p>
         <p>
-          It does <b>not</b> mean learning a specific language or languages (a common
-          misconception), although linguists <i>may</i> end up learning languages
-          that they are analyzing.
+          It does <b>not</b> mean learning a specific language or languages (a
+          common misconception), although linguists <i>may</i> end up learning
+          languages that they are analyzing.
         </p>
-      </Popup>. You will learn about some of the basic concepts in morphology,
-      including morphemes, lexemes, allomorphy, inflection, derivation, and
-      more. These words may sound intimidating at the moment, but fret not! Very
-      soon you’ll have a good understanding of what each of these concepts mean
-      and why they’re important.
+      </Popup>
+      . You will learn about some of the basic concepts in morphology, including
+      morphemes, lexemes, allomorphy, inflection, derivation, and more. These
+      words may sound intimidating at the moment, but fret not! Very soon you’ll
+      have a good understanding of what each of these concepts mean and why
+      they’re important.
     </Paragraph>
 
     <Paragraph>
-      The fun part? <b>You’ll get to build your own language!</b> As you progress
-      through the website, you’ll gradually give shape to a
+      The fun part? <b>You’ll get to build your own language!</b> As you
+      progress through the website, you’ll gradually give shape to a
       <Popup client:load triggerText="conlang">
         <p>
           A conlang (short for constructed language) is an artificial language
@@ -60,9 +63,10 @@ import SectionLayout from "../layouts/section.astro";
         <p>Some famous examples of conlangs include:</p>
         <ul>
           <li>
-            <a href="https://www.babbel.com/en/magazine/klingon-language"
-              >Klingon</a
-            >, from Star Trek, developed by a linguist to be intentionally
+            <a href="https://www.babbel.com/en/magazine/klingon-language">
+              Klingon
+            </a>
+            , from Star Trek, developed by a linguist to be intentionally
             distinct from human languages through the use of rare linguistic
             features.
           </li>
@@ -74,8 +78,7 @@ import SectionLayout from "../layouts/section.astro";
           </li>
         </ul>
       </Popup>
-      that grows richer and more complex, with each concept you learn becoming another
-      tool in your toolkit for building your language.
+      that you can customize to your liking and share with the world!
     </Paragraph>
 
     <SetConlangName client:load />
