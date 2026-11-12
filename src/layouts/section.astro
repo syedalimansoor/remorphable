@@ -9,16 +9,20 @@ import SectionSwitcher from "../components/section-switcher.astro";
 import { ToolLauncher } from "../components/tool-launcher";
 import type { Page } from "../constants";
 import BaseLayout from "../layouts/base.astro";
+import { withBase } from "../utils/url";
 
 const { title, previousPath, nextPath, position, page, progress } = Astro.props;
 const pathname = Astro.url.pathname;
 const currentPath = pathname.replace(/\/$/, "");
+const currentPage = pathname
+  .slice(withBase("/").length)
+  .replace(/\/$/, "") as Page;
 ---
 
 <BaseLayout title={`${title} | Remorphable`}>
   <main class="flex h-full min-h-0 flex-col gap-2">
     <header class="flex gap-2">
-      <HeaderLogoLink client:idle pathname={pathname as Page} />
+      <HeaderLogoLink client:idle pathname={currentPage} />
 
       <div
         class="grow self-stretch grid grid-cols-[repeat(3,auto)] items-center justify-between px-3 bg-background-200 rounded-lg"

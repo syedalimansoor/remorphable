@@ -27,4 +27,7 @@ export default defineConfig({
   ],
 
   integrations: [react()],
+
+  site: "https://syedalimansoor.github.io",
+  base: "/remorphable",
 });

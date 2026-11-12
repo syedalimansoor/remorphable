@@ -14,6 +14,7 @@ import { resetSentenceAnswer } from "./morphology/complete-sentence";
 import { resetConlangName } from "../stores/conlang-name";
 import { resetLexemeSort } from "./suppletion/lexeme-sort";
 import { resetPastTense } from "./suppletion/past-tense";
+import { withBase } from "../utils/url";
 
 export function ResetProgressButton() {
   return (
@@ -34,7 +35,7 @@ export function ResetProgressButton() {
         resetPluralSounds();
         resetPastTense();
         resetLexemeSort();
-        navigate("/morphology");
+        navigate(withBase("/morphology"));
       }}
     >
       <ArrowCounterClockwiseIcon />

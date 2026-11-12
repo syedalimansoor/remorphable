@@ -1,6 +1,7 @@
 ---
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { Button } from "./button";
+import { withBase } from "../utils/url";
 
 const {
   previousPath,
@@ -21,7 +22,7 @@ const {
   data-hide-until-complete={hideUntilComplete}
   hidden={hideUntilComplete}
 >
-  <a href={previousPath}>
+  <a href={previousPath ? withBase(previousPath) : undefined}>
     <Button size="icon" variant="teal" disabled={!previousPath}>
       <ArrowLeftIcon weight="duotone" size={20} />
     </Button>
@@ -29,7 +30,7 @@ const {
 
   <a
     data-lesson-next
-    data-next-path={nextPath}
+    data-next-path={nextPath ? withBase(nextPath) : undefined}
     aria-disabled="true"
     tabindex="-1"
   >

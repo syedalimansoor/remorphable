@@ -1,6 +1,7 @@
 ---
 import { ListIcon } from "@phosphor-icons/react";
 import { PAGES } from "../constants";
+import { withBase } from "../utils/url";
 
 const { currentPath } = Astro.props;
 const sections = [
@@ -53,7 +54,7 @@ const sections = [
       <ul class="flex flex-col gap-1">
         {
           sections.map((section) => {
-            const path = `/${section.page}`;
+            const path = withBase(`/${section.page}`);
             const unlocked = !section.unlockPage;
             const isCurrent = currentPath === path;
 

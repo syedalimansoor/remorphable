@@ -2,11 +2,12 @@ import { navigate } from "astro:transitions/client";
 import type { Page } from "../constants";
 import { $currentPage } from "../stores/current-page";
 import { Button } from "./button";
+import { withBase } from "../utils/url";
 
 export function HeaderLogoLink({ pathname }: { pathname: Page }) {
   const handleClick = () => {
     $currentPage.set(pathname);
-    navigate("/");
+    navigate(withBase("/"));
   };
 
   return (
