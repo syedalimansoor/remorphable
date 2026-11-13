@@ -40,7 +40,7 @@ const sections = [
 ---
 
 <div class="relative flex items-center justify-self-center gap-1">
-  <details class="group">
+  <details class="group" data-section-switcher>
     <summary
       aria-label="Choose a section"
       class="flex size-7 cursor-pointer list-none items-center justify-center rounded-sm text-foreground-400 transition-colors hover:bg-background-300 hover:text-foreground-500 focus-visible:outline-2 focus-visible:outline-blue-500 [&::-webkit-details-marker]:hidden"
@@ -126,4 +126,16 @@ const sections = [
   $progress.subscribe(updateSectionLinks);
   document.addEventListener("astro:page-load", updateSectionLinks);
   updateSectionLinks();
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    document
+      .querySelectorAll<HTMLDetailsElement>(
+        "details[data-section-switcher][open]",
+      )
+      .forEach((details) => {
+        if (!details.contains(event.target)) details.open = false;
+      });
+  });
 </script>
