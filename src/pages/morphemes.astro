@@ -58,12 +58,15 @@ import SectionLayout from "../layouts/section.astro";
     <SeparateUnbreakable client:load />
 
     <WaitUntil client:idle page="morphemes" progress={1}>
-      <Paragraph> Looks like that wasn’t too impossible… </Paragraph>
+      <Paragraph>
+        Nice! You broke the word <em>unbreakable</em> down into the morphemes{" "}
+        <em>un-</em>, <em>break</em>, and <em>-able</em>.
+      </Paragraph>
 
       <Paragraph>
-        Morphemes can also be independent words themselves. Take the morpheme
-        “break” for example—it can stand on its own, as well as join other
-        morphemes to form a larger word. Such morphemes are called
+        Some morphemes can also be independent words! Take the morpheme “break”
+        for example—it can stand on its own, as well as join other morphemes to
+        form a larger word. Such morphemes are called
         <b>free morphemes</b>.
       </Paragraph>
 
