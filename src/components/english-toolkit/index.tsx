@@ -70,10 +70,6 @@ export function EnglishToolkit() {
             <h3 className="font-display text-2xl text-yellow-500">
               Select an English word to understand its morphological structure.
             </h3>
-            <p className="mt-3 text-sm text-foreground-200">
-              <strong>Note:</strong> This is not a dictionary and does not aim
-              to represent all words in English.
-            </p>
           </>
         )}
 
