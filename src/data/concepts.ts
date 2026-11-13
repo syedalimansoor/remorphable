@@ -10,6 +10,11 @@ export const concepts: Record<string, Concept> = {
     definition: `The study of word formation and structure.`,
     example: `Breaking the word "replayed" down into its prefix, base, and suffix.`,
   },
+  conlang: {
+    term: `Conlang`,
+    definition: `A constructed language, created intentionally rather than naturally.`,
+    example: `Esperanto is a conlang created by L. L. Zamenhof in 1887.`,
+  },
   morpheme: {
     term: `Morpheme`,
     definition: `The smallest unit of language that contains meaning.`,
