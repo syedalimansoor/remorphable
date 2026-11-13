@@ -1,6 +1,5 @@
 ---
 import LessonNavigation from "./lesson-navigation.astro";
-import { LessonConcepts } from "./concept-bank";
 import { WaitUntil } from "./wait-until";
 
 const { previousPath, nextPath, page, progress, concepts } = Astro.props;
@@ -11,8 +10,7 @@ const { previousPath, nextPath, page, progress, concepts } = Astro.props;
 >
   <div class="mx-auto max-w-[75ch]">
     <slot />
-    <WaitUntil client:load page={page} progress={progress}>
-      <LessonConcepts client:load concepts={concepts} />
+    <WaitUntil client:load page={page} progress={progress} concepts={concepts}>
     </WaitUntil>
     <LessonNavigation
       previousPath={previousPath}
