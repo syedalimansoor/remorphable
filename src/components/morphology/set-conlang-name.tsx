@@ -11,6 +11,8 @@ import { InteractiveBlock } from "../interactive-block";
 export function SetConlangName() {
   const conlangName = useStore($conlangName);
   const [submitted, setSubmitted] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const isCorrect = Boolean(conlangName.trim());
 
   useEffect(() => {
     if (!submitted) return;
@@ -20,12 +22,18 @@ export function SetConlangName() {
 
   const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
+    if (!isCorrect) return;
     $progress.setKey(PAGES.morphology, 1);
+    setIsCompleted(true);
     setSubmitted(true);
   };
 
   return (
-    <InteractiveBlock>
+    <InteractiveBlock
+      isCompleted={isCompleted}
+      isCorrect={isCorrect}
+      feedbackMessage="Enter at least one non-space character as your conlang's name."
+    >
       <p className="font-medium text-blue-500 mb-3">
         Let’s get started by giving your conlang a name:
       </p>

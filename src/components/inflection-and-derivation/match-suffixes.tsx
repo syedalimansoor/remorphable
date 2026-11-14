@@ -87,6 +87,8 @@ export function MatchSuffixes() {
   const isCorrect =
     connections.es === correctConnections.es &&
     connections.er === correctConnections.er;
+  const isCompleted =
+    connections.es !== null && connections.er !== null;
 
   useEffect(() => {
     if (isCorrect) $progress.setKey(PAGES.inflectionAndDerivation, 1);
@@ -164,7 +166,11 @@ export function MatchSuffixes() {
   };
 
   return (
-    <InteractiveBlock>
+    <InteractiveBlock
+      isCompleted={isCompleted}
+      isCorrect={isCorrect}
+      feedbackMessage="Think about function: one suffix changes grammatical form, while the other creates a new word."
+    >
       <p className="mb-5 font-medium text-blue-500">
         Match each suffix to the linguistic function it is performing.
       </p>

@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import { persistentMap } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
+import { useEffect } from "react";
 import { PAGES } from "../../constants";
 import { $progress } from "../../stores/progress";
 import { clearPersistentMap } from "../../stores/reset-persistent";
@@ -22,14 +22,23 @@ export const resetPastTense = () => {
 };
 export function PastTense() {
   const values = useStore($pastTenseAnswers);
-  const complete = Object.entries(answers).every(
-    ([word, answer]) => values[word]?.trim().toLowerCase() === answer,
+  const isCompleted = Object.keys(answers).every((word) =>
+    Boolean(values[word]?.trim()),
   );
+  const isCorrect =
+    isCompleted &&
+    Object.entries(answers).every(
+      ([word, answer]) => values[word]?.trim().toLowerCase() === answer,
+    );
   useEffect(() => {
-    if (complete) $progress.setKey(PAGES.suppletionAndLexemes, 1);
-  }, [complete]);
+    if (isCorrect) $progress.setKey(PAGES.suppletionAndLexemes, 1);
+  }, [isCorrect]);
   return (
-    <InteractiveBlock>
+    <InteractiveBlock
+      isCompleted={isCompleted}
+      isCorrect={isCorrect}
+      feedbackMessage="Some verbs form the past regularly, while others change their form. Check each answer against its verb."
+    >
       <p className="mb-4 font-medium text-blue-500">
         Enter the correct past tense form of each present tense verb.
       </p>

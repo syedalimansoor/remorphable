@@ -30,17 +30,24 @@ export const resetPluralSounds = () => {
 export function PluralSounds() {
   const values = useStore($pluralAnswers);
   const [isHydrated, setIsHydrated] = useState(false);
-  const complete = Object.entries(answers).every(
-    ([word, answer]) => values[word] === answer,
+  const isCompleted = Object.keys(answers).every((word) =>
+    Boolean(values[word]),
   );
+  const isCorrect =
+    isCompleted &&
+    Object.entries(answers).every(([word, answer]) => values[word] === answer);
   useEffect(() => {
     setIsHydrated(true);
   }, []);
   useEffect(() => {
-    if (isHydrated && complete) $progress.setKey(PAGES.allomorphy, 2);
-  }, [complete, isHydrated]);
+    if (isHydrated && isCorrect) $progress.setKey(PAGES.allomorphy, 2);
+  }, [isCorrect, isHydrated]);
   return (
-    <InteractiveBlock>
+    <InteractiveBlock
+      isCompleted={isCompleted}
+      isCorrect={isCorrect}
+      feedbackMessage="Say the words aloud—the plural ending depends on the final sound of each base word."
+    >
       <p className="mb-4 max-w-xl font-medium leading-snug text-blue-500">
         Select the exact sound that the plural “-s” or “-es” makes at the end of
         these words.
@@ -71,9 +78,7 @@ export function PluralSounds() {
                         type="radio"
                         name={word}
                         checked={isSelected}
-                        onChange={() =>
-                          $pluralAnswers.setKey(word, sound)
-                        }
+                        onChange={() => $pluralAnswers.setKey(word, sound)}
                       />
                       {sound}
                     </span>

@@ -83,6 +83,12 @@ function Category({
 
 export function ClassifyFreeAndBoundMorphemes() {
   const placed = useStore($placedMorphemes);
+  const isCompleted = MORPHEMES.every((item) => Boolean(placed[item]));
+  const isCorrect =
+    isCompleted &&
+    MORPHEMES.every(
+      (item) => placed[item] === (FREE.has(item) ? "free" : "bound"),
+    );
 
   const handleDragEnd = ({ active, over }: DragEndEvent) => {
     if (!over || !["free", "bound"].includes(String(over.id))) return;
@@ -103,7 +109,11 @@ export function ClassifyFreeAndBoundMorphemes() {
   };
 
   return (
-    <InteractiveBlock>
+    <InteractiveBlock
+      isCompleted={isCompleted}
+      isCorrect={isCorrect}
+      feedbackMessage="A free morpheme can stand alone as a word, but a bound morpheme must attach to another morpheme."
+    >
       <p className="mb-4 font-medium text-blue-500">
         Classify the following English morphemes into free and bound status.
       </p>

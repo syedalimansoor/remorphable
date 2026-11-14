@@ -41,6 +41,7 @@
   --color-border-500: #d4d4d4;
 
   --animate-slide-in: slide-in 0.3s ease-out both;
+  --animate-wiggle: wiggle 200ms ease-in-out;
 
   @keyframes slide-in {
     0% {
@@ -50,6 +51,19 @@
     100% {
       transform: translateY(0);
       opacity: 1;
+    }
+  }
+
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-6px);
+    }
+    75% {
+      transform: translateX(6px);
     }
   }
 }

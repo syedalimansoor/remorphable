@@ -71,20 +71,34 @@ export function LexemeSort() {
     const category = String(over.id);
     $placedLexemes.setKey(value, category);
     const next = { ...placed, [value]: category };
-      if (
-        words.every(
-          (word) =>
-            next[word] ===
-            Object.keys(groups).find((key) =>
-              groups[key as keyof typeof groups].includes(word),
-            ),
-        )
+    if (
+      words.every(
+        (word) =>
+          next[word] ===
+          Object.keys(groups).find((key) =>
+            groups[key as keyof typeof groups].includes(word),
+          ),
       )
-        $progress.setKey(PAGES.suppletionAndLexemes, 2);
-    
+    )
+      $progress.setKey(PAGES.suppletionAndLexemes, 2);
   };
+  const isCompleted = words.every((word) => Boolean(placed[word]));
+  const isCorrect =
+    isCompleted &&
+    words.every(
+      (word) =>
+        placed[word] ===
+        Object.keys(groups).find((key) =>
+          groups[key as keyof typeof groups].includes(word),
+        ),
+    );
+
   return (
-    <InteractiveBlock>
+    <InteractiveBlock
+      isCompleted={isCompleted}
+      isCorrect={isCorrect}
+      feedbackMessage="Look for forms that belong to one lexeme; irregular forms may not resemble the base word."
+    >
       <p className="mb-4 font-medium text-blue-500">
         Drag the following word forms into the box of their correct lexeme.
       </p>

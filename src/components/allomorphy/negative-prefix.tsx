@@ -24,14 +24,21 @@ export const resetNegativePrefixes = () => {
 
 export function NegativePrefix() {
   const values = useStore($prefixAnswers);
-  const complete = Object.entries(answers).every(
-    ([word, answer]) => values[word] === answer,
+  const isCompleted = Object.keys(answers).every((word) =>
+    Boolean(values[word]?.trim()),
   );
+  const isCorrect =
+    isCompleted &&
+    Object.entries(answers).every(([word, answer]) => values[word] === answer);
   useEffect(() => {
-    if (complete) $progress.setKey(PAGES.allomorphy, 1);
-  }, [complete]);
+    if (isCorrect) $progress.setKey(PAGES.allomorphy, 1);
+  }, [isCorrect]);
   return (
-    <InteractiveBlock>
+    <InteractiveBlock
+      isCompleted={isCompleted}
+      isCorrect={isCorrect}
+      feedbackMessage="The negative prefix changes form depending on the first letter of the base. Check the pattern across all three."
+    >
       <p className="mb-4 font-medium text-blue-500">
         Fill in the missing prefixes to create words that mean the opposite of
         the base.

@@ -12,14 +12,20 @@ export const resetUnbreakable = () => $isSeparated.set(false);
 
 export function SeparateUnbreakable() {
   const isSeparated = useStore($isSeparated);
+  const isCompleted = isSeparated;
+  const isCorrect = isSeparated;
 
   const handleClick = () => {
     $isSeparated.set(!isSeparated);
-    $progress.setKey("morphemes", 1);
+    if (!isSeparated) $progress.setKey("morphemes", 1);
   };
 
   return (
-    <InteractiveBlock>
+    <InteractiveBlock
+      isCompleted={isCompleted}
+      isCorrect={isCorrect}
+      feedbackMessage="Click the word to reveal how its meaning is divided among its morphemes."
+    >
       <p className="font-medium text-blue-500 mb-4">
         Click on the word to separate it into its morphemes.
       </p>
