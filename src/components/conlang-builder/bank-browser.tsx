@@ -10,6 +10,7 @@ export function BankBrowser({
   bank,
   words,
   morphemes,
+  morphemeCount,
   totalItems,
   query,
   onQueryChange,
@@ -21,6 +22,7 @@ export function BankBrowser({
   bank: Bank;
   words: ConlangWord[];
   morphemes: ConlangMorpheme[];
+  morphemeCount: number;
   totalItems: number;
   query: string;
   onQueryChange: (value: string) => void;
@@ -34,15 +36,19 @@ export function BankBrowser({
 
   if (totalItems === 0) {
     return (
-      <div className="flex min-h-48 flex-1 flex-col items-center justify-center py-6 text-center">
-        <span className="flex size-24 items-center justify-center rounded-full bg-blue-600 text-blue-400">
-          <BinocularsIcon size={52} />
+      <div className="flex flex-col items-center justify-center py-5 text-center">
+        <span className="flex size-12 items-center justify-center rounded-full bg-blue-600 text-blue-300">
+          <BinocularsIcon size={26} />
         </span>
-        <p className="mt-5 text-sm font-bold text-blue-300">
+        <p className="mt-3 text-sm font-bold text-blue-100">
           No {isWordBank ? "words" : "morphemes"} here yet.
         </p>
-        <p className="text-sm text-blue-300">
-          Start by creating your first {isWordBank ? "word" : "morpheme"} below.
+        <p className="text-xs text-blue-200">
+          {isWordBank
+            ? morphemeCount > 0
+              ? "Choose meaningful parts below to build your first word."
+              : "Add meaningful parts to your Morpheme Bank first, then combine them into words."
+            : "Create a part below or add the starter examples above."}
         </p>
       </div>
     );
@@ -73,6 +79,7 @@ export function BankBrowser({
               <BankItem
                 key={word.id}
                 label={word.spelling}
+                example={word.source === "starter"}
                 selected={selectedWordId === word.id}
                 onClick={() => onSelectWord(word)}
               />
@@ -80,7 +87,8 @@ export function BankBrowser({
           : morphemes.map((morpheme) => (
               <BankItem
                 key={morpheme.id}
-                label={morpheme.spelling}
+                label={`${morpheme.role === "affix" && !morpheme.spelling.startsWith("-") ? "-" : ""}${morpheme.spelling}`}
+                example={morpheme.source === "starter"}
                 selected={selectedMorphemeId === morpheme.id}
                 onClick={() => onSelectMorpheme(morpheme)}
               />
@@ -97,10 +105,12 @@ export function BankBrowser({
 
 function BankItem({
   label,
+  example = false,
   selected,
   onClick,
 }: {
   label: string;
+  example?: boolean;
   selected: boolean;
   onClick: () => void;
 }) {
@@ -109,14 +119,23 @@ function BankItem({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
+      aria-label={example ? `Example: ${label}` : label}
+      title={example ? "Starter example" : undefined}
       className={cn(
         "cursor-pointer rounded px-2 py-1 text-xs transition-colors sm:text-sm",
         selected
           ? "bg-yellow-500 text-blue-800"
-          : "bg-blue-400 text-blue-100 hover:bg-blue-300 hover:text-blue-800",
+          : example
+            ? "border border-dashed border-blue-200/60 bg-blue-600 text-blue-100 hover:bg-blue-400 hover:text-blue-800"
+            : "bg-blue-400 text-blue-100 hover:bg-blue-300 hover:text-blue-800",
       )}
     >
       {label}
+      {example && (
+        <span className="ml-1 text-[9px] uppercase tracking-wide opacity-75">
+          sample
+        </span>
+      )}
     </button>
   );
 }

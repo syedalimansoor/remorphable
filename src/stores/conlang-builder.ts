@@ -5,17 +5,23 @@ import { $englishToolkitEnabled } from "./english-toolkit";
 export type ActiveTool = "conlang" | "english" | null;
 export const $activeTool = atom<ActiveTool>(null);
 
+export type MorphemeRole = "root" | "affix";
+export type ConlangItemSource = "starter";
+
 export type ConlangWord = {
   id: string;
   spelling: string;
   definition: string;
   morphemeIds: string[];
+  source?: ConlangItemSource;
 };
 
 export type ConlangMorpheme = {
   id: string;
   spelling: string;
   definition: string;
+  role?: MorphemeRole;
+  source?: ConlangItemSource;
 };
 
 type ConlangData = {
@@ -32,13 +38,18 @@ const isWord = (value: unknown): value is ConlangWord =>
   typeof value.spelling === "string" &&
   typeof value.definition === "string" &&
   Array.isArray(value.morphemeIds) &&
-  value.morphemeIds.every((id) => typeof id === "string");
+  value.morphemeIds.every((id) => typeof id === "string") &&
+  (value.source === undefined || value.source === "starter");
 
 const isMorpheme = (value: unknown): value is ConlangMorpheme =>
   isRecord(value) &&
   typeof value.id === "string" &&
   typeof value.spelling === "string" &&
-  typeof value.definition === "string";
+  typeof value.definition === "string" &&
+  (value.role === undefined ||
+    value.role === "root" ||
+    value.role === "affix") &&
+  (value.source === undefined || value.source === "starter");
 
 const isConlangData = (value: unknown): value is ConlangData =>
   isRecord(value) &&

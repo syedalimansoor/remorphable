@@ -149,7 +149,7 @@ Compare against a baseline gathered before the redesign. Define numerical target
 
 ## Product and implementation considerations
 
-- Starter entries and guided examples should not be silently mixed with user-authored data. This requires an explicit product decision about whether examples are preview-only, copied into the personal bank, or stored in a separate example collection.
-- Persistent data currently has no example/source or morpheme-role field. If the role is added, consider backward-compatible decoding for existing local data; do not make a UI-only field that disappears after reload.
+- Starter examples are optional and are copied into the banks only when requested. They are marked as samples; removing them deletes sample words and unused sample morphemes while preserving user-created words and any sample morphemes those words still use.
+- Morpheme roles and item sources are persisted as optional fields. Existing saved entries without these fields remain valid and display as roots.
 - Examples are teaching material: review their morphology and glosses for accuracy, consistency, and accessibility before release.
 - Avoid using “more entries” as the goal by itself. Success is learners understanding composition and confidently continuing, not maximizing bank size.

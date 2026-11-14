@@ -1,0 +1,158 @@
+import type {
+  ConlangMorpheme,
+  ConlangWord,
+} from "../stores/conlang-builder";
+
+const morphemeIds = {
+  teach: "starter-teach",
+  er: "starter-er",
+  cat: "starter-cat",
+  plural: "starter-plural",
+  walk: "starter-walk",
+  past: "starter-past",
+  future: "starter-future",
+  bright: "starter-bright",
+  ness: "starter-ness",
+  slow: "starter-slow",
+  ly: "starter-ly",
+  ish: "starter-ish",
+} as const;
+
+export const starterMorphemes: ConlangMorpheme[] = [
+  {
+    id: morphemeIds.teach,
+    spelling: "teach",
+    definition: "to teach",
+    role: "root",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.er,
+    spelling: "er",
+    definition: "makes a person who does an action",
+    role: "affix",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.cat,
+    spelling: "cat",
+    definition: "a small animal that purrs",
+    role: "root",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.plural,
+    spelling: "s",
+    definition: "marks more than one",
+    role: "affix",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.walk,
+    spelling: "walk",
+    definition: "to move on foot",
+    role: "root",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.past,
+    spelling: "ed",
+    definition: "shows an action happened before now",
+    role: "affix",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.future,
+    spelling: "na",
+    definition: "shows an action will happen later",
+    role: "affix",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.bright,
+    spelling: "bright",
+    definition: "full of light",
+    role: "root",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.ness,
+    spelling: "ness",
+    definition: "turns an adjective into a noun meaning a quality",
+    role: "affix",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.slow,
+    spelling: "slow",
+    definition: "not moving quickly",
+    role: "root",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.ly,
+    spelling: "ly",
+    definition: "turns an adjective into an adverb",
+    role: "affix",
+    source: "starter",
+  },
+  {
+    id: morphemeIds.ish,
+    spelling: "ish",
+    definition: "turns a noun into an adjective meaning 'like'",
+    role: "affix",
+    source: "starter",
+  },
+];
+
+export const starterWords: ConlangWord[] = [
+  {
+    id: "starter-word-teacher",
+    spelling: "teacher",
+    definition: "a person who teaches",
+    morphemeIds: [morphemeIds.teach, morphemeIds.er],
+    source: "starter",
+  },
+  {
+    id: "starter-word-cats",
+    spelling: "cats",
+    definition: "more than one cat",
+    morphemeIds: [morphemeIds.cat, morphemeIds.plural],
+    source: "starter",
+  },
+  {
+    id: "starter-word-walked",
+    spelling: "walked",
+    definition: "moved on foot before now",
+    morphemeIds: [morphemeIds.walk, morphemeIds.past],
+    source: "starter",
+  },
+  {
+    id: "starter-word-walkna",
+    spelling: "walkna",
+    definition: "will move on foot",
+    morphemeIds: [morphemeIds.walk, morphemeIds.future],
+    source: "starter",
+  },
+  {
+    id: "starter-word-brightness",
+    spelling: "brightness",
+    definition: "the quality of being bright",
+    morphemeIds: [morphemeIds.bright, morphemeIds.ness],
+    source: "starter",
+  },
+  {
+    id: "starter-word-slowly",
+    spelling: "slowly",
+    definition: "in a slow way",
+    morphemeIds: [morphemeIds.slow, morphemeIds.ly],
+    source: "starter",
+  },
+  {
+    id: "starter-word-catish",
+    spelling: "catish",
+    definition: "like a cat",
+    morphemeIds: [morphemeIds.cat, morphemeIds.ish],
+    source: "starter",
+  },
+];

@@ -13,7 +13,7 @@ import {
   useRole,
   useTransitionStyles,
 } from "@floating-ui/react";
-import { TrashIcon, XIcon } from "@phosphor-icons/react";
+import { PlusIcon, TrashIcon, XIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import type {
   ConlangMorpheme,
@@ -26,21 +26,30 @@ export function WordDetails({
   onClose,
   onSelectMorpheme,
   onDelete,
+  onCreateWord,
 }: {
   word: ConlangWord;
   morphemes: ConlangMorpheme[];
   onClose: () => void;
   onSelectMorpheme: (morpheme: ConlangMorpheme) => void;
   onDelete: () => void;
+  onCreateWord: () => void;
 }) {
   return (
     <section aria-label={`${word.spelling} word definition`}>
       <PanelHeading label="WORD DEFINITION" onClose={onClose} />
       <div className="rounded-lg bg-blue-700 p-4 sm:p-5">
         <div className="flex items-start justify-between gap-3">
-          <h4 className="font-display text-2xl font-semibold text-yellow-500">
-            {word.spelling}
-          </h4>
+          <div>
+            <h4 className="font-display text-2xl font-semibold text-yellow-500">
+              {word.spelling}
+            </h4>
+            {word.source === "starter" && (
+              <span className="text-[10px] font-bold uppercase tracking-wide text-blue-300">
+                Example
+              </span>
+            )}
+          </div>
           <DeleteButton label="word" onDelete={onDelete} />
         </div>
         <p className="mt-1 text-sm text-blue-100">{word.definition}</p>
@@ -66,6 +75,14 @@ export function WordDetails({
             <p className="text-sm text-blue-300">A single-morpheme word.</p>
           )}
         </div>
+        <button
+          type="button"
+          onClick={onCreateWord}
+          className="mt-3 inline-flex cursor-pointer items-center gap-1.5 text-xs font-semibold text-yellow-400 hover:text-yellow-300"
+        >
+          <PlusIcon size={14} weight="bold" />
+          Create another word
+        </button>
       </div>
     </section>
   );
@@ -77,21 +94,34 @@ export function MorphemeDetails({
   onClose,
   onSelectWord,
   onDelete,
+  onCreateWord,
 }: {
   morpheme: ConlangMorpheme;
   words: ConlangWord[];
   onClose: () => void;
   onSelectWord: (word: ConlangWord) => void;
   onDelete: () => void;
+  onCreateWord: () => void;
 }) {
   return (
     <section aria-label={`${morpheme.spelling} morpheme definition`}>
       <PanelHeading label="MORPHEME DEFINITION" onClose={onClose} />
       <div className="rounded-lg bg-blue-700 p-4 sm:p-5">
         <div className="flex items-start justify-between gap-3">
-          <h4 className="font-display text-2xl font-semibold text-yellow-500">
-            {morpheme.spelling}
-          </h4>
+          <div>
+            <h4 className="font-display text-2xl font-semibold text-yellow-500">
+              {morpheme.role === "affix" &&
+              !morpheme.spelling.startsWith("-")
+                ? "-"
+                : ""}
+              {morpheme.spelling}
+            </h4>
+            <span className="text-[10px] font-bold uppercase tracking-wide text-blue-300">
+              {morpheme.source === "starter"
+                ? `Example ${morpheme.role ?? "root"}`
+                : morpheme.role ?? "root"}
+            </span>
+          </div>
           <DeleteButton label="morpheme" onDelete={onDelete} />
         </div>
         <p className="mt-1 text-sm text-blue-100">{morpheme.definition}</p>
@@ -115,6 +145,14 @@ export function MorphemeDetails({
             )}
           </div>
         </div>
+        <button
+          type="button"
+          onClick={onCreateWord}
+          className="mt-3 inline-flex cursor-pointer items-center gap-1.5 text-xs font-semibold text-yellow-400 hover:text-yellow-300"
+        >
+          <PlusIcon size={14} weight="bold" />
+          Use in a word
+        </button>
       </div>
     </section>
   );

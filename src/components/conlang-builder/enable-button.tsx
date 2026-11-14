@@ -7,7 +7,7 @@ export function EnableConlangBuilderButton() {
       className="cursor-pointer font-bold underline"
       onClick={showConlangBuilder}
     >
-      Click here
+      Open the Conlang Builder
     </button>
   );
 }
