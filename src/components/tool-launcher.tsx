@@ -28,28 +28,28 @@ export function ToolLauncher() {
   return (
     <nav
       aria-label="Available toolkits"
-      className="absolute right-4 top-4 z-10 flex flex-col items-end gap-1"
+      className="absolute right-4 top-4 z-10 flex flex-col items-end gap-2"
     >
       {englishEnabled && (
         <button
           type="button"
           onClick={showEnglishToolkit}
-          className="inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-xs text-foreground-400 transition-colors hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+          className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-background-300 px-3 py-2 text-sm font-semibold text-foreground-500 transition-colors hover:bg-background-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500"
           aria-label="Show English toolkit"
         >
           English toolkit
-          <BriefcaseIcon size={16} weight="duotone" />
+          <BriefcaseIcon size={18} weight="duotone" />
         </button>
       )}
       {conlangEnabled && (
         <button
           type="button"
           onClick={showConlangBuilder}
-          className="inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-xs text-foreground-400 transition-colors hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+          className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-blue-100 px-3 py-2 text-sm font-semibold text-blue-500 transition-colors hover:bg-blue-600 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500"
           aria-label="Show conlang builder"
         >
           Conlang builder
-          <PencilRulerIcon size={16} weight="duotone" />
+          <PencilRulerIcon size={18} weight="duotone" />
         </button>
       )}
     </nav>
