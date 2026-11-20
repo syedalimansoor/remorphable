@@ -467,7 +467,7 @@ export function ConlangBuilder() {
         </h3>
 
         {wordMode === "create" ? (
-          <div className="mt-4 flex min-h-0 flex-1 flex-col justify-center">
+          <div className="mt-4 flex min-h-0 flex-1 flex-col justify-center pb-4">
             <CreationForm
               key={step}
               step={step}
