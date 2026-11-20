@@ -62,15 +62,15 @@ export function EnglishToolkit() {
         </div>
       </header>
 
-      <div className="mt-10 min-h-0 w-full self-center max-w-2xl overflow-y-auto px-4 pb-5">
+      <div className="mt-10 flex min-h-0 w-full max-w-2xl flex-1 flex-col self-center overflow-hidden px-4 pb-5">
         {selectedWord ? (
-          <WordDetails key={selectedWord.spelling} word={selectedWord} />
+          <div className="shrink-0">
+            <WordDetails key={selectedWord.spelling} word={selectedWord} />
+          </div>
         ) : (
-          <>
-            <h3 className="font-display text-2xl text-yellow-500">
-              Select an English word to understand its morphological structure.
-            </h3>
-          </>
+          <h3 className="shrink-0 font-display text-2xl text-yellow-500">
+            Select an English word to understand its morphological structure.
+          </h3>
         )}
 
         <WordPicker

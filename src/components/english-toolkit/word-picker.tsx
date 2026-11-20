@@ -18,8 +18,8 @@ export function WordPicker({
   onSelectWord,
 }: WordPickerProps) {
   return (
-    <>
-      <label className="relative mt-7 block">
+    <div className="flex min-h-0 flex-1 flex-col">
+      <label className="relative mt-7 block shrink-0">
         <span className="sr-only">Search for a word</span>
         <input
           type="search"
@@ -36,7 +36,7 @@ export function WordPicker({
         />
       </label>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 min-h-0 flex-1 overflow-y-auto overscroll-contain flex flex-wrap content-start gap-2 scrollbar-track-background-700 scrollbar-thumb-foreground-400">
         {words.map((word) => (
           <button
             type="button"
@@ -59,6 +59,6 @@ export function WordPicker({
           </p>
         )}
       </div>
-    </>
+    </div>
   );
 }

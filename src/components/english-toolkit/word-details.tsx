@@ -73,7 +73,7 @@ export function WordDetails({ word }: { word: EnglishWord }) {
             <h3 className="font-display text-3xl font-semibold leading-tight text-yellow-500">
               {word.spelling}
             </h3>
-            <span className="rounded-sm bg-yellow-900 px-2 py-1 text-[10px] text-yellow-500">
+            <span className="rounded-sm bg-yellow-900 px-2 py-1 text-xs text-yellow-500">
               {word.partOfSpeech}
             </span>
           </div>
@@ -86,7 +86,7 @@ export function WordDetails({ word }: { word: EnglishWord }) {
         </div>
 
         <div className="shrink-0 sm:pt-8">
-          <p className="mb-2 text-right text-[10px] leading-tight text-foreground-200">
+          <p className="mb-2 text-right text-xs leading-tight text-foreground-200">
             Select a morpheme to
             <br />
             learn more about it
@@ -118,7 +118,7 @@ export function WordDetails({ word }: { word: EnglishWord }) {
             aria-label="Lexeme members"
             className="flex w-28 shrink-0 flex-col bg-background-900 px-3 py-3 text-left"
           >
-            <h5 className="mb-2 text-[10px] font-medium text-foreground-200">
+            <h5 className="mb-2 text-xs font-medium text-foreground-200">
               LEXEME MEMBERS
             </h5>
             <div className="flex flex-wrap content-start gap-1">
@@ -147,7 +147,7 @@ export function WordDetails({ word }: { word: EnglishWord }) {
                 );
               })}
             </div>
-            <p className="mt-auto pt-3 text-[10px] font-medium text-foreground-200">
+            <p className="mt-auto pt-3 text-xs font-medium text-foreground-200">
               {morpheme.lexeme?.name}
             </p>
           </aside>
@@ -186,7 +186,7 @@ export function WordDetails({ word }: { word: EnglishWord }) {
             aria-label="Allomorphs"
             className="w-24 shrink-0 bg-background-900 px-3 py-3 text-left"
           >
-            <h5 className="mb-2 text-[10px] font-medium text-foreground-200">
+            <h5 className="mb-2 text-xs font-medium text-foreground-200">
               ALLOMORPHS
             </h5>
             <div className="flex flex-wrap gap-1.5">
