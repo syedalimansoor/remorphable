@@ -35,7 +35,7 @@ export function BankBrowser({
   onDismissSuccess: () => void;
 }) {
   return (
-    <div className="mt-8 flex min-h-0 flex-1 flex-col gap-4">
+    <div className="mt-5 flex min-h-0 flex-1 flex-col gap-4">
       {successMessage && (
         <div className="flex items-start justify-between gap-4 rounded-xl bg-blue-700 px-4 py-3">
           <div>

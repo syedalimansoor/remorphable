@@ -313,7 +313,9 @@ export function ConlangBuilder() {
     nextMorphemes: ConlangMorpheme[],
   ) => {
     const nextSpelling = morphemeIds
-      .map((id) => nextMorphemes.find((morpheme) => morpheme.id === id)?.spelling)
+      .map(
+        (id) => nextMorphemes.find((morpheme) => morpheme.id === id)?.spelling,
+      )
       .filter((value): value is string => value !== undefined)
       .join("");
     if (isDuplicateWord(nextSpelling)) {
@@ -456,97 +458,99 @@ export function ConlangBuilder() {
       />
 
       <div
-        className={`mx-auto mt-10 flex min-h-0 w-full max-w-3xl flex-1 flex-col px-2 sm:px-4 ${
+        className={`mx-auto mt-5 flex min-h-0 w-full max-w-3xl flex-1 flex-col px-4 ${
           wordMode === "browse" ? "overflow-hidden" : "overflow-y-auto"
         }`}
       >
-        <h3 className="font-display text-center text-2xl font-semibold leading-tight text-yellow-500 sm:text-3xl">
+        <h3 className="font-display text-center text-2xl font-semibold leading-tight text-yellow-500">
           Build the morphology of {conlangName || "your language"}!
         </h3>
 
         {wordMode === "create" ? (
-          <CreationForm
-            key={step}
-            step={step}
-            firstWord={data.morphemes.length === 0}
-            spelling={spelling}
-            definition={definition}
-            partOfSpeech={partOfSpeech}
-            segments={segments}
-            describedMorphemes={describedMorphemes}
-            boundaries={boundaries}
-            selectedMorpheme={selectedMorpheme}
-            morphemeCategory={morphemeCategory}
-            morphemeDefinition={morphemeDefinition}
-            validationMessage={validationMessage}
-            onStepChange={setStep}
-            onCreateWord={continueToSplit}
-            onSpellingChange={(value) => {
-              setSpelling(value);
-              setBoundaries([]);
-              setSelectedMorpheme("");
-              setValidationMessage("");
-            }}
-            onDefinitionChange={setDefinition}
-            onPartOfSpeechChange={setPartOfSpeech}
-            onGenerateRandomWord={() => {
-              const syllableCount = 2 + Math.floor(Math.random() * 2);
-              const generated = Array.from(
-                { length: syllableCount },
-                () =>
-                  randomSyllables[
-                    Math.floor(Math.random() * randomSyllables.length)
-                  ],
-              ).join("");
-              setSpelling(generated);
-              setBoundaries([]);
-              setSelectedMorpheme("");
-              setValidationMessage("");
-            }}
-            onToggleBoundary={(position) => {
-              setBoundaries((current) =>
-                current.includes(position)
-                  ? current.filter((value) => value !== position)
-                  : [...current, position].sort((a, b) => a - b),
-              );
-              setValidationMessage("");
-            }}
-            onSelectMorpheme={(value) => {
-              setSelectedMorpheme(value);
-              setValidationMessage("");
-            }}
-            onMorphemeCategoryChange={(category) => {
-              if (!selectedMorpheme) return;
-              setMorphemeDrafts((current) => ({
-                ...current,
-                [selectedMorpheme]: {
-                  category,
-                  definition:
-                    current[selectedMorpheme]?.definition ??
-                    selectedMorphemeData?.definition ??
-                    "",
-                },
-              }));
-              setValidationMessage("");
-            }}
-            onMorphemeDefinitionChange={(value) => {
-              if (!selectedMorpheme) return;
-              setMorphemeDrafts((current) => ({
-                ...current,
-                [selectedMorpheme]: {
-                  category:
-                    current[selectedMorpheme]?.category ??
-                    selectedMorphemeData?.category ??
-                    "base",
-                  definition: value,
-                },
-              }));
-            }}
-            onClearValidation={() => setValidationMessage("")}
-            onCancelCreation={cancelCreation}
-            onCreateSingleMorpheme={completeSingleMorphemeWord}
-            onComplete={completeWord}
-          />
+          <div className="mt-4 flex min-h-0 flex-1 flex-col justify-center">
+            <CreationForm
+              key={step}
+              step={step}
+              firstWord={data.morphemes.length === 0}
+              spelling={spelling}
+              definition={definition}
+              partOfSpeech={partOfSpeech}
+              segments={segments}
+              describedMorphemes={describedMorphemes}
+              boundaries={boundaries}
+              selectedMorpheme={selectedMorpheme}
+              morphemeCategory={morphemeCategory}
+              morphemeDefinition={morphemeDefinition}
+              validationMessage={validationMessage}
+              onStepChange={setStep}
+              onCreateWord={continueToSplit}
+              onSpellingChange={(value) => {
+                setSpelling(value);
+                setBoundaries([]);
+                setSelectedMorpheme("");
+                setValidationMessage("");
+              }}
+              onDefinitionChange={setDefinition}
+              onPartOfSpeechChange={setPartOfSpeech}
+              onGenerateRandomWord={() => {
+                const syllableCount = 2 + Math.floor(Math.random() * 2);
+                const generated = Array.from(
+                  { length: syllableCount },
+                  () =>
+                    randomSyllables[
+                      Math.floor(Math.random() * randomSyllables.length)
+                    ],
+                ).join("");
+                setSpelling(generated);
+                setBoundaries([]);
+                setSelectedMorpheme("");
+                setValidationMessage("");
+              }}
+              onToggleBoundary={(position) => {
+                setBoundaries((current) =>
+                  current.includes(position)
+                    ? current.filter((value) => value !== position)
+                    : [...current, position].sort((a, b) => a - b),
+                );
+                setValidationMessage("");
+              }}
+              onSelectMorpheme={(value) => {
+                setSelectedMorpheme(value);
+                setValidationMessage("");
+              }}
+              onMorphemeCategoryChange={(category) => {
+                if (!selectedMorpheme) return;
+                setMorphemeDrafts((current) => ({
+                  ...current,
+                  [selectedMorpheme]: {
+                    category,
+                    definition:
+                      current[selectedMorpheme]?.definition ??
+                      selectedMorphemeData?.definition ??
+                      "",
+                  },
+                }));
+                setValidationMessage("");
+              }}
+              onMorphemeDefinitionChange={(value) => {
+                if (!selectedMorpheme) return;
+                setMorphemeDrafts((current) => ({
+                  ...current,
+                  [selectedMorpheme]: {
+                    category:
+                      current[selectedMorpheme]?.category ??
+                      selectedMorphemeData?.category ??
+                      "base",
+                    definition: value,
+                  },
+                }));
+              }}
+              onClearValidation={() => setValidationMessage("")}
+              onCancelCreation={cancelCreation}
+              onCreateSingleMorpheme={completeSingleMorphemeWord}
+              onComplete={completeWord}
+            />
+          </div>
         ) : (
           <BankBrowser
             words={visibleWords}

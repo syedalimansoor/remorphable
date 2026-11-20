@@ -81,17 +81,7 @@ export function CreationForm({
 
   if (step === "define") {
     return (
-      <div className="mx-auto mt-8 w-full max-w-lg animate-slide-in">
-        {!firstWord && (
-          <button
-            type="button"
-            onClick={onCancelCreation}
-            className="mx-auto mb-5 cursor-pointer text-xs flex items-center gap-2 text-blue-300 hover:text-blue-100"
-          >
-            <ArrowLeftIcon size={12} />
-            <span className="underline">Go back</span>
-          </button>
-        )}
+      <div className="mx-auto w-full max-w-lg animate-slide-in">
         <p className="mb-1 text-center text-base leading-tight text-blue-100">
           {firstWord ? (
             <>
@@ -189,13 +179,29 @@ export function CreationForm({
             )}
           </div>
 
-          <button
-            type="submit"
-            disabled={!spelling.trim() || !definition.trim()}
-            className="mx-auto mt-8 block cursor-pointer rounded bg-yellow-500 px-4 py-2 text-sm font-bold text-blue-700 transition-colors hover:bg-yellow-400 disabled:cursor-not-allowed disabled:opacity-50"
+          <div
+            className={`mt-8 flex items-center ${
+              firstWord ? "justify-center" : "justify-between"
+            }`}
           >
-            Create word
-          </button>
+            {!firstWord && (
+              <button
+                type="button"
+                onClick={onCancelCreation}
+                className="flex items-center gap-2 cursor-pointer text-xs text-blue-300 hover:text-blue-100"
+              >
+                <ArrowLeftIcon size={12} />
+                <span className="underline">Go back</span>
+              </button>
+            )}
+            <button
+              type="submit"
+              disabled={!spelling.trim() || !definition.trim()}
+              className="cursor-pointer rounded bg-yellow-500 px-4 py-2 text-sm font-bold text-blue-700 transition-colors hover:bg-yellow-400 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Create word
+            </button>
+          </div>
         </form>
       </div>
     );
@@ -204,15 +210,7 @@ export function CreationForm({
   if (step === "split") {
     const morphemeCount = boundaries.length + 1;
     return (
-      <div className="mx-auto mt-8 w-full max-w-lg text-center animate-slide-in">
-        <button
-          type="button"
-          onClick={() => goTo("define")}
-          className="mx-auto flex items-center gap-2 mb-8 cursor-pointer text-xs text-blue-300 hover:text-blue-100"
-        >
-          <ArrowLeftIcon size={12} />
-          <span className="underline">Go back</span>
-        </button>
+      <div className="mx-auto w-full max-w-lg text-center animate-slide-in">
         <WordPreview
           spelling={spelling}
           definition={definition}
@@ -266,22 +264,32 @@ export function CreationForm({
           ))}
         </div>
 
-        <button
-          type="button"
-          onClick={() => {
-            if (morphemeCount === 1) {
-              onCreateSingleMorpheme();
-              return;
-            }
-            onSelectMorpheme(segments[0] ?? spelling);
-            goTo("describe");
-          }}
-          className="mt-10 cursor-pointer rounded bg-yellow-500 px-4 py-2 text-sm font-bold text-blue-700 transition-colors hover:bg-yellow-400"
-        >
-          {morphemeCount === 1
-            ? "My word only has one morpheme"
-            : `Create ${morphemeCount} morphemes`}
-        </button>
+        <div className="mt-10 flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={() => goTo("define")}
+            className="flex items-center gap-2 cursor-pointer text-xs text-blue-300 hover:text-blue-100"
+          >
+            <ArrowLeftIcon size={12} />
+            <span className="underline">Go back</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (morphemeCount === 1) {
+                onCreateSingleMorpheme();
+                return;
+              }
+              onSelectMorpheme(segments[0] ?? spelling);
+              goTo("describe");
+            }}
+            className="cursor-pointer rounded bg-yellow-500 px-4 py-2 text-sm font-bold text-blue-700 transition-colors hover:bg-yellow-400"
+          >
+            {morphemeCount === 1
+              ? "My word only has one morpheme"
+              : `Create ${morphemeCount} morphemes`}
+          </button>
+        </div>
       </div>
     );
   }
@@ -291,23 +299,11 @@ export function CreationForm({
     segments.every((segment) => describedMorphemes.includes(segment));
 
   return (
-    <div className="mx-auto mt-8 w-full max-w-lg text-center animate-slide-in">
-      <button
-        type="button"
-        onClick={() => goTo("split")}
-        className="mx-auto flex items-center gap-2 mb-8 cursor-pointer text-xs text-blue-300 hover:text-blue-100"
-      >
-        <ArrowLeftIcon size={12} />
-        <span className="underline">Go back</span>
-      </button>
+    <div className="mx-auto w-full max-w-lg text-center animate-slide-in">
       <WordPreview
         spelling={spelling}
         definition={definition}
         partOfSpeech={partOfSpeech}
-        segments={segments}
-        describedMorphemes={describedMorphemes}
-        selectedMorpheme={selectedMorpheme}
-        onSelectMorpheme={onSelectMorpheme}
       />
       <p className="mt-8 text-base leading-tight text-blue-100">
         Next, describe the attributes of
@@ -315,7 +311,7 @@ export function CreationForm({
         each of these morphemes.
       </p>
       <p className="mt-2 text-xs text-blue-300">
-        Select a morpheme above, then describe it below.
+        Select a morpheme, then describe it below.
       </p>
 
       <form
@@ -326,8 +322,26 @@ export function CreationForm({
         }}
         className="mx-auto mt-8 rounded-xl bg-blue-700 p-5 text-left"
       >
+        <div className="mb-4 flex flex-wrap gap-1.5">
+          {segments.map((segment, index) => (
+            <button
+              key={`${segment}-${index}`}
+              type="button"
+              aria-pressed={selectedMorpheme === segment}
+              onClick={() => onSelectMorpheme(segment)}
+              className={cn(
+                "cursor-pointer rounded px-2 py-1 text-sm transition-colors",
+                selectedMorpheme === segment
+                  ? "bg-blue-100 text-blue-700"
+                  : "bg-blue-800 text-blue-300 hover:bg-blue-600 hover:text-blue-100",
+              )}
+            >
+              {segment}
+            </button>
+          ))}
+        </div>
         <div className="mb-4 flex items-center justify-between gap-3">
-          <h4 className="font-display text-2xl font-semibold text-yellow-500">
+          <h4 className="font-display text-xl font-semibold text-yellow-500">
             {selectedMorpheme}
           </h4>
           <div className="flex gap-1">
@@ -360,8 +374,7 @@ export function CreationForm({
           value={morphemeDefinition}
           onChange={(event) => onMorphemeDefinitionChange(event.target.value)}
           placeholder={`Enter the meaning of “${selectedMorpheme}”`}
-          rows={3}
-          className="w-full resize-y rounded bg-blue-600 px-3 py-3 text-sm text-blue-100 outline-none placeholder:text-blue-400 focus:ring-2 focus:ring-yellow-500"
+          className="w-full h-18 resize-none rounded bg-blue-600 px-3 py-3 text-sm text-blue-100 outline-none placeholder:text-blue-400 focus:ring-2 focus:ring-yellow-500"
         />
       </form>
 
@@ -381,15 +394,25 @@ export function CreationForm({
           </button>
         </div>
       )}
-      <button
-        type="submit"
-        form="morpheme-description"
-        disabled={!allMorphemesDefined}
-        className="mt-6 cursor-pointer rounded bg-yellow-500 px-4 py-2 text-sm font-bold text-blue-700 transition-colors hover:bg-yellow-400 disabled:cursor-not-allowed disabled:opacity-50"
-        title="Enter definitions for all morphemes to continue"
-      >
-        Complete
-      </button>
+      <div className="mt-6 flex items-center justify-between gap-4">
+        <button
+          type="button"
+          onClick={() => goTo("split")}
+          className="flex items-center gap-2 cursor-pointer text-xs text-blue-300 hover:text-blue-100"
+        >
+          <ArrowLeftIcon size={12} />
+          <span className="underline">Go back</span>
+        </button>
+        <button
+          type="submit"
+          form="morpheme-description"
+          disabled={!allMorphemesDefined}
+          className="cursor-pointer rounded bg-yellow-500 px-4 py-2 text-sm font-bold text-blue-700 transition-colors hover:bg-yellow-400 disabled:cursor-not-allowed disabled:opacity-50"
+          title="Enter definitions for all morphemes to continue"
+        >
+          Complete
+        </button>
+      </div>
     </div>
   );
 }
@@ -398,23 +421,15 @@ function WordPreview({
   spelling,
   definition,
   partOfSpeech,
-  segments,
-  describedMorphemes,
-  selectedMorpheme,
-  onSelectMorpheme,
 }: {
   spelling: string;
   definition: string;
   partOfSpeech: PartOfSpeech;
-  segments?: string[];
-  describedMorphemes?: string[];
-  selectedMorpheme?: string;
-  onSelectMorpheme?: (spelling: string) => void;
 }) {
   return (
     <section className="rounded-xl bg-blue-700 p-5 text-left">
       <div className="flex flex-wrap items-center gap-3">
-        <h4 className="font-display text-2xl font-semibold text-yellow-500">
+        <h4 className="font-display text-xl font-semibold text-yellow-500">
           {spelling}
         </h4>
         <span className="rounded bg-blue-800 px-2 py-1 text-xs text-blue-300">
@@ -422,26 +437,6 @@ function WordPreview({
         </span>
       </div>
       <p className="mt-2 text-sm leading-snug text-blue-100">{definition}</p>
-      {segments && onSelectMorpheme && (
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {segments.map((segment, index) => (
-            <button
-              key={`${segment}-${index}`}
-              type="button"
-              aria-pressed={selectedMorpheme === segment}
-              onClick={() => onSelectMorpheme(segment)}
-              className={cn(
-                "cursor-pointer rounded px-2 py-1 text-sm transition-colors",
-                selectedMorpheme === segment
-                  ? "bg-blue-100 text-blue-700"
-                  : "bg-blue-800 text-blue-300 hover:bg-blue-600 hover:text-blue-100",
-              )}
-            >
-              {segment}
-            </button>
-          ))}
-        </div>
-      )}
     </section>
   );
 }
